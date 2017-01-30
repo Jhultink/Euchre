@@ -18,7 +18,7 @@ public class Card {
     /**
      * Default constructor for the class.
      */
-    Card() { 
+    Card() {
         cardValue = -1;
         cardSuit = "NULL_SUIT";
         cardStringValue = "NULL_CARD_VALUE";

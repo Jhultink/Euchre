@@ -11,13 +11,19 @@ import java.util.ArrayList;
  */
 public class GameDeck {
 	
+    /** ArrayList to contain instances of Cards. */
     ArrayList<Card> deck;
+    
+    /** Cards to initialize. */
+    
 	
     /**
      * Default Constructor for the class.
      */
     GameDeck() {
-        deck = new ArrayList<Card>();
+        this.deck = new ArrayList<Card>();
     }
+    
+    
 }
 

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 /**
  * GameDeck class used for maintaining an array list of card
- *     classes.
+ *	 classes.
  * @author Jaredt Hultink, Ryan Jones,
- *     Keith Rodgers
+ *	 Keith Rodgers
  *
  */
 public class GameDeck {
-    
+	
     ArrayList<Card> deck;
-    
+	
     /**
      * Default Constructor for the class.
      */
@@ -20,3 +20,4 @@ public class GameDeck {
         deck = new ArrayList<Card>();
     }
 }
+

@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * GameDeck class used for maintaining an array list of card
@@ -18,10 +19,26 @@ public class GameDeck {
     
 	
     /**
-     * Default Constructor for the class.
+     * Default Constructor for the class. Creates full deck and shuffles it
      */
     GameDeck() {
         this.deck = new ArrayList<Card>();
+        
+        // Add cards to deck
+        for (Suit suit : Suit.values()) {
+        	for (CardValue cardValue : CardValue.values()) {
+    			deck.add(new Card(cardValue, suit));
+    		}
+		}
+        
+        shuffle();        
+    }
+    
+    /**
+     * Shuffles up the deck
+     */
+    public void shuffle(){
+    	Collections.shuffle(this.deck);
     }
     
     

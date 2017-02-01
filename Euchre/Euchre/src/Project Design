@@ -1,0 +1,36 @@
+------High Level Overview------
+
+There are three different parts: model, view, and controller.
+Breaking it down like this makes it a lot easier to work as a group.
+
+Model (called GameModel.java)- this will be one class with lots of subclasses that 
+represents all the info of the current game (score, current player, current hand etc.)
+
+View - this will be a class that will receive the model as a parameter and then 
+render it. This will use the built in Java JFrame and JPanel classes etc. When 
+something on the view is clicked, a method on the controller is called
+
+Controller (called GameController.java) - this class is the brains behind everything. 
+Basically what happens (over and over again):
+	User clicks screen --> method on controller is called --> controller updates model
+	--> model is passed into view --> view updates itself
+	
+------Nitty Gritty Details------
+
+Model (GameModel)
+	- current player
+	- all four players
+		- each player will be assigned a hand
+	- cards in play
+	
+View (GameView)
+	- render (GameModel model)
+	
+Controller (GameController)
+	- all click methods
+
+
+
+
+
+

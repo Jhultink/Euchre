@@ -41,6 +41,10 @@ public class GameDeck {
     	Collections.shuffle(this.deck);
     }
     
+    public void getHand(int hand){
+    	
+    }
+    
     
 }
 

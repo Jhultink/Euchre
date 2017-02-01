@@ -7,15 +7,20 @@ package models;
  */
 public class GameModel {
 
-  /**
-   * Object representing the team of the player whose turn it is.
-   */
-  private Teams currentTeam;
-  /**
+   /**
+    * Object representing the team of the player whose turn it is.
+    */
+    private Teams currentTeam;
+   
+   /**
    * Object representing the player number of the player whose turn it is.
    */
 	private PlayerNumber currentPlayerNumber;
 	
+	/**
+	 * Suit of current trump
+	 */
+	private Suit trump;
 	/**
 	 * Black team, player one.
 	 */
@@ -32,6 +37,26 @@ public class GameModel {
 	 * Red team, player two.
 	 */
 	private Player redTwo;
+	/**
+	 * Deck of cards
+	 */
+	private GameDeck deck;
+	/**
+	 * Black team overall game score
+	 */
+	private int blackGameStore;
+	/**
+	 * Red team overall game score
+	 */
+	private int redGameStore;
+	/**
+	 * Black team current hand score
+	 */
+	private int blackHandStore;
+	/**
+	 * Red team current hand score
+	 */
+	private int redHandStore;
 	
 	/**
 	 * Initializes the four players.
@@ -42,6 +67,26 @@ public class GameModel {
 		blackTwo = new Player(Teams.BLACK, PlayerNumber.SECOND);
 		redOne = new Player(Teams.RED, PlayerNumber.FIRST);
 		redTwo = new Player(Teams.RED, PlayerNumber.SECOND);	
+		
+		deck = new GameDeck();
+		
+		blackGameStore = 0;
+		redGameStore = 0;
+		blackHandStore = 0;
+		redHandStore = 0;
+	}
+	
+	/**
+	 * Sets up model to have a completely new hand
+	 * @param startingTeam
+	 * @param startingPlayerNumber
+	 */
+	public void newHand(Teams startingTeam, PlayerNumber startingPlayerNumber){
+		deck.shuffle();
+		
+		// reset current hand score
+		blackHandStore = 0;
+		redHandStore = 0;
 	}
 	
 	/**

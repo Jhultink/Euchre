@@ -8,61 +8,28 @@ package models;
  */
 public class Card {
 
-    /** Integer value of card. */
-    private int cardValue;
+    /** Value of card. */
+    private CardValue cardValue;
 
-    /** String value of suit and for the card's value. */
-    private String cardSuit, cardStringValue;
-
+    /** Suit */
+    private Suit cardSuit;
+    
     /**
-     * Default constructor for the class.
-     */
-    Card() {
-        cardValue = -1;
-        cardSuit = "NULL_SUIT";
-        cardStringValue = "NULL_CARD_VALUE";
-    }
-
-    /**
-     * Overloading constructor for the class.
+     * Constructor for the class.
      *
      * @param newCardValue
      *            program-defined card value
      * @param newCardSuit
      *            program-defined value for suit
      **/
-    Card(final int newCardValue, final String newCardSuit) {
+    public Card(CardValue value, Suit suit) {
 
         // Initialize card value and suit.
-        cardValue = newCardValue;
-        cardSuit = newCardSuit;
-        final int nineValue = 9, tenValue = 10,
-                jackValue = 11, queenValue = 12,
-                kingValue = 13, aceValue = 14;
-
+    	this.cardValue = value;
+        this.cardSuit = suit;
+        
         // Set card's string value based on integer value.
-        switch (newCardValue) {
-        case nineValue:
-            cardStringValue = "Nine";
-            break;
-        case tenValue:
-            cardStringValue = "Ten";
-            break;
-        case jackValue:
-            cardStringValue = "Jack";
-            break;
-        case queenValue:
-            cardStringValue = "Queen";
-            break;
-        case kingValue:
-            cardStringValue = "King";
-            break;
-        case aceValue:
-            cardStringValue = "Ace";
-            break;
-        default:
-            cardStringValue = "NULL_CARD_VALUE";
-        }
+        
     }
 
     /**
@@ -70,9 +37,36 @@ public class Card {
      *
      * @return cardValue
      *             Value to return.
+     * @throws Exception 
      */
-    final int getCardValue() {
-        return cardValue;
+    public int getCardIntValue() throws Exception {
+    	
+    	int value;
+    	
+    	switch (this.cardValue) {
+	        case NINE:
+	        	value = 9;
+	            break;
+	        case TEN:
+	        	value = 10;
+	            break;
+	        case JACK:
+	        	value = 11;
+	            break;
+	        case QUEEN:
+	        	value = 12;
+	            break;
+	        case KING:
+	        	value = 13;
+	            break;
+	        case ACE:
+	        	value = 14;
+	            break;
+	        default:
+	            throw new Exception("Could not fine value " + this.cardSuit);
+    	}
+    	
+    	return value;
     }
 
     /**
@@ -81,17 +75,43 @@ public class Card {
      * @return cardSuit
      *             String value to return.
      */
-    final String getCardSuit() {
+    public Suit getCardSuit() {
         return cardSuit;
     }
 
     /**
-     * Method that returns a string of the integer value of the card.
+     * Method that returns a string name of the card.
      *
      * @return cardStringValue
      *             String value to return.
+     * @throws Exception 
      */
-    final String getCardStringValue() {
-        return cardStringValue;
+    public String getCardStringValue() throws Exception {
+    	String value;
+    	
+    	switch (this.cardValue) {
+	        case NINE:
+	        	value = "9";
+	            break;
+	        case TEN:
+	        	value = "10";
+	            break;
+	        case JACK:
+	        	value = "Jack";
+	            break;
+	        case QUEEN:
+	        	value = "Queen";
+	            break;
+	        case KING:
+	        	value = "King";
+	            break;
+	        case ACE:
+	        	value = "Ace";
+	            break;
+	        default:
+	            throw new Exception("Could not fine value " + this.cardValue);
+    	}
+    	
+    	return value;
     }
 }

@@ -1,36 +1,32 @@
 package view;
-import javax.swing.JFrame;
+
 import controller.*;
+import models.*;
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 
-import controller.*;
-import models.*;
+public class Render extends JFrame { // implements ActionListener {
 
-public class View extends JFrame {
-    private static JMenuBar menu;
-    private static JMenu fileMenu;
-    private static JMenuItem newGameItem, quitGameItem;
-	
+    JMenuBar menu;
+    JMenu fileMenu;
+    JMenuItem newGameItem, quitGameItem;
+    
     /**
-     * Render class renders UI for the Euchre game.
+     * Constructor for the class instantiates GUI and game model.
      */
-    public static void Render(GameModel model) {
-	
-    	JFrame frame = new JFrame("Euchre");
-    	frame.setSize(800, 600);
+    Render() {
 	fileMenu = new JMenu("File");
 	quitGameItem = new JMenuItem();
-  
-    	
     }
-
+    
     public static void main(String[] args) {
+	// TODO Auto-generated method stub
 	Render gameRender = new Render();
 	gameRender.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	gameRender.setTitle("CIS 350 Euchre");
 	gameRender.pack();
 	gameRender.setVisible(true);
     }
+
 }

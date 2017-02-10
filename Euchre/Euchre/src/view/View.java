@@ -9,11 +9,9 @@ import controller.*;
 import models.*;
 
 public class View extends JFrame {
-    
-	
-    JMenuBar menu;
-    JMenu fileMenu;
-    JMenuItem newGameItem, quitGameItem;
+    private static JMenuBar menu;
+    private static JMenu fileMenu;
+    private static JMenuItem newGameItem, quitGameItem;
 	
     /**
      * Render class renders UI for the Euchre game.
@@ -28,10 +26,11 @@ public class View extends JFrame {
     	
     }
 
-	public static void main(String[] args) {
-		Render gameRender = new Render();
-		gameRender.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		gameRender.setTitle("CIS 350 Euchre");
-		gameRender.pack();
-		gameRender.setVisible(true);
+    public static void main(String[] args) {
+	Render gameRender = new Render();
+	gameRender.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	gameRender.setTitle("CIS 350 Euchre");
+	gameRender.pack();
+	gameRender.setVisible(true);
+    }
 }

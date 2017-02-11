@@ -2,6 +2,5 @@ package models;
 
 public enum PlayerNumber {
 
-	FIRST,
-	SECOND	
+    FIRST, SECOND
 }

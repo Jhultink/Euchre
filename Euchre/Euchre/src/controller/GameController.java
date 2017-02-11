@@ -15,7 +15,7 @@ public class GameController {
 	
 	public void start(){
 		
-		View.render(model);
+		//View.render(model);
 		
 	}
 	

@@ -69,6 +69,10 @@ public class Card {
     	return value;
     }
 
+    public CardValue getCardValue() {
+		return cardValue;
+	}
+    
     /**
      * Method that returns the suit of the card.
      *
@@ -86,32 +90,7 @@ public class Card {
      *             String value to return.
      * @throws Exception 
      */
-    public String getCardStringValue() throws Exception {
-    	String value;
-    	
-    	switch (this.cardValue) {
-	        case NINE:
-	        	value = "9";
-	            break;
-	        case TEN:
-	        	value = "10";
-	            break;
-	        case JACK:
-	        	value = "Jack";
-	            break;
-	        case QUEEN:
-	        	value = "Queen";
-	            break;
-	        case KING:
-	        	value = "King";
-	            break;
-	        case ACE:
-	        	value = "Ace";
-	            break;
-	        default:
-	            throw new Exception("Could not fine value " + this.cardValue);
-    	}
-    	
-    	return value;
+    public String getCardStringValue() {
+    	return getCardValue().toString() + " of " + getCardSuit().toString();
     }
 }

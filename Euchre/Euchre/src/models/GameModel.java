@@ -1,24 +1,23 @@
 package models;
 
 /**
- * 
+ * Class that contains necessary components to run a Euchre game instance.
  * @author OWNER
  *
  */
 public class GameModel {
-
-   /**
+    /**
     * Object representing the team of the player whose turn it is.
     */
     private Teams currentTeam;
    
-   /**
-   * Object representing the player number of the player whose turn it is.
-   */
-	private PlayerNumber currentPlayerNumber;
+     /**
+     * Object representing the player number of the player whose turn it is.
+     */
+     private PlayerNumber currentPlayerNumber;
 	
 	/**
-	 * Suit of current trump
+	 * Suit of current trump.
 	 */
 	private Suit trump;
 	/**
@@ -38,23 +37,23 @@ public class GameModel {
 	 */
 	private Player redTwo;
 	/**
-	 * Deck of cards
+	 * Deck of cards.
 	 */
 	private GameDeck deck;
 	/**
-	 * Black team overall game score
+	 * Black team overall game score.
 	 */
 	private int blackGameStore;
 	/**
-	 * Red team overall game score
+	 * Red team overall game score.
 	 */
 	private int redGameStore;
 	/**
-	 * Black team current hand score
+	 * Black team current hand score.
 	 */
 	private int blackHandStore;
 	/**
-	 * Red team current hand score
+	 * Red team current hand score.
 	 */
 	private int redHandStore;
 	
@@ -77,11 +76,11 @@ public class GameModel {
 	}
 	
 	/**
-	 * Sets up model to have a completely new hand
-	 * @param startingTeam
-	 * @param startingPlayerNumber
+	 * Sets up model to have a completely new hand.
+	 * @param startingTeam First Team to play
+	 * @param startingPlayerNumber First player to get a hand
 	 */
-	public void newHand(Teams startingTeam, PlayerNumber startingPlayerNumber){
+	public void newHand(Teams startingTeam, PlayerNumber startingPlayerNumber) {
 		deck.shuffle();
 		
 		// reset current hand score
@@ -103,19 +102,18 @@ public class GameModel {
 	 * @param number Number of player
 	 * @return player objects
 	 */
-	public Player getPlayer(Teams team, PlayerNumber number){
+	public Player getPlayer(Teams team, PlayerNumber number) {
 		
-		if(team == Teams.BLACK){
-			if(number == PlayerNumber.FIRST){
+		if (team == Teams.BLACK) {
+			if (number == PlayerNumber.FIRST) {
 				return blackOne;
-			}else {
+			} else {
 				return blackTwo;
 			}
-		}
-		else{
-			if(number == PlayerNumber.FIRST){
+		} else {
+			if (number == PlayerNumber.FIRST) {
 				return redOne;
-			}else {
+			} else {
 				return redTwo;
 			}
 		}

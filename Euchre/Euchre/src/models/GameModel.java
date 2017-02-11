@@ -82,10 +82,13 @@ public class GameModel {
 	 */
 	public void newHand(Teams startingTeam, PlayerNumber startingPlayerNumber) {
 		deck.shuffle();
+		dealOutCards();
 		
 		// reset current hand score
 		blackHandStore = 0;
 		redHandStore = 0;
+		
+		
 	}
 	
 	/**
@@ -117,5 +120,19 @@ public class GameModel {
 				return redTwo;
 			}
 		}
+	}
+
+
+	public Hand getHandOf(Teams team, PlayerNumber number){
+		return getPlayer(team, number).getHand();
+	}
+
+	private void dealOutCards(){
+		Deal deal = deck.deal();
+		
+		redOne.setHand(deal.getRedOne());
+		redTwo.setHand(deal.getRedTwo());
+		blackOne.setHand(deal.getBlackOne());
+		blackTwo.setHand(deal.getBlackTwo());
 	}
 }

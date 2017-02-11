@@ -13,7 +13,7 @@ import java.util.*;
 import controller.*;
 import models.*;
 
-public class View extends JFrame implements MouseListener {
+public class View implements MouseListener {
 
     private JFrame frame;
     private JMenuBar menu;
@@ -33,7 +33,6 @@ public class View extends JFrame implements MouseListener {
 	// Set up JFrame
 	frame = new JFrame("Euchre");
 	frame.setSize(800, 600);
-	frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 	// Set up menu bar
 	menu = new JMenuBar();

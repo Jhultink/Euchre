@@ -11,18 +11,18 @@ public class Card {
     /** Value of card. */
     private CardValue cardValue;
 
-    /** Suit */
+    /** Suit. */
     private Suit cardSuit;
     
     /**
      * Constructor for the class.
      *
-     * @param newCardValue
+     * @param value
      *            program-defined card value
-     * @param newCardSuit
+     * @param suit
      *            program-defined value for suit
      **/
-    public Card(CardValue value, Suit suit) {
+    public Card(final CardValue value, final Suit suit) {
 
         // Initialize card value and suit.
     	this.cardValue = value;
@@ -37,9 +37,8 @@ public class Card {
      *
      * @return cardValue
      *             Value to return.
-     * @throws Exception 
      */
-    public int getCardIntValue() throws Exception {
+    public int getCardIntValue() {
     	
     	int value;
     	
@@ -63,12 +62,16 @@ public class Card {
 	        	value = 14;
 	            break;
 	        default:
-	            throw new Exception("Could not fine value " + this.cardSuit);
+	            value = -1;
     	}
     	
     	return value;
     }
 
+    /**
+     * Getter for CardValue.
+     * @return cardValue
+     */
     public CardValue getCardValue() {
 		return cardValue;
 	}

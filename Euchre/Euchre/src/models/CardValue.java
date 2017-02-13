@@ -1,14 +1,26 @@
 package models;
-
+/**
+ * Enum of all card values from 9 through Ace.
+ */
 public enum CardValue {
+	/** Ace. */
 	ACE,
+	/** King. */
 	KING,
+	/** Queen. */
 	QUEEN,
+	/** Jack. */
 	JACK,
+	/** */
 	TEN,
+	/** */
 	NINE;
 	
-	public String toString(){
+	/**
+	 * Returns the enum to a display-friendly string.
+	 * @return string
+	 */
+	public String toString() {
 		
 		String value = "invalid value";
 		switch (this) {
@@ -30,6 +42,7 @@ public enum CardValue {
 	        case ACE:
 	        	value = "Ace";
 	            break;
+	        default:
 		}
 		
 		return value;

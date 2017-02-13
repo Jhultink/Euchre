@@ -1,9 +1,8 @@
 package controller;
 
 /**
- * 
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
- *
+ * Entry point class.
  */
 public class Main {
 

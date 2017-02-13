@@ -12,60 +12,48 @@ import java.util.Collections;
 public class GameDeck {
 
     /** ArrayList to contain instances of Cards. */
-    ArrayList<Card> deck;
-
-    /** Cards to initialize. */
+    private ArrayList<Card> deck;
 
     /**
      * Default Constructor for the class. Creates full deck and shuffles it
      */
     GameDeck() {
-	this.deck = new ArrayList<Card>();
-
-	// Add cards to deck
-	for (Suit suit : Suit.values()) {
-	    for (CardValue cardValue : CardValue.values()) {
-		deck.add(new Card(cardValue, suit));
-	    }
-	}
-
-	shuffle();
+    	this.deck = new ArrayList<Card>();
+    
+    	// Add cards to deck
+    	for (Suit suit : Suit.values()) {
+    	    for (CardValue cardValue : CardValue.values()) {
+    		deck.add(new Card(cardValue, suit));
+    	    }
+    	}
+    
+    	shuffle();
     }
 
     /**
      * Shuffles the deck.
      */
     public void shuffle() {
-	Collections.shuffle(this.deck);
+    	Collections.shuffle(this.deck);
     }
     
-    /**
-     * What does this do?.
-     * @param hand hand to look for?
-     */
-    public void getHand(int hand) {
-	
-    }
-
     /**
      * Deals out 5 cards to each player.
      * @return deal - Newly dealt hands
      */
     public Deal deal() {
 
-	Deal deal = new Deal();
-
-	// Add 5 cards to each hand
-	deal.setRedOne(new Hand(new ArrayList<Card>(deck.subList(0, 5))));
-	deal.setRedTwo(new Hand(new ArrayList<Card>(deck.subList(5, 10))));
-	deal.setBlackOne(new Hand(new ArrayList<Card>(deck.subList(10, 15))));
-	deal.setBlackTwo(new Hand(new ArrayList<Card>(deck.subList(15, 20))));
-
-	deal.setHiddenCards(deck.subList(20, 23).toArray(new Card[3]));
-	deal.setTrump(deck.get(23));
-
-	return deal;
-
+    	Deal deal = new Deal();
+    
+    	// Add 5 cards to each hand
+    	deal.setRedOne(new Hand(new ArrayList<Card>(deck.subList(0, 5))));
+    	deal.setRedTwo(new Hand(new ArrayList<Card>(deck.subList(5, 10))));
+    	deal.setBlackOne(new Hand(new ArrayList<Card>(deck.subList(10, 15))));
+    	deal.setBlackTwo(new Hand(new ArrayList<Card>(deck.subList(15, 20))));
+    
+    	deal.setHiddenCards(deck.subList(20, 23).toArray(new Card[3]));
+    	deal.setTrump(deck.get(23));
+    
+    	return deal;
     }
-
 }

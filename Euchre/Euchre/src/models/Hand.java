@@ -16,12 +16,12 @@ public class Hand {
     private ArrayList<Card> cards;
 
     /**
-     * Creates new Hand with passed cards
+     * Creates new Hand with passed cards.
      * 
-     * @param cards.
+     * @param pCards cards of this hand
      */
-    public Hand(ArrayList<Card> cards) {
-	this.cards = cards;
+    public Hand(final ArrayList<Card> pCards) {
+    	this.cards = pCards;
     }
 
     /**
@@ -30,6 +30,6 @@ public class Hand {
      * @return cards
      */
     public ArrayList<Card> getCards() {
-	return cards;
+    	return cards;
     }
 }

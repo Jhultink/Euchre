@@ -83,7 +83,8 @@ public class GameModel {
      * @param startingPlayerNumber
      *            First player to get a hand
      */
-    public void newHand(Teams startingTeam, PlayerNumber startingPlayerNumber) {
+    public void newHand(final Teams startingTeam, 
+    		final PlayerNumber startingPlayerNumber) {
     	deck.shuffle();
     	dealOutCards();
     
@@ -110,27 +111,35 @@ public class GameModel {
      *            Number of player
      * @return player objects
      */
-    public Player getPlayer(Teams team, PlayerNumber number) {
+    public Player getPlayer(final Teams team, final PlayerNumber number) {
 
-	if (team == Teams.BLACK) {
-	    if (number == PlayerNumber.FIRST) {
-		return blackOne;
-	    } else {
-		return blackTwo;
-	    }
-	} else {
-	    if (number == PlayerNumber.FIRST) {
-		return redOne;
-	    } else {
-		return redTwo;
-	    }
-	}
+    	if (team == Teams.BLACK) {
+    	    if (number == PlayerNumber.FIRST) {
+    	    	return blackOne;
+    	    } else {
+    	    	return blackTwo;
+    	    }
+    	} else {
+    	    if (number == PlayerNumber.FIRST) {
+    	    	return redOne;
+    	    } else {
+    	    	return redTwo;
+    	    }
+    	}
     }
-
-    public Hand getHandOf(Teams team, PlayerNumber number) {
+    /**
+     * Gets hand of passed player info.
+     * @param team of player
+     * @param number of player
+     * @return Hand
+     */
+    public Hand getHandOf(final Teams team, final PlayerNumber number) {
     	return getPlayer(team, number).getHand();
     }
 
+    /**
+     * Deals out cards to players.
+     */
     private void dealOutCards() {
     	Deal deal = deck.deal();
     

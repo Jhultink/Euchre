@@ -1,6 +1,8 @@
 package view;
 
-import javax.swing.JButton;
+import java.awt.Dimension;
+
+import javax.swing.*;
 import models.Card;
 
 /**
@@ -12,8 +14,24 @@ import models.Card;
 public class CardButton extends JButton {
     private Card buttonCard;
     
-    CardButton(String str) {
-	this.setText(str);
+    /**
+     * Constructor for the CardButton class.
+     * @param c card paramater passed in
+     */
+    CardButton(Card c) {
+	this.buttonCard = c;
+	this.setText(buttonCard.getCardStringValue());
+	//this.setPreferredSize(new Dimension(150, 100));
+	//this.setSize(new Dimension(100, 50));
+	this.setHorizontalTextPosition(SwingConstants.LEFT);
+    }
+    
+    /**
+     * Method returns the card associated with this button.
+     * @return card associated with the button pressed
+     */
+    Card getCard() {
+	return this.buttonCard;
     }
     
 }

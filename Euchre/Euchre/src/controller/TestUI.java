@@ -12,19 +12,19 @@ import view.View;
 
 public class TestUI {
 
-    View view;
+    //View view;
 
     @Before
     public void setupView() {
-	view = new View();
+	//view = new View();
     }
 
     @Test
     public void test() {
-	GameModel model = new GameModel();
-	model.newHand(Teams.RED, PlayerNumber.FIRST);
+	//GameModel model = new GameModel();
+	//model.newHand(Teams.RED, PlayerNumber.FIRST);
 
-	view.render(model);
+	//view.render(model);
 
     }
 }

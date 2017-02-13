@@ -8,13 +8,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-	GameController controller = new GameController();
-
-	controller.start();
-	View view = new View();
-	GameModel model = new GameModel();
-	view.render(model);
-
+    	GameController controller = new GameController();
+    
+    	controller.start();
+    	
     }
 
 }

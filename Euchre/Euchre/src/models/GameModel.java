@@ -62,18 +62,17 @@ public class GameModel {
      * Initializes the four players.
      */
     public GameModel() {
-
-	blackOne = new Player(Teams.BLACK, PlayerNumber.FIRST);
-	blackTwo = new Player(Teams.BLACK, PlayerNumber.SECOND);
-	redOne = new Player(Teams.RED, PlayerNumber.FIRST);
-	redTwo = new Player(Teams.RED, PlayerNumber.SECOND);
-
-	deck = new GameDeck();
-
-	blackGameScore = 0;
-	redGameScore = 0;
-	blackHandScore = 0;
-	redHandScore = 0;
+    	blackOne = new Player(Teams.BLACK, PlayerNumber.FIRST);
+    	blackTwo = new Player(Teams.BLACK, PlayerNumber.SECOND);
+    	redOne = new Player(Teams.RED, PlayerNumber.FIRST);
+    	redTwo = new Player(Teams.RED, PlayerNumber.SECOND);
+    
+    	deck = new GameDeck();
+    
+    	blackGameScore = 0;
+    	redGameScore = 0;
+    	blackHandScore = 0;
+    	redHandScore = 0;
     }
 
     /**
@@ -85,13 +84,12 @@ public class GameModel {
      *            First player to get a hand
      */
     public void newHand(Teams startingTeam, PlayerNumber startingPlayerNumber) {
-	deck.shuffle();
-	dealOutCards();
-
-	// reset current hand score
-	blackHandScore = 0;
-	redHandScore = 0;
-
+    	deck.shuffle();
+    	dealOutCards();
+    
+    	// reset current hand score
+    	blackHandScore = 0;
+    	redHandScore = 0;
     }
 
     /**
@@ -130,15 +128,15 @@ public class GameModel {
     }
 
     public Hand getHandOf(Teams team, PlayerNumber number) {
-	return getPlayer(team, number).getHand();
+    	return getPlayer(team, number).getHand();
     }
 
     private void dealOutCards() {
-	Deal deal = deck.deal();
-
-	redOne.setHand(deal.getRedOne());
-	redTwo.setHand(deal.getRedTwo());
-	blackOne.setHand(deal.getBlackOne());
-	blackTwo.setHand(deal.getBlackTwo());
+    	Deal deal = deck.deal();
+    
+    	redOne.setHand(deal.getRedOne());
+    	redTwo.setHand(deal.getRedTwo());
+    	blackOne.setHand(deal.getBlackOne());
+    	blackTwo.setHand(deal.getBlackTwo());
     }
 }

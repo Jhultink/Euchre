@@ -42,6 +42,11 @@ public class GameModel {
      */
     private GameDeck deck;
     /**
+     * Holds the 4 cards played by each player or null 
+     * if they haven't played yet.
+     */
+    public CardsInPlay cardsInPlay;
+    /**
      * Black team overall game score.
      */
     private int blackGameScore;
@@ -68,6 +73,7 @@ public class GameModel {
     	redTwo = new Player(Teams.RED, PlayerNumber.SECOND);
     
     	deck = new GameDeck();
+    	cardsInPlay = new CardsInPlay();
     
     	blackGameScore = 0;
     	redGameScore = 0;
@@ -99,7 +105,7 @@ public class GameModel {
      * @return current player
      */
     public Player getCurrentPlayer() {
-	return getPlayer(currentTeam, currentPlayerNumber);
+    	return getPlayer(currentTeam, currentPlayerNumber);
     }
 
     /**

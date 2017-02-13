@@ -1,17 +1,21 @@
 package controller;
 
-import view.View;
-
-import models.GameModel;
-
+/**
+ * 
+ * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
+ *
+ */
 public class Main {
 
-    public static void main(String[] args) {
+	/**
+	 * Main method, entry for program.
+	 * @param args passed in via command line
+	 */
+    public static void main(final String[] args) {
 
     	GameController controller = new GameController();
     
     	controller.start();
-    	
     }
 
 }

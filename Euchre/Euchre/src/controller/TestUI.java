@@ -1,30 +1,30 @@
 package controller;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import models.GameModel;
-import models.PlayerNumber;
-import models.Teams;
-import view.View;
-
+/**
+ * Tests for UI.
+ */
 public class TestUI {
 
     //View view;
-
+    /**
+     * Initializes a new View.
+     */
     @Before
     public void setupView() {
 	//view = new View();
     }
 
+    /**
+     * Tests a simple view.
+     */
     @Test
     public void test() {
-	//GameModel model = new GameModel();
-	//model.newHand(Teams.RED, PlayerNumber.FIRST);
-
-	//view.render(model);
-
+    	//GameModel model = new GameModel();
+    	//model.newHand(Teams.RED, PlayerNumber.FIRST);
+    
+    	//view.render(model);
     }
 }

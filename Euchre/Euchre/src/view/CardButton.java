@@ -19,11 +19,11 @@ public class CardButton extends JButton {
      * @param c card paramater passed in
      */
     CardButton(Card c) {
-	this.buttonCard = c;
-	this.setText(buttonCard.getCardStringValue());
-	//this.setPreferredSize(new Dimension(150, 100));
-	//this.setSize(new Dimension(100, 50));
-	this.setHorizontalTextPosition(SwingConstants.LEFT);
+		this.buttonCard = c;
+		this.setText(buttonCard.getCardStringValue());
+		this.setMaximumSize(new Dimension(150, 50));
+		this.setHorizontalTextPosition(SwingConstants.LEFT);
+		this.validate();
     }
     
     /**

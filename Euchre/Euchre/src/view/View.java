@@ -62,26 +62,21 @@ public class View implements MouseListener {
 
 		topPanel = new JPanel();
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
-		topPanel.setBackground(Color.WHITE);
 
 		rightPanel = new JPanel();
 		rightPanel.setLayout(
 				new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-		rightPanel.setBackground(Color.WHITE);
 
 		bottomPanel = new JPanel();
 		bottomPanel.setLayout(
 				new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
-		bottomPanel.setBackground(Color.WHITE);
 
 		leftPanel = new JPanel();
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-		leftPanel.setBackground(Color.WHITE);
 
 		centerPanel = new JPanel();
 		centerPanel.setLayout(
 				new BoxLayout(centerPanel, BoxLayout.X_AXIS));
-		centerPanel.setBackground(Color.BLACK);
 		
 		frame.setLayout(new BorderLayout());
 
@@ -91,7 +86,6 @@ public class View implements MouseListener {
 		frame.add(bottomPanel, BorderLayout.SOUTH);
 		frame.add(leftPanel, BorderLayout.WEST);
 		frame.add(centerPanel, BorderLayout.CENTER);
-		frame.setBackground(Color.WHITE);
 
 	}
 

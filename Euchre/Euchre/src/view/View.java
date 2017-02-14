@@ -36,7 +36,8 @@ public class View implements MouseListener {
     private JPanel bottomPanel;
     private JPanel leftPanel;
     private JPanel centerPanel;
-    private ArrayList<CardButton> listOfButtons;
+    private ArrayList<CardButton> listOfPlayerButtons;
+    private ArrayList<CardButton> listOfPlayedCardButtons;
     
     private GameModel game;
 
@@ -48,7 +49,7 @@ public class View implements MouseListener {
 		// Set up JFrame
 		frame = new JFrame("Euchre");
 		frame.setSize(800, 600);
-		listOfButtons = new ArrayList<CardButton>();
+		listOfPlayerButtons = new ArrayList<CardButton>();
 
 		// Set up menu bar
 		menu = new JMenuBar();
@@ -93,7 +94,7 @@ public class View implements MouseListener {
 	 * Render class renders UI for the Euchre game.
 	 * @param model model to be rendered
 	 */
-	public void render(final GameModel model) {
+	public void render(GameModel model) {
 
 		frame.setVisible(true);
 		this.game = model;
@@ -104,7 +105,7 @@ public class View implements MouseListener {
 		for (Card card : game.getHandOf(Teams.RED, PlayerNumber.FIRST).getCards()) {
 			CardButton button = new CardButton(card);
 			button.addMouseListener(this);
-			listOfButtons.add(button);
+			listOfPlayerButtons.add(button);
 			topPanel.add(button);
 		}
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
@@ -117,7 +118,7 @@ public class View implements MouseListener {
 		for (Card card : game.getHandOf(Teams.BLACK, PlayerNumber.SECOND).getCards()) {
 			CardButton button = new CardButton(card);
 			button.addMouseListener(this);
-			listOfButtons.add(button);
+			listOfPlayerButtons.add(button);
 			rightPanel.add(button);
 		}
 		rightPanel.add(Box.createVerticalGlue()); // for spacing
@@ -132,7 +133,7 @@ public class View implements MouseListener {
 		for (Card card : game.getHandOf(Teams.RED, PlayerNumber.SECOND).getCards()) {
 			CardButton button = new CardButton(card);
 			button.addMouseListener(this);
-			listOfButtons.add(button);
+			listOfPlayerButtons.add(button);
 			bottomPanel.add(button);
 		}
 		bottomPanel.add(Box.createHorizontalGlue()); // for spacing
@@ -145,7 +146,7 @@ public class View implements MouseListener {
 		for (Card card : game.getHandOf(Teams.BLACK, PlayerNumber.FIRST).getCards()) {
 			CardButton button = new CardButton(card);
 			button.addMouseListener(this);
-			listOfButtons.add(button);
+			listOfPlayerButtons.add(button);
 			leftPanel.add(button);
 		}
 		leftPanel.add(Box.createVerticalGlue()); // for spacing
@@ -176,7 +177,7 @@ public class View implements MouseListener {
 		}			
 		centerPanel.add(centerPanelOrganizer);
 		
-		for (CardButton button : listOfButtons) {
+		for (CardButton button : listOfPlayerButtons) {
 		    if (button.getParent() != bottomPanel) {
 			//button.setText("-=-=-=-=-=-=-"); Here's where it sets the text to a string
 			button.setEnabled(false);
@@ -217,9 +218,12 @@ public class View implements MouseListener {
 		if (clickedButton != null) {
 			buttonText = clickedButton.getText();
 			Card clickedCard = clickedButton.getCard();
+			//game.playCard(currentPlayer, clickedCard);
+			//Player p = clickedCard.ge
 			if (game.isValidCard(clickedCard)) {
 				clickedButton.setEnabled(false);
-				//centerPanel.add(comp)
+				centerPanel.add(clickedButton);
+				listOfPlayedCardButtons.add(clickedButton);
 			    
 			}
 		}

@@ -1,4 +1,5 @@
 package models;
+import java.util.ArrayList;
 
 /**
  * Class that contains necessary components to run a Euchre game instance.
@@ -166,7 +167,18 @@ public class GameModel {
      * @return boolean value of card's ability to be played
      */
     public boolean isValidCard(Card selectedCard) {
-	// STUFF
+	
 	return true;
+    }
+    
+    public void playCard(Player currentPlayer, Card chosenCard) {
+	if(isValidCard(chosenCard)) {
+	    Hand tempHand = currentPlayer.getHand();
+	    ArrayList<Card> tempList = tempHand.getCards();
+	    tempList.remove(tempList.indexOf(chosenCard));
+	    tempHand.setCards(tempList);
+	    currentPlayer.setHand(tempHand);
+	
+	}
     }
 }

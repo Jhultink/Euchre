@@ -1,6 +1,7 @@
 package controller;
 
 import view.View;
+import models.Card;
 import models.GameModel;
 import models.PlayerNumber;
 import models.Teams;
@@ -28,7 +29,7 @@ public class GameController {
     GameController() {
 
 		model = new GameModel();
-		view = new View();
+		view = new View(this);
     }
 
     /**
@@ -39,6 +40,14 @@ public class GameController {
 		model.newHand(Teams.RED, PlayerNumber.FIRST);
 		view.render(model);
 
+    }
+    
+    public void playCard(Card chosenCard) {
+		if(model.isValidPlay(chosenCard)) {
+			model.getCurrentPlayer().getHand().getCards().remove(chosenCard);
+			model.cardsInPlay.setBlackTwoCard(chosenCard);
+		}
+		view.render(model);
     }
 
 }

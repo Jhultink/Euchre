@@ -15,6 +15,7 @@ public class Main {
     	GameController controller = new GameController();
     
     	controller.start();
+    	
     }
 
 }

@@ -151,12 +151,12 @@ public class GameModel {
      * Deals out cards to players.
      */
     private void dealOutCards() {
-	Deal deal = deck.deal();
-
-	redOne.setHand(deal.getRedOne());
-	redTwo.setHand(deal.getRedTwo());
-	blackOne.setHand(deal.getBlackOne());
-	blackTwo.setHand(deal.getBlackTwo());
+		Deal deal = deck.deal();
+	
+		redOne.setHand(deal.getRedOne());
+		redTwo.setHand(deal.getRedTwo());
+		blackOne.setHand(deal.getBlackOne());
+		blackTwo.setHand(deal.getBlackTwo());
     }
 
     /**
@@ -166,19 +166,18 @@ public class GameModel {
      *            Card to check ability to play
      * @return boolean value of card's ability to be played
      */
-    public boolean isValidCard(Card selectedCard) {
-	
-	return true;
+    public boolean isValidPlay(Card selectedCard) {	
+    	return true;
     }
     
-    public void playCard(Player currentPlayer, Card chosenCard) {
-	if(isValidCard(chosenCard)) {
-	    Hand tempHand = currentPlayer.getHand();
-	    ArrayList<Card> tempList = tempHand.getCards();
-	    tempList.remove(tempList.indexOf(chosenCard));
-	    tempHand.setCards(tempList);
-	    currentPlayer.setHand(tempHand);
-	
-	}
+    public ArrayList<Card> getAllCards(){
+    	ArrayList<Card> cards = getHandOf(Teams.RED, PlayerNumber.FIRST).getCards();
+    	cards.addAll(getHandOf(Teams.RED, PlayerNumber.SECOND).getCards());
+    	cards.addAll(getHandOf(Teams.BLACK, PlayerNumber.FIRST).getCards());
+    	cards.addAll(getHandOf(Teams.BLACK, PlayerNumber.SECOND).getCards());
+    	
+    	return cards;
     }
+    
+    
 }

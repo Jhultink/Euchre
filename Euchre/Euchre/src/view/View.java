@@ -1,17 +1,26 @@
 package view;
 
-import controller.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.*;
-import java.util.*;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
-import controller.*;
-import models.*;
+import models.Card;
+import models.GameModel;
+import models.PlayerNumber;
+import models.Teams;
 
 public class View implements MouseListener {
 
@@ -24,6 +33,7 @@ public class View implements MouseListener {
 	private JPanel rightPanel;
 	private JPanel bottomPanel;
 	private JPanel leftPanel;
+	private JPanel centerPanel;
 
 	/**
 	 * Default Constructor for View Class.
@@ -48,28 +58,36 @@ public class View implements MouseListener {
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
 
 		rightPanel = new JPanel();
-		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+		rightPanel.setLayout(
+				new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 
 		bottomPanel = new JPanel();
-		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+		bottomPanel.setLayout(
+				new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
 
 		leftPanel = new JPanel();
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 
+		centerPanel = new JPanel();
+		centerPanel.setLayout(
+				new BoxLayout(centerPanel, BoxLayout.X_AXIS));
+		
 		frame.setLayout(new BorderLayout());
 
+		
 		frame.add(topPanel, BorderLayout.NORTH);
 		frame.add(rightPanel, BorderLayout.EAST);
 		frame.add(bottomPanel, BorderLayout.SOUTH);
 		frame.add(leftPanel, BorderLayout.WEST);
+		frame.add(centerPanel, BorderLayout.CENTER);
 
-		//
 	}
 
 	/**
 	 * Render class renders UI for the Euchre game.
+	 * @param model model to be rendered
 	 */
-	public void render(GameModel model) {
+	public void render(final GameModel model) {
 
 		frame.setVisible(true);
 		
@@ -121,6 +139,31 @@ public class View implements MouseListener {
 		// leftPanel.revalidate();
 		// leftPanel.repaint();
 
+		centerPanel.removeAll();
+		JPanel centerPanelOrganizer = new JPanel(new BorderLayout());
+		if (model.cardsInPlay.getBlackOneCard() != null) {
+			centerPanelOrganizer.add(new Button(model.cardsInPlay
+					.getBlackOneCard().toString()), 
+					 BorderLayout.WEST);
+		}
+		if (model.cardsInPlay.getBlackOneCard() != null) {
+			centerPanelOrganizer.add(new Button(model.cardsInPlay
+					.getRedOneCard().toString()),
+					 BorderLayout.NORTH);
+		}
+		if (model.cardsInPlay.getBlackOneCard() != null) {
+			centerPanelOrganizer.add(new Button(model.cardsInPlay
+					.getBlackTwoCard().toString()),
+					 BorderLayout.EAST);
+		}
+		if (model.cardsInPlay.getBlackOneCard() != null) {
+			centerPanelOrganizer.add(new Button(model.cardsInPlay
+					.getRedTwoCard().toString()),
+					 BorderLayout.SOUTH);
+		}
+			
+		centerPanel.add(centerPanelOrganizer);
+		
 		frame.revalidate();
 		frame.repaint();
 

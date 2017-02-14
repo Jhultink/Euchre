@@ -3,6 +3,7 @@ package controller;
 import view.View;
 import models.Card;
 import models.GameModel;
+import models.Player;
 import models.PlayerNumber;
 import models.Teams;
 
@@ -42,10 +43,10 @@ public class GameController {
 
     }
     
-    public void playCard(Card chosenCard) {
-		if(model.isValidPlay(chosenCard)) {
+    public void playCard(Card chosenCard, Player player) {
+		if(model.isValidPlay(chosenCard, player)) {
 			model.getCurrentPlayer().getHand().getCards().remove(chosenCard);
-			model.cardsInPlay.setBlackTwoCard(chosenCard);
+			model.cardsInPlay.setCard(chosenCard, model.getCurrentTeam(), model.getCurrentPlayerNumber());
 		}
 		view.render(model);
     }

@@ -166,7 +166,8 @@ public class GameModel {
      *            Card to check ability to play
      * @return boolean value of card's ability to be played
      */
-    public boolean isValidPlay(Card selectedCard) {	
+    public boolean isValidPlay(Card selectedCard, Player player) {	
+    	if(!getCurrentPlayer().equals(player)) return false;
     	return true;
     }
     
@@ -178,6 +179,20 @@ public class GameModel {
     	
     	return cards;
     }
+
+	/**
+	 * @return the currentTeam
+	 */
+	public Teams getCurrentTeam() {
+		return currentTeam;
+	}
+
+	/**
+	 * @return the currentPlayerNumber
+	 */
+	public PlayerNumber getCurrentPlayerNumber() {
+		return currentPlayerNumber;
+	}
     
     
 }

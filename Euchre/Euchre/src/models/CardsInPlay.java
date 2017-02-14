@@ -63,4 +63,22 @@ public class CardsInPlay {
 		this.blackTwoCard = mBlackTwoCard;
 	}
 	
+	public void setCard(final Card mCard, Teams team, PlayerNumber playerNumber){
+						
+		if (team == Teams.RED) {
+			if (playerNumber == PlayerNumber.FIRST) {
+				setRedOneCard(mCard);
+			} else {
+				setRedTwoCard(mCard);
+			}
+		} else {
+			if (playerNumber == PlayerNumber.SECOND)	{
+				setBlackOneCard(mCard);
+			} else {
+				setBlackTwoCard(mCard);
+			}
+		}
+	}
+	
+	
 }

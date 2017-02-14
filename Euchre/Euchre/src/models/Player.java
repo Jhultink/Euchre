@@ -29,5 +29,17 @@ public class Player {
     public String toString() {
 	return team + " " + playerPosition;
     }
+        
+    @Override
+    public boolean equals(Object obj) {
+    	if (obj == null || !(obj instanceof Player)) {
+			return false;
+		}
+    	
+    	Player player = (Player) obj;
+    	
+    	return this.team == player.team 
+    			&& this.playerPosition == player.playerPosition;
+    }
 
 }

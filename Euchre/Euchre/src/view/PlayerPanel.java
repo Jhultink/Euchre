@@ -13,4 +13,7 @@ public class PlayerPanel extends JPanel {
     public Player getPlayer() {
 	return this.panelPlayer;
     }
+	
+    public void setPlayer(Player newPlayer) {
+	this.panelPlayer = newPlayer;
 }

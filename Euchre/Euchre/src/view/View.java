@@ -1,6 +1,7 @@
 package view;
 
 import controller.*;
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,7 @@ public class View implements MouseListener {
     private JPanel bottomPanel;
     private JPanel leftPanel;
     private JPanel centerPanel;
+    private ArrayList<CardButton> listOfButtons;
     
     private GameModel game;
 
@@ -46,6 +48,7 @@ public class View implements MouseListener {
 		// Set up JFrame
 		frame = new JFrame("Euchre");
 		frame.setSize(800, 600);
+		listOfButtons = new ArrayList<CardButton>();
 
 		// Set up menu bar
 		menu = new JMenuBar();
@@ -59,21 +62,26 @@ public class View implements MouseListener {
 
 		topPanel = new JPanel();
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
+		topPanel.setBackground(Color.WHITE);
 
 		rightPanel = new JPanel();
 		rightPanel.setLayout(
 				new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+		rightPanel.setBackground(Color.WHITE);
 
 		bottomPanel = new JPanel();
 		bottomPanel.setLayout(
 				new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+		bottomPanel.setBackground(Color.WHITE);
 
 		leftPanel = new JPanel();
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+		leftPanel.setBackground(Color.WHITE);
 
 		centerPanel = new JPanel();
 		centerPanel.setLayout(
 				new BoxLayout(centerPanel, BoxLayout.X_AXIS));
+		centerPanel.setBackground(Color.BLACK);
 		
 		frame.setLayout(new BorderLayout());
 
@@ -83,6 +91,7 @@ public class View implements MouseListener {
 		frame.add(bottomPanel, BorderLayout.SOUTH);
 		frame.add(leftPanel, BorderLayout.WEST);
 		frame.add(centerPanel, BorderLayout.CENTER);
+		frame.setBackground(Color.WHITE);
 
 	}
 
@@ -93,13 +102,15 @@ public class View implements MouseListener {
 	public void render(final GameModel model) {
 
 		frame.setVisible(true);
+		this.game = model;
 		
 		// Clear panel and add cards
 		topPanel.removeAll();
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
-		for (Card card : model.getHandOf(Teams.RED, PlayerNumber.FIRST).getCards()) {
+		for (Card card : game.getHandOf(Teams.RED, PlayerNumber.FIRST).getCards()) {
 			CardButton button = new CardButton(card);
 			button.addMouseListener(this);
+			listOfButtons.add(button);
 			topPanel.add(button);
 		}
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
@@ -109,9 +120,10 @@ public class View implements MouseListener {
 		// Clear panel and add cards
 		rightPanel.removeAll();
 		rightPanel.add(Box.createVerticalGlue()); // for spacing
-		for (Card card : model.getHandOf(Teams.BLACK, PlayerNumber.SECOND).getCards()) {
+		for (Card card : game.getHandOf(Teams.BLACK, PlayerNumber.SECOND).getCards()) {
 			CardButton button = new CardButton(card);
 			button.addMouseListener(this);
+			listOfButtons.add(button);
 			rightPanel.add(button);
 		}
 		rightPanel.add(Box.createVerticalGlue()); // for spacing
@@ -121,9 +133,12 @@ public class View implements MouseListener {
 		// Clear panel and add cards
 		bottomPanel.removeAll();
 		bottomPanel.add(Box.createHorizontalGlue()); // for spacing
-		for (Card card : model.getHandOf(Teams.RED, PlayerNumber.SECOND).getCards()) {
+		JLabel currentPlayer = new JLabel(game.getCurrentPlayer().toString() + ":   ");
+		bottomPanel.add(currentPlayer);
+		for (Card card : game.getHandOf(Teams.RED, PlayerNumber.SECOND).getCards()) {
 			CardButton button = new CardButton(card);
 			button.addMouseListener(this);
+			listOfButtons.add(button);
 			bottomPanel.add(button);
 		}
 		bottomPanel.add(Box.createHorizontalGlue()); // for spacing
@@ -133,9 +148,10 @@ public class View implements MouseListener {
 		// Clear panel and add cards
 		leftPanel.removeAll();
 		leftPanel.add(Box.createVerticalGlue()); // for spacing
-		for (Card card : model.getHandOf(Teams.BLACK, PlayerNumber.FIRST).getCards()) {
+		for (Card card : game.getHandOf(Teams.BLACK, PlayerNumber.FIRST).getCards()) {
 			CardButton button = new CardButton(card);
 			button.addMouseListener(this);
+			listOfButtons.add(button);
 			leftPanel.add(button);
 		}
 		leftPanel.add(Box.createVerticalGlue()); // for spacing
@@ -144,28 +160,34 @@ public class View implements MouseListener {
 
 		centerPanel.removeAll();
 		JPanel centerPanelOrganizer = new JPanel(new BorderLayout());
-		if (model.cardsInPlay.getBlackOneCard() != null) {
-			centerPanelOrganizer.add(new Button(model.cardsInPlay
+		if (game.cardsInPlay.getBlackOneCard() != null) {
+			centerPanelOrganizer.add(new Button(game.cardsInPlay
 					.getBlackOneCard().toString()), 
 					 BorderLayout.WEST);
 		}
-		if (model.cardsInPlay.getBlackOneCard() != null) {
-			centerPanelOrganizer.add(new Button(model.cardsInPlay
+		if (game.cardsInPlay.getBlackOneCard() != null) {
+			centerPanelOrganizer.add(new Button(game.cardsInPlay
 					.getRedOneCard().toString()),
 					 BorderLayout.NORTH);
 		}
-		if (model.cardsInPlay.getBlackOneCard() != null) {
-			centerPanelOrganizer.add(new Button(model.cardsInPlay
+		if (game.cardsInPlay.getBlackOneCard() != null) {
+			centerPanelOrganizer.add(new Button(game.cardsInPlay
 					.getBlackTwoCard().toString()),
 					 BorderLayout.EAST);
 		}
-		if (model.cardsInPlay.getBlackOneCard() != null) {
-			centerPanelOrganizer.add(new Button(model.cardsInPlay
+		if (game.cardsInPlay.getBlackOneCard() != null) {
+			centerPanelOrganizer.add(new Button(game.cardsInPlay
 					.getRedTwoCard().toString()),
 					 BorderLayout.SOUTH);
-		}
-			
+		}			
 		centerPanel.add(centerPanelOrganizer);
+		
+		for (CardButton button : listOfButtons) {
+		    if (button.getParent() != bottomPanel) {
+			//button.setText("-=-=-=-=-=-=-"); Here's where it sets the text to a string
+			button.setEnabled(false);
+		    }
+		}
 		
 		frame.revalidate();
 		frame.repaint();
@@ -191,17 +213,21 @@ public class View implements MouseListener {
 	 */
 	public void mouseClicked(MouseEvent event) {
 		Object obj = event.getSource();
-		JButton testButton = null;
+		CardButton clickedButton = null;
 		String buttonText = "";
 
 		if (obj instanceof JButton) {
-			testButton = (JButton) obj;
+			clickedButton = (CardButton) obj;
 		}
 
-		if (testButton != null) {
-			buttonText = testButton.getText();
-			JOptionPane.showMessageDialog(frame, buttonText);
-			testButton.setEnabled(false);
+		if (clickedButton != null) {
+			buttonText = clickedButton.getText();
+			Card clickedCard = clickedButton.getCard();
+			if (game.isValidCard(clickedCard)) {
+				clickedButton.setEnabled(false);
+				//centerPanel.add(comp)
+			    
+			}
 		}
 	}
 

@@ -1,6 +1,10 @@
 package models;
 /**
  * Enum of all card values from 9 through Ace.
+ * 
+ * 
+ * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
+ *
  */
 public enum CardValue {
 	/** Ace. */
@@ -11,11 +15,11 @@ public enum CardValue {
 	QUEEN,
 	/** Jack. */
 	JACK,
-	/** */
+	/** Ten. */
 	TEN,
-	/** */
+	/** Nine. */
 	NINE;
-	
+
 	/**
 	 * Returns the enum to a display-friendly string.
 	 * @return string

@@ -1,5 +1,12 @@
 package models;
 
+/**
+ * Class that holds team information.
+ *  
+ * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
+ *
+ */
+
 public enum Teams {
 
     BLACK, RED;

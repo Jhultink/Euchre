@@ -1,5 +1,11 @@
 package models;
 
+/**
+ * Class that holds the player information
+ *
+ * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
+ *
+ */
 public class Player {
 
     public PlayerNumber playerPosition;

@@ -1,5 +1,11 @@
 package models;
 
+/**
+ * Class that holds suit information.
+ *  
+ * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
+ *
+ */
 public enum Suit {
     CLUBS, SPADES, HEARTS, DIAMONDS;
 

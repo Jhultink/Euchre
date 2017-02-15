@@ -3,8 +3,8 @@ package models;
 /**
  * Card class contains methods and values to initialize card object.
  * 
- * @author Jaredt Hultink, Ryan Jones
- *         Keith Rodgers
+ * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
+ * 
  */
 public class Card {
 

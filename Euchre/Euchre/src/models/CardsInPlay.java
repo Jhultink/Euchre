@@ -87,7 +87,7 @@ public class CardsInPlay {
 	public boolean allPlayed() {
 	    boolean redOneTrue = (this.getRedOneCard() != null);
 	    boolean redTwoTrue = (this.getRedTwoCard() != null);
-	    boolean blackOneTrue = (this.getRedOneCard() != null);
+	    boolean blackOneTrue = (this.getBlackOneCard() != null);
 	    boolean blackTwoTrue = (this.getBlackTwoCard() != null);
 	    
 	    if (redOneTrue && redTwoTrue && blackOneTrue && blackTwoTrue) {

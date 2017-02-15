@@ -11,9 +11,9 @@ public enum CardValue {
 	QUEEN,
 	/** Jack. */
 	JACK,
-	/** */
+	/** Ten. */
 	TEN,
-	/** */
+	/** Nine. */
 	NINE;
 	
 	/**

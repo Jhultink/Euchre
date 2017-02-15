@@ -133,6 +133,12 @@ public class View implements MouseListener, ActionListener {
 		for (Card card : topPanel.getPlayer().getHand().getCards()) {
 		    	CardButton button = new CardButton(card, topPanel.getPlayer());
 			//new Player(Teams.RED, PlayerNumber.FIRST));
+			if(topPanel.getPlayer().team == Teams.RED) {
+			    button.setBackground(Color.RED);
+			} else {
+			    button.setBackground(Color.BLACK);
+			    button.setForeground(Color.WHITE);
+			}
 			button.addMouseListener(this);
 			topPanel.add(button);
 		}
@@ -149,6 +155,12 @@ public class View implements MouseListener, ActionListener {
 		for (Card card : (rightPanel.getPlayer().getHand().getCards())) {
 			CardButton button = new CardButton(card, rightPanel.getPlayer()); 
 			//new Player(Teams.BLACK, PlayerNumber.SECOND));
+			if(rightPanel.getPlayer().team == Teams.RED) {
+			    button.setBackground(Color.RED);
+			} else {
+			    button.setBackground(Color.BLACK);
+			    button.setForeground(Color.WHITE);
+			}
 			button.addMouseListener(this);
 			rightPanel.add(button);
 		}
@@ -165,6 +177,12 @@ public class View implements MouseListener, ActionListener {
 		for (Card card : bottomPanel.getPlayer().getHand().getCards()) {
 			CardButton button = new CardButton(card, bottomPanel.getPlayer());
 			//new Player(Teams.RED, PlayerNumber.SECOND));
+			if(bottomPanel.getPlayer().team == Teams.RED) {
+			    button.setBackground(Color.RED);
+			} else {
+			    button.setBackground(Color.BLACK);
+			    button.setForeground(Color.WHITE);
+			}
 			button.addMouseListener(this);
 			bottomPanel.add(button);
 		}
@@ -181,6 +199,12 @@ public class View implements MouseListener, ActionListener {
 		for (Card card : leftPanel.getPlayer().getHand().getCards()) {
 			CardButton button = new CardButton(card, leftPanel.getPlayer());
 			//new Player(Teams.BLACK, PlayerNumber.FIRST));
+			if(leftPanel.getPlayer().team == Teams.RED) {
+			    button.setBackground(Color.RED);
+			} else {
+			    button.setBackground(Color.BLACK);
+			    button.setForeground(Color.WHITE);
+			}
 			button.addMouseListener(this);
 			leftPanel.add(button);
 		}

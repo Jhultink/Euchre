@@ -10,10 +10,13 @@ package models;
 public class Deal {
 	/** First red player hand. */
     private Hand redOne;
+    
     /** Second red player hand. */
     private Hand redTwo;
+    
     /** First black player hand. */
     private Hand blackOne;
+    
     /** Second black player hand. */
     private Hand blackTwo;
 

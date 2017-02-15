@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * This class holds all the cards for one player.
  * 
- * @author OWNER
+ * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  *
  */
 public class Hand {

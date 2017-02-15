@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Class that contains necessary components to run a Euchre game instance.
  * 
- * @author OWNER
+ * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  *
  */
 public class GameModel {
@@ -22,43 +22,53 @@ public class GameModel {
      * Suit of current trump.
      */
     private Suit trump;
+    
     /**
      * Black team, player one.
      */
     private Player blackOne;
+    
     /**
      * Black team, player two.
      */
     private Player blackTwo;
+    
     /**
      * Red team, player one.
      */
     private Player redOne;
+    
     /**
      * Red team, player two.
      */
     private Player redTwo;
+    
     /**
      * Deck of cards.
      */
     private GameDeck deck;
+    
     /**
      * Holds the 4 cards played by each player or null if they haven't played
      * yet.
      */
     public CardsInPlay cardsInPlay;
+    
     /**
      * Black team overall game score.
      */
     private int blackGameScore;
+    
     /**
      * Red team overall game score.
      */
     private int redGameScore;
+    
     /**
      * Black team current hand score.
      */
     private int blackHandScore;
+    
     /**
      * Red team current hand score.
      */

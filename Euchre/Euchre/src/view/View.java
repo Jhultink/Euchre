@@ -39,23 +39,40 @@ public class View implements MouseListener {
     private PlayerPanel leftPanel;
     private JPanel centerPanel;    
     private GameModel game;
+    private Player r1;
+    private Player r2;
+    private Player b1;
+    private Player b2;
+    private Player[] playerArray;
 
 	/**
 	 * Default Constructor for View Class.
 	 */
-	public View(GameController pController) {
+	public View(GameController pController, GameModel model) {
 
 		// Set up JFrame
 		frame = new JFrame("Euchre");
 		frame.setSize(800, 600);
 
 		this.controller = pController;
+		this.game = model;
+		this.playerArray = new Player[4];
+		r1 = game.getPlayer(Teams.RED, PlayerNumber.FIRST);
+		r2 = game.getPlayer(Teams.RED, PlayerNumber.SECOND);
+		b1 = game.getPlayer(Teams.BLACK, PlayerNumber.FIRST);
+		b2 = game.getPlayer(Teams.BLACK, PlayerNumber.SECOND);
+		playerArray[0] = r1;
+		playerArray[1] = b1;
+		playerArray[2] = r2;
+		playerArray[3] = b2;
 		
 		// Set up menu bar
 		menu = new JMenuBar();
 		fileMenu = new JMenu("File");
 		quitGameItem = new JMenuItem("Quit");
 		newGameItem = new JMenuItem("New Game");
+		newGameItem.addMouseListener(this);
+		quitGameItem.addMouseListener(this);
 		fileMenu.add(quitGameItem);
 		fileMenu.add(newGameItem);
 		menu.add(fileMenu);
@@ -94,16 +111,28 @@ public class View implements MouseListener {
 	 * Render class renders UI for the Euchre game.
 	 * @param model model to be rendered
 	 */
-	public void render(GameModel model) {
-
+	public void render(GameModel model) {	
+	    	
 		frame.setVisible(true);
 		this.game = model;
+
+		r1 = game.getPlayer(Teams.RED, PlayerNumber.FIRST);
+		r2 = game.getPlayer(Teams.RED, PlayerNumber.SECOND);
+		b1 = game.getPlayer(Teams.BLACK, PlayerNumber.FIRST);
+		b2 = game.getPlayer(Teams.BLACK, PlayerNumber.SECOND);
 		
 		// Clear panel and add cards
 		topPanel.removeAll();
+		//set player assigned to panel
+		topPanel.setPlayer(playerArray[2]);
+		//set label for panel
+		JLabel thirdPlayer = new JLabel(topPanel.getPlayer().toString() + ":   ");
+		topPanel.add(thirdPlayer);
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
+		//for(Card card : r1.getHand().getCards()) {
 		for (Card card : game.getHandOf(Teams.RED, PlayerNumber.FIRST).getCards()) {
-			CardButton button = new CardButton(card, new Player(Teams.RED, PlayerNumber.FIRST));
+		    	CardButton button = new CardButton(card, topPanel.getPlayer());
+			//new Player(Teams.RED, PlayerNumber.FIRST));
 			button.addMouseListener(this);
 			topPanel.add(button);
 		}
@@ -113,9 +142,13 @@ public class View implements MouseListener {
 
 		// Clear panel and add cards
 		rightPanel.removeAll();
+		rightPanel.setPlayer(playerArray[1]);
 		rightPanel.add(Box.createVerticalGlue()); // for spacing
-		for (Card card : game.getHandOf(Teams.BLACK, PlayerNumber.SECOND).getCards()) {
-			CardButton button = new CardButton(card, new Player(Teams.BLACK, PlayerNumber.SECOND));
+		JLabel secondPlayer = new JLabel(rightPanel.getPlayer().toString() + ":   ");
+		rightPanel.add(secondPlayer);
+		for (Card card : (rightPanel.getPlayer().getHand().getCards())) {
+			CardButton button = new CardButton(card, rightPanel.getPlayer()); 
+			//new Player(Teams.BLACK, PlayerNumber.SECOND));
 			button.addMouseListener(this);
 			rightPanel.add(button);
 		}
@@ -125,11 +158,13 @@ public class View implements MouseListener {
 
 		// Clear panel and add cards
 		bottomPanel.removeAll();
+		bottomPanel.setPlayer(playerArray[0]);
 		bottomPanel.add(Box.createHorizontalGlue()); // for spacing
-		JLabel currentPlayer = new JLabel(game.getCurrentPlayer().toString() + ":   ");
+		JLabel currentPlayer = new JLabel(bottomPanel.getPlayer().toString() + ":   ");
 		bottomPanel.add(currentPlayer);
-		for (Card card : game.getHandOf(Teams.RED, PlayerNumber.SECOND).getCards()) {
-			CardButton button = new CardButton(card, new Player(Teams.RED, PlayerNumber.SECOND));
+		for (Card card : bottomPanel.getPlayer().getHand().getCards()) {
+			CardButton button = new CardButton(card, bottomPanel.getPlayer());
+			//new Player(Teams.RED, PlayerNumber.SECOND));
 			button.addMouseListener(this);
 			bottomPanel.add(button);
 		}
@@ -139,9 +174,13 @@ public class View implements MouseListener {
 
 		// Clear panel and add cards
 		leftPanel.removeAll();
+		leftPanel.setPlayer(playerArray[3]);
+		JLabel fourthPlayer = new JLabel(leftPanel.getPlayer().toString() + ":");
+		leftPanel.add(fourthPlayer);
 		leftPanel.add(Box.createVerticalGlue()); // for spacing
-		for (Card card : game.getHandOf(Teams.BLACK, PlayerNumber.FIRST).getCards()) {
-			CardButton button = new CardButton(card, new Player(Teams.BLACK, PlayerNumber.FIRST));
+		for (Card card : leftPanel.getPlayer().getHand().getCards()) {
+			CardButton button = new CardButton(card, leftPanel.getPlayer());
+			//new Player(Teams.BLACK, PlayerNumber.FIRST));
 			button.addMouseListener(this);
 			leftPanel.add(button);
 		}
@@ -204,7 +243,12 @@ public class View implements MouseListener {
 		if (obj instanceof JButton) {			
 			CardButton clickedButton = (CardButton) obj;			
 			Card clickedCard = clickedButton.getCard();			
-			controller.playCard(clickedCard, clickedButton.getOwner());	
+			controller.playCard(clickedCard, clickedButton.getOwner());
+			playerArray = rotatePlayerArray(playerArray);
+		}
+		
+		if (event.getSource().equals(quitGameItem)) {
+		    System.exit(0);
 		}
 	}
 
@@ -246,5 +290,19 @@ public class View implements MouseListener {
 	 */
 	public void mousePressed(MouseEvent event) {
 
+	}
+	
+	/**
+	 * Thing.
+	 * @param arrayToRotate Array to be rotated
+	 * @return rotated array
+	 */
+	public Player[] rotatePlayerArray(Player[] arrayToRotate) {
+	    Player[] tempArray = new Player[4];
+	    tempArray[0] = arrayToRotate[1];
+	    tempArray[1] = arrayToRotate[2];
+	    tempArray[2] = arrayToRotate[3];
+	    tempArray[3] = arrayToRotate[0];
+	    return tempArray;
 	}
 }

@@ -30,7 +30,7 @@ public class GameController {
     GameController() {
 
 		model = new GameModel();
-		view = new View(this);
+		view = new View(this, model);
     }
 
     /**

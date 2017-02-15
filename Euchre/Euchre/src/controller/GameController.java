@@ -33,7 +33,7 @@ public class GameController {
 	this.view = new View(this, model);
     }
 
-    /** 
+    /**
      * .
      */
     public void start() {

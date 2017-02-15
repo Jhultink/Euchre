@@ -185,7 +185,7 @@ public class GameModel {
     	return cards;
     }
 
-	/** 
+	/**
 	 * @return the currentTeam
 	 */
 	public Teams getCurrentTeam() {

@@ -29,12 +29,12 @@ public class GameController {
      */
     GameController() {
 
-		model = new GameModel();
-		view = new View(this, model);
+		this.model = new GameModel();
+		this.view = new View(this, model);
     }
 
     /**
-     * 
+     * .
      */
     public void start() {
 
@@ -43,12 +43,26 @@ public class GameController {
 
     }
     
+    /**
+     * Checks if played card is valid and puts it in play if it is.
+     * @param chosenCard card to check
+     * @param player player who played card
+     */
     public void playCard(Card chosenCard, Player player) {
-		if(model.isValidPlay(chosenCard, player)) {
+		if (model.isValidPlay(chosenCard, player)) {
 			model.getCurrentPlayer().getHand().getCards().remove(chosenCard);
-			model.cardsInPlay.setCard(chosenCard, model.getCurrentTeam(), model.getCurrentPlayerNumber());
+			
+			model.cardsInPlay.setCard(chosenCard, 
+				model.getCurrentTeam(), 
+				model.getCurrentPlayerNumber());
 		}
 		view.render(model);
+    }
+    
+    public void newGame() {
+	this.model = new GameModel();
+	this.view = new View(this, model);
+	this.start();
     }
 
 }

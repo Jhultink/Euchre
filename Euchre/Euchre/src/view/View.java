@@ -25,9 +25,9 @@ import models.Player;
 import models.PlayerNumber;
 import models.Teams;
 
-public class View implements MouseListener {
+public class View implements MouseListener, ActionListener {
 
-	private GameController controller;
+    private GameController controller;
     private JFrame frame;
     private JMenuBar menu;
     private JMenu fileMenu;
@@ -44,17 +44,21 @@ public class View implements MouseListener {
     private Player b1;
     private Player b2;
     private Player[] playerArray;
+    private ArrayList<CardButton> centerButtons;
 
 	/**
 	 * Default Constructor for View Class.
 	 */
-	public View(GameController pController, GameModel model) {
+	public View(GameController paramController, GameModel model) {
 
 		// Set up JFrame
 		frame = new JFrame("Euchre");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 600);
+		frame.setResizable(false);
+		centerButtons = new ArrayList<CardButton>();
 
-		this.controller = pController;
+		this.controller = paramController;
 		this.game = model;
 		this.playerArray = new Player[4];
 		r1 = game.getPlayer(Teams.RED, PlayerNumber.FIRST);
@@ -71,8 +75,8 @@ public class View implements MouseListener {
 		fileMenu = new JMenu("File");
 		quitGameItem = new JMenuItem("Quit");
 		newGameItem = new JMenuItem("New Game");
-		newGameItem.addMouseListener(this);
-		quitGameItem.addMouseListener(this);
+		newGameItem.addActionListener(this);
+		quitGameItem.addActionListener(this);
 		fileMenu.add(quitGameItem);
 		fileMenu.add(newGameItem);
 		menu.add(fileMenu);
@@ -115,11 +119,7 @@ public class View implements MouseListener {
 	    	
 		frame.setVisible(true);
 		this.game = model;
-
-		r1 = game.getPlayer(Teams.RED, PlayerNumber.FIRST);
-		r2 = game.getPlayer(Teams.RED, PlayerNumber.SECOND);
-		b1 = game.getPlayer(Teams.BLACK, PlayerNumber.FIRST);
-		b2 = game.getPlayer(Teams.BLACK, PlayerNumber.SECOND);
+		game.setCurrentPlayer(playerArray[0]);
 		
 		// Clear panel and add cards
 		topPanel.removeAll();
@@ -130,15 +130,15 @@ public class View implements MouseListener {
 		topPanel.add(thirdPlayer);
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
 		//for(Card card : r1.getHand().getCards()) {
-		for (Card card : game.getHandOf(Teams.RED, PlayerNumber.FIRST).getCards()) {
+		for (Card card : topPanel.getPlayer().getHand().getCards()) {
 		    	CardButton button = new CardButton(card, topPanel.getPlayer());
 			//new Player(Teams.RED, PlayerNumber.FIRST));
 			button.addMouseListener(this);
 			topPanel.add(button);
 		}
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
-		// topPanel.revalidate();
-		// topPanel.repaint();
+		topPanel.revalidate();
+		topPanel.repaint();
 
 		// Clear panel and add cards
 		rightPanel.removeAll();
@@ -153,8 +153,8 @@ public class View implements MouseListener {
 			rightPanel.add(button);
 		}
 		rightPanel.add(Box.createVerticalGlue()); // for spacing
-		// rightPanel.revalidate();
-		// rightPanel.repaint();
+		rightPanel.revalidate();
+		rightPanel.repaint();
 
 		// Clear panel and add cards
 		bottomPanel.removeAll();
@@ -169,8 +169,8 @@ public class View implements MouseListener {
 			bottomPanel.add(button);
 		}
 		bottomPanel.add(Box.createHorizontalGlue()); // for spacing
-		// bottomPanel.revalidate();
-		// bottomPanel.repaint();
+		bottomPanel.revalidate();
+		bottomPanel.repaint();
 
 		// Clear panel and add cards
 		leftPanel.removeAll();
@@ -185,11 +185,12 @@ public class View implements MouseListener {
 			leftPanel.add(button);
 		}
 		leftPanel.add(Box.createVerticalGlue()); // for spacing
-		// leftPanel.revalidate();
-		// leftPanel.repaint();
+		leftPanel.revalidate();
+		leftPanel.repaint();
 
 		centerPanel.removeAll();
-		JPanel centerPanelOrganizer = new JPanel(new BorderLayout());
+		 JPanel centerPanelOrganizer = new JPanel(new BorderLayout());
+		
 		if (game.cardsInPlay.getBlackOneCard() != null) {
 			centerPanelOrganizer.add(new Button(game.cardsInPlay
 					.getBlackOneCard().getCardStringValue()), 
@@ -210,8 +211,8 @@ public class View implements MouseListener {
 					.getRedTwoCard().getCardStringValue()),
 					 BorderLayout.SOUTH);
 		}			
-		centerPanelOrganizer.setBackground(Color.RED);
-		centerPanelOrganizer.setMaximumSize(new Dimension(200, 200));
+		centerPanelOrganizer.setBackground(Color.WHITE);
+		centerPanelOrganizer.setMaximumSize(new Dimension(300, 300));
 		centerPanelOrganizer.setMinimumSize(new Dimension(200, 200));
 		centerPanel.add(centerPanelOrganizer);
 				
@@ -227,7 +228,13 @@ public class View implements MouseListener {
 	 *            System registered event
 	 */
 	public void actionPerformed(ActionEvent ae) {
-
+	    if (ae.getSource() == quitGameItem) {
+		System.exit(0);
+	    }
+	    
+	    if (ae.getSource() == newGameItem) {
+		controller.newGame();
+	    }
 	}
 
 	/**
@@ -240,11 +247,24 @@ public class View implements MouseListener {
 	public void mouseClicked(MouseEvent event) {
 		Object obj = event.getSource();
 		
-		if (obj instanceof JButton) {			
-			CardButton clickedButton = (CardButton) obj;			
-			Card clickedCard = clickedButton.getCard();			
-			controller.playCard(clickedCard, clickedButton.getOwner());
-			playerArray = rotatePlayerArray(playerArray);
+		if (obj instanceof JButton) {	
+			CardButton clickedButton = (CardButton) obj;	
+			if (clickedButton.getParent().equals(bottomPanel)) {
+				Card clickedCard = clickedButton.getCard();
+				if (game.isValidPlay(clickedCard, clickedButton.getOwner())) {
+					playerArray = rotatePlayerArray(playerArray);
+					centerButtons.add(clickedButton);
+					controller.playCard(clickedCard, clickedButton.getOwner());
+					
+					//THIS RUNS AFTER PLAYING ONLY THREE CARDS.
+					if (game.cardsInPlay.allPlayed()) {
+					    JOptionPane.showMessageDialog(frame, 
+						    "The round is over. Clearing board.");
+					}
+				}
+			} else {
+			    JOptionPane.showMessageDialog(frame, "ONLY BOTTOM CAN PLAY CARDS");
+			}
 		}
 		
 		if (event.getSource().equals(quitGameItem)) {
@@ -293,7 +313,7 @@ public class View implements MouseListener {
 	}
 	
 	/**
-	 * Thing.
+	 * Rotates the player array.
 	 * @param arrayToRotate Array to be rotated
 	 * @return rotated array
 	 */

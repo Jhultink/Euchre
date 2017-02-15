@@ -80,5 +80,22 @@ public class CardsInPlay {
 		}
 	}
 	
+	/**
+	 * .
+	 * @return Boolean value of all cards played
+	 */
+	public boolean allPlayed() {
+	    boolean redOneTrue = (this.getRedOneCard() != null);
+	    boolean redTwoTrue = (this.getRedTwoCard() != null);
+	    boolean blackOneTrue = (this.getRedOneCard() != null);
+	    boolean blackTwoTrue = (this.getBlackTwoCard() != null);
+	    
+	    if (redOneTrue && redTwoTrue && blackOneTrue && blackTwoTrue) {
+		return true;
+	    }
+	    
+	    return false;
+	}
+	
 	
 }

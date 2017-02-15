@@ -107,6 +107,11 @@ public class GameModel {
     public Player getCurrentPlayer() {
 	return getPlayer(currentTeam, currentPlayerNumber);
     }
+    
+    public void setCurrentPlayer(Player currentPlayer) {
+	currentTeam = currentPlayer.team;
+	currentPlayerNumber = currentPlayer.playerPosition;
+    }
 
     /**
      * Returns the player with the position of the passed parameters.
@@ -192,7 +197,6 @@ public class GameModel {
 	 */
 	public PlayerNumber getCurrentPlayerNumber() {
 		return currentPlayerNumber;
-	}
-    
+	}  
     
 }

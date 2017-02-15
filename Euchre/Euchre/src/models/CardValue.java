@@ -15,7 +15,7 @@ public enum CardValue {
 	TEN,
 	/** Nine. */
 	NINE;
-	
+
 	/**
 	 * Returns the enum to a display-friendly string.
 	 * @return string

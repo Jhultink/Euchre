@@ -141,7 +141,7 @@ public class View implements MouseListener, ActionListener {
 			}
 			button.addMouseListener(this);
 			topPanel.add(button);
-		}
+		} 
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
 		topPanel.revalidate();
 		topPanel.repaint();

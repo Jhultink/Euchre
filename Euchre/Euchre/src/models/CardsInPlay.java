@@ -83,7 +83,7 @@ public class CardsInPlay {
 	/**
 	 * .
 	 * @return Boolean value of all cards played
-	 */
+	 */ 
 	public boolean allPlayed() {
 	    boolean redOneTrue = (this.getRedOneCard() != null);
 	    boolean redTwoTrue = (this.getRedTwoCard() != null);

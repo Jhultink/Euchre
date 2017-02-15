@@ -15,7 +15,7 @@ public class PlayerPanel extends JPanel {
 	
 	PlayerPanel(Player newPlayer) {
 	    this.panelPlayer = newPlayer;
-	}*/
+	}*/ 
 
 	public Player getPlayer() {
 		return this.panelPlayer;

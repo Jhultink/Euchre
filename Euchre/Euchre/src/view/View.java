@@ -129,23 +129,18 @@ public class View implements MouseListener, ActionListener {
 		JLabel thirdPlayer = new JLabel(topPanel.getPlayer().toString() + ":   ");
 		topPanel.add(thirdPlayer);
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
-		//for(Card card : r1.getHand().getCards()) {
 		for (Card card : topPanel.getPlayer().getHand().getCards()) {
 		    	CardButton button = new CardButton(card, topPanel.getPlayer());
-			//new Player(Teams.RED, PlayerNumber.FIRST));
 			if (topPanel.getPlayer().team == Teams.RED) {
 			    button.setBackground(Color.RED);
 			} else {
 			    button.setBackground(Color.BLACK);
 			    button.setForeground(Color.WHITE);
 			}
-			button.addMouseListener(this);
 			topPanel.add(button);
 		}
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
 		topPanel.setBackground(Color.WHITE);
-		//topPanel.revalidate();
-		//topPanel.repaint();
 
 		
 		// Clear panel and add cards
@@ -156,20 +151,16 @@ public class View implements MouseListener, ActionListener {
 		rightPanel.add(secondPlayer);
 		for (Card card : (rightPanel.getPlayer().getHand().getCards())) {
 			CardButton button = new CardButton(card, rightPanel.getPlayer()); 
-			//new Player(Teams.BLACK, PlayerNumber.SECOND));
 			if (rightPanel.getPlayer().team == Teams.RED) {
 			    button.setBackground(Color.RED);
 			} else {
 			    button.setBackground(Color.BLACK);
 			    button.setForeground(Color.WHITE);
 			}
-			button.addMouseListener(this);
 			rightPanel.add(button);
 		}
 		rightPanel.add(Box.createVerticalGlue()); // for spacing
 		rightPanel.setBackground(Color.WHITE);
-		//rightPanel.revalidate();
-		//rightPanel.repaint();
 
 		// Clear panel and add cards
 		bottomPanel.removeAll();
@@ -179,7 +170,6 @@ public class View implements MouseListener, ActionListener {
 		bottomPanel.add(currentPlayer);
 		for (Card card : bottomPanel.getPlayer().getHand().getCards()) {
 			CardButton button = new CardButton(card, bottomPanel.getPlayer());
-			//new Player(Teams.RED, PlayerNumber.SECOND));
 			if (bottomPanel.getPlayer().team == Teams.RED) {
 			    button.setBackground(Color.RED);
 			} else {
@@ -191,8 +181,6 @@ public class View implements MouseListener, ActionListener {
 		}
 		bottomPanel.add(Box.createHorizontalGlue()); // for spacing
 		bottomPanel.setBackground(Color.WHITE);
-		//bottomPanel.revalidate();
-		//bottomPanel.repaint();
 		
 
 		// Clear panel and add cards
@@ -203,20 +191,16 @@ public class View implements MouseListener, ActionListener {
 		leftPanel.add(Box.createVerticalGlue()); // for spacing
 		for (Card card : leftPanel.getPlayer().getHand().getCards()) {
 			CardButton button = new CardButton(card, leftPanel.getPlayer());
-			//new Player(Teams.BLACK, PlayerNumber.FIRST));
 			if (leftPanel.getPlayer().team == Teams.RED) {
 			    button.setBackground(Color.RED);
 			} else {
 			    button.setBackground(Color.BLACK);
 			    button.setForeground(Color.WHITE);
 			}
-			button.addMouseListener(this);
 			leftPanel.add(button);
 		}
 		leftPanel.add(Box.createVerticalGlue()); // for spacing
 		leftPanel.setBackground(Color.WHITE);
-		//leftPanel.revalidate();
-		//leftPanel.repaint();
 		
 
 		centerPanel.removeAll();
@@ -275,10 +259,10 @@ public class View implements MouseListener, ActionListener {
 	 * @param event
 	 *            MouseEvent registered
 	 */
-	public void mouseClicked(MouseEvent event) {
+	public void mouseClicked(final MouseEvent event) {
 		Object obj = event.getSource();
 		
-		if (obj instanceof JButton) {	
+		if (obj instanceof CardButton) {	
 			CardButton clickedButton = (CardButton) obj;	
 			if (clickedButton.getParent().equals(bottomPanel)) {
 				Card clickedCard = clickedButton.getCard();
@@ -287,13 +271,10 @@ public class View implements MouseListener, ActionListener {
 					centerButtons.add(clickedButton);
 					controller.playCard(clickedCard, clickedButton.getOwner());
 					if (game.cardsInPlay.allPlayed()) {
-					    JOptionPane.showMessageDialog(frame, 
-						    "The round is over. Clearing board.");
+					    JOptionPane.showMessageDialog(frame, "The round is over. Clearing board.");
 					    controller.clearTable();
 					}
 				}
-			} else {
-			    JOptionPane.showMessageDialog(frame, "ONLY BOTTOM CAN PLAY CARDS");
 			}
 		}
 		

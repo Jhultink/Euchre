@@ -208,5 +208,9 @@ public class GameModel {
 	public PlayerNumber getCurrentPlayerNumber() {
 		return currentPlayerNumber;
 	}  
+	
+	public void clearTable() {
+	    cardsInPlay.clear();
+	}
     
 }

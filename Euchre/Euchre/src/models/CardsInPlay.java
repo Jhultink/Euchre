@@ -110,5 +110,15 @@ public class CardsInPlay {
 	    return false;
 	}
 	
-	
+	/**
+	 * 
+	 */
+	public void clear() {
+	    if (allPlayed()) {
+		this.setBlackOneCard(null);
+		this.setBlackTwoCard(null);
+		this.setRedOneCard(null);
+		this.setRedTwoCard(null);
+	    }
+	}
 }

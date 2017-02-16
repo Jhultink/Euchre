@@ -1,12 +1,12 @@
 package view;
 
 import controller.*;
-import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -133,7 +133,7 @@ public class View implements MouseListener, ActionListener {
 		for (Card card : topPanel.getPlayer().getHand().getCards()) {
 		    	CardButton button = new CardButton(card, topPanel.getPlayer());
 			//new Player(Teams.RED, PlayerNumber.FIRST));
-			if(topPanel.getPlayer().team == Teams.RED) {
+			if (topPanel.getPlayer().team == Teams.RED) {
 			    button.setBackground(Color.RED);
 			} else {
 			    button.setBackground(Color.BLACK);
@@ -143,6 +143,7 @@ public class View implements MouseListener, ActionListener {
 			topPanel.add(button);
 		}
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
+		//topPanel.setBackground(Color.WHITE);
 		topPanel.revalidate();
 		topPanel.repaint();
 
@@ -165,6 +166,7 @@ public class View implements MouseListener, ActionListener {
 			rightPanel.add(button);
 		}
 		rightPanel.add(Box.createVerticalGlue()); // for spacing
+		//rightPanel.setBackground(Color.WHITE);
 		rightPanel.revalidate();
 		rightPanel.repaint();
 
@@ -187,6 +189,7 @@ public class View implements MouseListener, ActionListener {
 			bottomPanel.add(button);
 		}
 		bottomPanel.add(Box.createHorizontalGlue()); // for spacing
+		//bottomPanel.setBackground(Color.WHITE);
 		bottomPanel.revalidate();
 		bottomPanel.repaint();
 
@@ -209,6 +212,7 @@ public class View implements MouseListener, ActionListener {
 			leftPanel.add(button);
 		}
 		leftPanel.add(Box.createVerticalGlue()); // for spacing
+		//leftPanel.setBackground(Color.WHITE);
 		leftPanel.revalidate();
 		leftPanel.repaint();
 
@@ -235,9 +239,9 @@ public class View implements MouseListener, ActionListener {
 					.getRedTwoCard().getCardStringValue()),
 					 BorderLayout.SOUTH);
 		}			
-		centerPanelOrganizer.setBackground(Color.WHITE);
-		centerPanelOrganizer.setMaximumSize(new Dimension(300, 300));
-		centerPanelOrganizer.setMinimumSize(new Dimension(200, 200));
+		//centerPanelOrganizer.setBackground(Color.WHITE);
+		centerPanelOrganizer.setMaximumSize(new Dimension(550, 300));
+		centerPanelOrganizer.setMinimumSize(new Dimension(550, 300));
 		centerPanel.add(centerPanelOrganizer);
 				
 		frame.revalidate();
@@ -284,6 +288,12 @@ public class View implements MouseListener, ActionListener {
 					if (game.cardsInPlay.allPlayed()) {
 					    JOptionPane.showMessageDialog(frame, 
 						    "The round is over. Clearing board.");
+					    controller.clearTable();
+					    game.clearTable();
+					    centerPanel.removeAll();
+					    frame.revalidate();
+					    frame.repaint();
+					    //controller.refresh();
 					}
 				}
 			} else {
@@ -348,5 +358,9 @@ public class View implements MouseListener, ActionListener {
 	    tempArray[2] = arrayToRotate[3];
 	    tempArray[3] = arrayToRotate[0];
 	    return tempArray;
+	}
+	
+	public void close() {
+	    frame.dispose();
 	}
 }

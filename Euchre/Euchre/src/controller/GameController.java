@@ -63,12 +63,29 @@ public class GameController {
     }
 
     /**
-     * 
+     * .
      */
     public void newGame() {
 	this.model = new GameModel();
 	this.view = new View(this, model);
 	this.start();
+    }
+    
+    /**
+     * .
+     */
+    public void refresh() {
+	view.render(model);
+    }
+    
+    /**
+     * .
+     */
+    public void clearTable() {
+	this.model.clearTable();
+	view.close();
+	view = new View(this, model);
+	refresh();
     }
 
 }

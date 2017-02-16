@@ -66,6 +66,7 @@ public class GameController {
      * .
      */
     public void newGame() {
+	view.close();
 	this.model = new GameModel();
 	this.view = new View(this, model);
 	this.start();

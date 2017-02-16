@@ -143,10 +143,11 @@ public class View implements MouseListener, ActionListener {
 			topPanel.add(button);
 		}
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
-		//topPanel.setBackground(Color.WHITE);
-		topPanel.revalidate();
-		topPanel.repaint();
+		topPanel.setBackground(Color.WHITE);
+		//topPanel.revalidate();
+		//topPanel.repaint();
 
+		
 		// Clear panel and add cards
 		rightPanel.removeAll();
 		rightPanel.setPlayer(playerArray[1]);
@@ -156,7 +157,7 @@ public class View implements MouseListener, ActionListener {
 		for (Card card : (rightPanel.getPlayer().getHand().getCards())) {
 			CardButton button = new CardButton(card, rightPanel.getPlayer()); 
 			//new Player(Teams.BLACK, PlayerNumber.SECOND));
-			if(rightPanel.getPlayer().team == Teams.RED) {
+			if (rightPanel.getPlayer().team == Teams.RED) {
 			    button.setBackground(Color.RED);
 			} else {
 			    button.setBackground(Color.BLACK);
@@ -166,9 +167,9 @@ public class View implements MouseListener, ActionListener {
 			rightPanel.add(button);
 		}
 		rightPanel.add(Box.createVerticalGlue()); // for spacing
-		//rightPanel.setBackground(Color.WHITE);
-		rightPanel.revalidate();
-		rightPanel.repaint();
+		rightPanel.setBackground(Color.WHITE);
+		//rightPanel.revalidate();
+		//rightPanel.repaint();
 
 		// Clear panel and add cards
 		bottomPanel.removeAll();
@@ -179,7 +180,7 @@ public class View implements MouseListener, ActionListener {
 		for (Card card : bottomPanel.getPlayer().getHand().getCards()) {
 			CardButton button = new CardButton(card, bottomPanel.getPlayer());
 			//new Player(Teams.RED, PlayerNumber.SECOND));
-			if(bottomPanel.getPlayer().team == Teams.RED) {
+			if (bottomPanel.getPlayer().team == Teams.RED) {
 			    button.setBackground(Color.RED);
 			} else {
 			    button.setBackground(Color.BLACK);
@@ -189,9 +190,10 @@ public class View implements MouseListener, ActionListener {
 			bottomPanel.add(button);
 		}
 		bottomPanel.add(Box.createHorizontalGlue()); // for spacing
-		//bottomPanel.setBackground(Color.WHITE);
-		bottomPanel.revalidate();
-		bottomPanel.repaint();
+		bottomPanel.setBackground(Color.WHITE);
+		//bottomPanel.revalidate();
+		//bottomPanel.repaint();
+		
 
 		// Clear panel and add cards
 		leftPanel.removeAll();
@@ -202,7 +204,7 @@ public class View implements MouseListener, ActionListener {
 		for (Card card : leftPanel.getPlayer().getHand().getCards()) {
 			CardButton button = new CardButton(card, leftPanel.getPlayer());
 			//new Player(Teams.BLACK, PlayerNumber.FIRST));
-			if(leftPanel.getPlayer().team == Teams.RED) {
+			if (leftPanel.getPlayer().team == Teams.RED) {
 			    button.setBackground(Color.RED);
 			} else {
 			    button.setBackground(Color.BLACK);
@@ -212,9 +214,10 @@ public class View implements MouseListener, ActionListener {
 			leftPanel.add(button);
 		}
 		leftPanel.add(Box.createVerticalGlue()); // for spacing
-		//leftPanel.setBackground(Color.WHITE);
-		leftPanel.revalidate();
-		leftPanel.repaint();
+		leftPanel.setBackground(Color.WHITE);
+		//leftPanel.revalidate();
+		//leftPanel.repaint();
+		
 
 		centerPanel.removeAll();
 		 JPanel centerPanelOrganizer = new JPanel(new BorderLayout());
@@ -239,9 +242,9 @@ public class View implements MouseListener, ActionListener {
 					.getRedTwoCard().getCardStringValue()),
 					 BorderLayout.SOUTH);
 		}			
-		//centerPanelOrganizer.setBackground(Color.WHITE);
-		centerPanelOrganizer.setMaximumSize(new Dimension(550, 300));
-		centerPanelOrganizer.setMinimumSize(new Dimension(550, 300));
+		centerPanelOrganizer.setBackground(Color.WHITE);
+		centerPanelOrganizer.setMaximumSize(new Dimension(550, 500));
+		centerPanelOrganizer.setMinimumSize(new Dimension(550, 500));
 		centerPanel.add(centerPanelOrganizer);
 				
 		frame.revalidate();
@@ -283,17 +286,10 @@ public class View implements MouseListener, ActionListener {
 					playerArray = rotatePlayerArray(playerArray);
 					centerButtons.add(clickedButton);
 					controller.playCard(clickedCard, clickedButton.getOwner());
-					
-					//THIS RUNS AFTER PLAYING ONLY THREE CARDS.
 					if (game.cardsInPlay.allPlayed()) {
 					    JOptionPane.showMessageDialog(frame, 
 						    "The round is over. Clearing board.");
 					    controller.clearTable();
-					    game.clearTable();
-					    centerPanel.removeAll();
-					    frame.revalidate();
-					    frame.repaint();
-					    //controller.refresh();
 					}
 				}
 			} else {

@@ -1,5 +1,8 @@
 package models;
+
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 /**
  * Class that contains necessary components to run a Euchre game instance.
@@ -22,53 +25,53 @@ public class GameModel {
      * Suit of current trump.
      */
     private Suit trump;
-    
+
     /**
      * Black team, player one.
      */
     private Player blackOne;
-    
+
     /**
      * Black team, player two.
      */
     private Player blackTwo;
-    
+
     /**
      * Red team, player one.
      */
     private Player redOne;
-    
+
     /**
      * Red team, player two.
      */
     private Player redTwo;
-    
+
     /**
      * Deck of cards.
      */
     private GameDeck deck;
-    
+
     /**
      * Holds the 4 cards played by each player or null if they haven't played
      * yet.
      */
     public CardsInPlay cardsInPlay;
-    
+
     /**
      * Black team overall game score.
      */
     private int blackGameScore;
-    
+
     /**
      * Red team overall game score.
      */
     private int redGameScore;
-    
+
     /**
      * Black team current hand score.
      */
     private int blackHandScore;
-    
+
     /**
      * Red team current hand score.
      */
@@ -117,7 +120,7 @@ public class GameModel {
     public Player getCurrentPlayer() {
 	return getPlayer(currentTeam, currentPlayerNumber);
     }
-    
+
     public void setCurrentPlayer(Player currentPlayer) {
 	currentTeam = currentPlayer.team;
 	currentPlayerNumber = currentPlayer.playerPosition;
@@ -166,12 +169,12 @@ public class GameModel {
      * Deals out cards to players.
      */
     private void dealOutCards() {
-		Deal deal = deck.deal();
-	
-		redOne.setHand(deal.getRedOne());
-		redTwo.setHand(deal.getRedTwo());
-		blackOne.setHand(deal.getBlackOne());
-		blackTwo.setHand(deal.getBlackTwo());
+	Deal deal = deck.deal();
+
+	redOne.setHand(deal.getRedOne());
+	redTwo.setHand(deal.getRedTwo());
+	blackOne.setHand(deal.getBlackOne());
+	blackTwo.setHand(deal.getBlackTwo());
     }
 
     /**
@@ -181,36 +184,67 @@ public class GameModel {
      *            Card to check ability to play
      * @return boolean value of card's ability to be played
      */
-    public boolean isValidPlay(Card selectedCard, Player player) {	
-    	if(!getCurrentPlayer().equals(player)) return false;
-    	return true;
-    }
-    
-    public ArrayList<Card> getAllCards(){
-    	ArrayList<Card> cards = getHandOf(Teams.RED, PlayerNumber.FIRST).getCards();
-    	cards.addAll(getHandOf(Teams.RED, PlayerNumber.SECOND).getCards());
-    	cards.addAll(getHandOf(Teams.BLACK, PlayerNumber.FIRST).getCards());
-    	cards.addAll(getHandOf(Teams.BLACK, PlayerNumber.SECOND).getCards());
-    	
-    	return cards;
+    public boolean isValidPlay(Card selectedCard, Player player) {
+	if (!getCurrentPlayer().equals(player))
+	    return false;
+	return true;
     }
 
-	/**
-	 * @return the currentTeam
-	 */
-	public Teams getCurrentTeam() {
-		return currentTeam;
-	}
+    public ArrayList<Card> getAllCards() {
+	ArrayList<Card> cards = getHandOf(Teams.RED, PlayerNumber.FIRST).getCards();
+	cards.addAll(getHandOf(Teams.RED, PlayerNumber.SECOND).getCards());
+	cards.addAll(getHandOf(Teams.BLACK, PlayerNumber.FIRST).getCards());
+	cards.addAll(getHandOf(Teams.BLACK, PlayerNumber.SECOND).getCards());
 
-	/**
-	 * @return the currentPlayerNumber
-	 */
-	public PlayerNumber getCurrentPlayerNumber() {
-		return currentPlayerNumber;
-	}  
-	
-	public void clearTable() {
-	    cardsInPlay.clear();
+	return cards;
+    }
+
+    /**
+     * @return the currentTeam
+     */
+    public Teams getCurrentTeam() {
+	return currentTeam;
+    }
+
+    /**
+     * Returns the current player.
+     * @return the currentPlayerNumber
+     */
+    public PlayerNumber getCurrentPlayerNumber() {
+	return currentPlayerNumber;
+    }
+
+    public void clearTable() {
+	cardsInPlay.clear();
+    }
+
+    /**
+     * Checks to see if round is over.
+     * 
+     * @return boolean value of players still having cards.
+     */
+    public boolean checkWinConditions() {
+	boolean handsEmpty = false;
+	if (blackOne.getHand().getCards().size() == 0 
+		&& blackTwo.getHand().getCards().size() == 0
+		&& redOne.getHand().getCards().size() == 0 
+		&& redTwo.getHand().getCards().size() == 0) {
+	    handsEmpty = true;
 	}
-    
+	return handsEmpty;
+    }
+
+    /**
+     * checks game winning conditions.
+     */
+    public void gameOver() {
+	if (checkWinConditions()) {
+	    if (this.redHandScore > this.blackHandScore) {
+		JOptionPane.showMessageDialog(null, "RED TEAM WINS THE ROUND!");
+	    } else {
+		JOptionPane.showMessageDialog(null, "BLACK TEAM WINS THE ROUND!");
+	    }
+	}
+    }
+
 }

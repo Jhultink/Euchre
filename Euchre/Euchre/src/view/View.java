@@ -379,6 +379,7 @@ public class View implements MouseListener, ActionListener {
    * @param event
    *          Registered Mouse Event
    */
+
   public void mousePressed(final MouseEvent event) {
 
   }

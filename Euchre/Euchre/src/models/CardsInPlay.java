@@ -76,7 +76,14 @@ public class CardsInPlay {
 		this.blackTwoCard = mBlackTwoCard;
 	}
 	
-	public void setCard(final Card mCard, Teams team, PlayerNumber playerNumber){
+	/**
+	 * Assigns the card to appropriate slot.
+	 * @param mCard card to assign
+	 * @param team team of card
+	 * @param playerNumber playerNumber of card
+	 */
+	public void setCard(final Card mCard, final Teams team, 
+	    final PlayerNumber playerNumber) {
 						
 		if (team == Teams.RED) {
 			if (playerNumber == PlayerNumber.FIRST) {

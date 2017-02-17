@@ -8,8 +8,10 @@ package models;
  */
 
 public enum Teams {
-
-    BLACK, RED;
+    /** Black team. */
+    BLACK,
+    /** Black red. */
+    RED;
 
     /**
      * Returns the opposite of the current object.

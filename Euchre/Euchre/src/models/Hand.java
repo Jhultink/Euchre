@@ -32,14 +32,18 @@ public class Hand {
     public ArrayList<Card> getCards() {
     	return cards;
     }
-    
-    public void setCards(ArrayList<Card> newCards) {
+    /**
+     * @param newCards sets contents of hands to cards
+     */
+    public void setCards(final ArrayList<Card> newCards) {
     	this.cards = newCards;
     }
     
     
-    
-    public boolean isEmpty(){
+    /**
+     * @return if Hand is empty
+     */
+    public boolean isEmpty() {
     	return cards.isEmpty();
     }
 }

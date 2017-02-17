@@ -2,26 +2,28 @@ package view;
 
 import javax.swing.JPanel;
 import models.Player;
-
+/**
+ * JPanel that holds a player.
+ */
 public class PlayerPanel extends JPanel {
-	private Player panelPlayer;
-
 	/**
-	 * Default Constructor for 
-	 *
-	PlayerPanel() {
-		this.panelPlayer = null;
-	}
-	
-	PlayerPanel(Player newPlayer) {
-	    this.panelPlayer = newPlayer;
-	}*/ 
-
+   * Serial ID.
+   */
+  private static final long serialVersionUID = 1L;
+  /**
+   * Player who owns this panel.
+   */
+  private Player panelPlayer;
+	/**
+	 * @return player associated with this panel
+	 */
 	public Player getPlayer() {
 		return this.panelPlayer;
 	}
-
-	public void setPlayer(Player newPlayer) {
+/**
+ * @param newPlayer player to assign
+ */
+	public void setPlayer(final Player newPlayer) {
 		this.panelPlayer = newPlayer;
 	}
 }

@@ -2,7 +2,9 @@ package view;
 
 import java.awt.Dimension;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+
 import models.Card;
 import models.Player;
 
@@ -13,16 +15,26 @@ import models.Player;
  *
  */
 public class CardButton extends JButton {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+  /**
+   * Button associated with this button.
+   */
 	private Card buttonCard;
+	/**
+	 * Player who has this card.
+	 */
 	private Player owner;
 
 	/**
 	 * Constructor for the CardButton class.
 	 * 
-	 * @param c
-	 *            card parameter passed in
+	 * @param c card parameter passed in
+	 * @param p player who has card
 	 */
-	CardButton(Card c, Player p) {
+	CardButton(final Card c, final Player p) {
 		this.buttonCard = c;
 		this.owner = p;
 		this.setText(buttonCard.getCardStringValue());
@@ -36,7 +48,7 @@ public class CardButton extends JButton {
 	 * 
 	 * @return card associated with the button pressed
 	 */
-	Card getCard() {
+	public Card getCard() {
 		return this.buttonCard;
 	}
 
@@ -48,10 +60,10 @@ public class CardButton extends JButton {
 	}
 
 	/**
-	 * @param owner the owner to set
+	 * @param mOwner the owner to set
 	 */
-	public void setOwner(Player owner) {
-		this.owner = owner;
+	public void setOwner(final Player mOwner) {
+		this.owner = mOwner;
 	}
 
 }

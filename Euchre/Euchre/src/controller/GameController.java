@@ -37,12 +37,12 @@ public class GameController {
 	}
 
 	/**
-	 * Starts the game with Red One
+	 * Starts the game with Red One.
 	 */
 	public void start() {
 		model.newHand(Teams.RED, PlayerNumber.FIRST);
 		view.render(model);
-		selectTrump(model);
+		selectTrump();
 	}
 
 	/**
@@ -53,26 +53,25 @@ public class GameController {
 	 * @param player
 	 *            player who played card
 	 */
-	public void playCard(Card chosenCard, Player player) {
+	public void playCard(final Card chosenCard, final Player player) {
 		if (model.isValidPlay(chosenCard, player)) {
 			model.getCurrentPlayer().getHand().getCards().remove(chosenCard);
 
-			model.cardsInPlay.setCard(chosenCard, model.getCurrentTeam(), model.getCurrentPlayerNumber());
+			model.getCardsInPlay().setCard(chosenCard, model.getCurrentTeam(), 
+			    model.getCurrentPlayerNumber());
 		}
 		view.render(model);
 	}
 
 	/**
-	 * Called by view when trick is over
+	 * Called by view when trick is over.
 	 */
-	public void trickOver()
-	{
+	public void trickOver() {
 		JOptionPane.showMessageDialog(view.getFrame(), "Trick over");		
 		clearTable();		
-		selectTrump(model);
 	}	
 	/**
-	 *  Creates new game
+	 *  Creates new game.
 	 */
 	public void newGame() {
 		view.close();
@@ -89,7 +88,7 @@ public class GameController {
 	}
 
 	/**
-	 * clears the table
+	 * clears the table.
 	 */
 	public void clearTable() {
 		this.model.clearTable();
@@ -99,30 +98,40 @@ public class GameController {
 	}
 
 	/**
-	 * Select trumps and sets up the passed model
+	 * Select trumps and sets up the model.
 	 */
-	public void selectTrump(GameModel model)
-	{
+	public void selectTrump() {
+	  
+	  // Save state of players in model
+	  Teams startingTeam = model.getCurrentTeam();
+	  PlayerNumber startingPlayerNumber = model.getCurrentPlayerNumber();
+	  
 		boolean isTrumpSelected = false;
 		boolean allPlayersPassed = false;
 		int playersPassed = 0;
 		
-		while(!isTrumpSelected && !allPlayersPassed)
-		{						
+		while (!isTrumpSelected && !allPlayersPassed) {
+		  
+		  // Display option pane
 			String[] buttons = {"Take card", "Pass" };
-			String displayMessage = model.getCurrentTeam().name() + " " + model.getCurrentPlayerNumber().name()
-					+ ", do you want to take this card? \n\n\t " + model.getTrumpCard().getCardStringValue();
-			
-			int returnValue = JOptionPane.showOptionDialog(view.getFrame(), displayMessage, "Select trump",
-			        JOptionPane.PLAIN_MESSAGE, 0, null, buttons, buttons[0]);
+			String displayMessage = model.getCurrentTeam().name() 
+			  + " " + model.getCurrentPlayerNumber().name()
+				+ ", do you want to take this card? \n\n"
+			  + model.getTrumpCard().getCardStringValue();
+			int returnValue = JOptionPane.showOptionDialog(view.getFrame(), 
+			    displayMessage, "Select trump",
+			    JOptionPane.PLAIN_MESSAGE, 0, null, buttons, buttons[0]);
 			
 			isTrumpSelected = (returnValue == 0);
 			
 			model.nextPlayer();
-			playersPassed++;
+			playersPassed++; 
 			allPlayersPassed = (playersPassed == 4);			
 		}
 		
+		
+		// Reset original starting players
+
 		
 	}
 	

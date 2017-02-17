@@ -2,8 +2,6 @@ package models;
 
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 /**
  * Class that contains necessary components to run a Euchre game instance.
  * 
@@ -27,7 +25,7 @@ public class GameModel {
 	private Suit trumpSuit;
 	
 	/**
-	 * initial trump card
+	 * initial trump card.
 	 */
 	private Card trumpCard;
 
@@ -60,9 +58,16 @@ public class GameModel {
 	 * Holds the 4 cards played by each player or null if they haven't played
 	 * yet.
 	 */
-	public CardsInPlay cardsInPlay;
+	private CardsInPlay cardsInPlay;
 
 	/**
+   * @return the cardsInPlay
+   */
+  public CardsInPlay getCardsInPlay() {
+    return cardsInPlay;
+  }
+
+  /**
 	 * Black team overall game score.
 	 */
 	private int blackGameScore;
@@ -109,7 +114,8 @@ public class GameModel {
 	 * @param startingPlayerNumber
 	 *            First player to get a hand
 	 */
-	public void newHand(final Teams startingTeam, final PlayerNumber startingPlayerNumber) {
+	public void newHand(final Teams startingTeam, 
+	    final PlayerNumber startingPlayerNumber) {
 		deck.shuffle();
 		dealOutCards();
 
@@ -127,9 +133,13 @@ public class GameModel {
 		return getPlayer(currentTeam, currentPlayerNumber);
 	}
 
-	public void setCurrentPlayer(Player currentPlayer) {
-		currentTeam = currentPlayer.team;
-		currentPlayerNumber = currentPlayer.playerPosition;
+	/**
+	 * Sets the current player.
+	 * @param currentPlayer player to set as current player
+	 */
+	public void setCurrentPlayer(final Player currentPlayer) {
+		currentTeam = currentPlayer.getTeam();
+		currentPlayerNumber = currentPlayer.getPlayerPosition();
 	}
 
 	/**
@@ -189,16 +199,21 @@ public class GameModel {
 	/**
 	 * Checks to see if a card is playable.
 	 * 
-	 * @param selectedCard
-	 *            Card to check ability to play
+	 * @param selectedCard Card to check ability to play
+	 * @param player current player
 	 * @return boolean value of card's ability to be played
 	 */
-	public boolean isValidPlay(Card selectedCard, Player player) {
-		if (!getCurrentPlayer().equals(player))
-			return false;
+	public boolean isValidPlay(final Card selectedCard, final Player player) {
+		if (!getCurrentPlayer().equals(player)) {
+      return false;
+		}
 		return true;
 	}
-
+	
+  /**
+   * @return all card in players hands, 
+   * not including those that are currently in play
+   */
 	public ArrayList<Card> getAllCards() {
 		ArrayList<Card> cards = getHandOf(Teams.RED, PlayerNumber.FIRST).getCards();
 		cards.addAll(getHandOf(Teams.RED, PlayerNumber.SECOND).getCards());
@@ -224,7 +239,24 @@ public class GameModel {
 		return currentPlayerNumber;
 	}
 
-	public void clearTable() {
+	/**
+   * @param pCurrentTeam the currentTeam to set
+   */
+  public void setCurrentTeam(final Teams pCurrentTeam) {
+    this.currentTeam = pCurrentTeam;
+  }
+
+  /**
+   * @param pCurrentPlayerNumber the currentPlayerNumber to set
+   */
+  public void setCurrentPlayerNumber(final PlayerNumber pCurrentPlayerNumber) {
+    this.currentPlayerNumber = pCurrentPlayerNumber;
+  }
+
+  /**
+   * Clears table.
+   */
+  public void clearTable() {
 		cardsInPlay.clear();
 	}
 
@@ -234,37 +266,44 @@ public class GameModel {
 	 * @return boolean value of players still having cards.
 	 */
 	public boolean isHandOver() {
-		return blackOne.getHand().getCards().isEmpty() && blackTwo.getHand().getCards().isEmpty()
-				&& redOne.getHand().getCards().isEmpty() && redTwo.getHand().getCards().isEmpty();
+		return blackOne.getHand().getCards().isEmpty() 
+		    && blackTwo.getHand().getCards().isEmpty()
+				&& redOne.getHand().getCards().isEmpty() 
+				&& redTwo.getHand().getCards().isEmpty();
 	}
 	
 	/**
 	 * @return current trump card
 	 */
-	public Card getTrumpCard(){
+	public Card getTrumpCard() {
 		return trumpCard;
 	}
 	
 	/**
 	 * @return current trump suit
 	 */
-	public Suit getTrumpSuit(){
+	public Suit getTrumpSuit() {
 		return trumpSuit;
 	}
 	
 	/**
-	 * Sets the next player as the current player
+	 * Sets the next player as the current player.
+	 * @return the current player after switching
 	 */
-	public Player nextPlayer(){
+	public Player nextPlayer() {
 		
-		if(currentPlayerNumber == PlayerNumber.FIRST && currentTeam == Teams.RED ){
+		if (currentPlayerNumber == PlayerNumber.FIRST 
+		    && currentTeam == Teams.RED) {
 			currentTeam = Teams.BLACK;
-		} else if (currentPlayerNumber == PlayerNumber.FIRST && currentTeam == Teams.BLACK) {
+		} else if (currentPlayerNumber == PlayerNumber.FIRST 
+		    && currentTeam == Teams.BLACK) {
 			currentTeam = Teams.RED;
 			currentPlayerNumber = PlayerNumber.SECOND;
-		} else if(currentPlayerNumber == PlayerNumber.SECOND && currentTeam == Teams.RED) {
+		} else if (currentPlayerNumber == PlayerNumber.SECOND
+		    && currentTeam == Teams.RED) {
 			currentTeam = Teams.BLACK;
-		} else if (currentPlayerNumber == PlayerNumber.SECOND && currentTeam == Teams.BLACK) {
+		} else if (currentPlayerNumber == PlayerNumber.SECOND 
+		    && currentTeam == Teams.BLACK) {
 			currentPlayerNumber = PlayerNumber.FIRST;
 			currentTeam = Teams.RED;
 		}

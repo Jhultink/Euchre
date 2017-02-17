@@ -27,24 +27,24 @@ import models.Teams;
 
 public class View implements MouseListener, ActionListener {
 
-    private GameController controller;
-    private JFrame frame;
-    private JMenuBar menu;
-    private JMenu fileMenu;
-    private JMenuItem newGameItem;
-    private JMenuItem quitGameItem;
-    private PlayerPanel topPanel;
-    private PlayerPanel rightPanel;
-    private PlayerPanel bottomPanel;
-    private PlayerPanel leftPanel;
-    private JPanel centerPanel;    
-    private GameModel game;
-    private Player r1;
-    private Player r2;
-    private Player b1;
-    private Player b2;
-    private Player[] playerArray;
-    private ArrayList<CardButton> centerButtons;
+	private GameController controller;
+	private JFrame frame;
+	private JMenuBar menu;
+	private JMenu fileMenu;
+	private JMenuItem newGameItem;
+	private JMenuItem quitGameItem;
+	private PlayerPanel topPanel;
+	private PlayerPanel rightPanel;
+	private PlayerPanel bottomPanel;
+	private PlayerPanel leftPanel;
+	private JPanel centerPanel;
+	private GameModel game;
+	private Player r1;
+	private Player r2;
+	private Player b1;
+	private Player b2;
+	private Player[] playerArray;
+	private ArrayList<CardButton> centerButtons;
 
 	/**
 	 * Default Constructor for View Class.
@@ -69,7 +69,7 @@ public class View implements MouseListener, ActionListener {
 		playerArray[1] = b1;
 		playerArray[2] = r2;
 		playerArray[3] = b2;
-		
+
 		// Set up menu bar
 		menu = new JMenuBar();
 		fileMenu = new JMenu("File");
@@ -86,23 +86,19 @@ public class View implements MouseListener, ActionListener {
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
 
 		rightPanel = new PlayerPanel();
-		rightPanel.setLayout(
-				new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+		rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 
 		bottomPanel = new PlayerPanel();
-		bottomPanel.setLayout(
-				new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
 
 		leftPanel = new PlayerPanel();
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 
 		centerPanel = new JPanel();
-		centerPanel.setLayout(
-				new BoxLayout(centerPanel, BoxLayout.X_AXIS));
-		
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
+
 		frame.setLayout(new BorderLayout());
 
-		
 		frame.add(topPanel, BorderLayout.NORTH);
 		frame.add(rightPanel, BorderLayout.EAST);
 		frame.add(bottomPanel, BorderLayout.SOUTH);
@@ -113,36 +109,37 @@ public class View implements MouseListener, ActionListener {
 
 	/**
 	 * Render class renders UI for the Euchre game.
-	 * @param model model to be rendered
+	 * 
+	 * @param model
+	 *            model to be rendered
 	 */
-	public void render(GameModel model) {	
-	    	
+	public void render(GameModel model) {
+
 		frame.setVisible(true);
 		this.game = model;
 		game.setCurrentPlayer(playerArray[0]);
-		
+
 		// Clear panel and add cards
 		topPanel.removeAll();
-		//set player assigned to panel
+		// set player assigned to panel
 		topPanel.setPlayer(playerArray[2]);
-		//set label for panel
+		// set label for panel
 		JLabel thirdPlayer = new JLabel(topPanel.getPlayer().toString() + ":   ");
 		topPanel.add(thirdPlayer);
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
 		for (Card card : topPanel.getPlayer().getHand().getCards()) {
-		    	CardButton button = new CardButton(card, topPanel.getPlayer());
+			CardButton button = new CardButton(card, topPanel.getPlayer());
 			if (topPanel.getPlayer().team == Teams.RED) {
-			    button.setBackground(Color.RED);
+				button.setBackground(Color.RED);
 			} else {
-			    button.setBackground(Color.BLACK);
-			    button.setForeground(Color.WHITE);
+				button.setBackground(Color.BLACK);
+				button.setForeground(Color.WHITE);
 			}
 			topPanel.add(button);
 		}
 		topPanel.add(Box.createHorizontalGlue()); // for spacing
 		topPanel.setBackground(Color.WHITE);
 
-		
 		// Clear panel and add cards
 		rightPanel.removeAll();
 		rightPanel.setPlayer(playerArray[1]);
@@ -150,12 +147,12 @@ public class View implements MouseListener, ActionListener {
 		JLabel secondPlayer = new JLabel(rightPanel.getPlayer().toString() + ":   ");
 		rightPanel.add(secondPlayer);
 		for (Card card : (rightPanel.getPlayer().getHand().getCards())) {
-			CardButton button = new CardButton(card, rightPanel.getPlayer()); 
+			CardButton button = new CardButton(card, rightPanel.getPlayer());
 			if (rightPanel.getPlayer().team == Teams.RED) {
-			    button.setBackground(Color.RED);
+				button.setBackground(Color.RED);
 			} else {
-			    button.setBackground(Color.BLACK);
-			    button.setForeground(Color.WHITE);
+				button.setBackground(Color.BLACK);
+				button.setForeground(Color.WHITE);
 			}
 			rightPanel.add(button);
 		}
@@ -171,17 +168,16 @@ public class View implements MouseListener, ActionListener {
 		for (Card card : bottomPanel.getPlayer().getHand().getCards()) {
 			CardButton button = new CardButton(card, bottomPanel.getPlayer());
 			if (bottomPanel.getPlayer().team == Teams.RED) {
-			    button.setBackground(Color.RED);
+				button.setBackground(Color.RED);
 			} else {
-			    button.setBackground(Color.BLACK);
-			    button.setForeground(Color.WHITE);
+				button.setBackground(Color.BLACK);
+				button.setForeground(Color.WHITE);
 			}
 			button.addMouseListener(this);
 			bottomPanel.add(button);
 		}
 		bottomPanel.add(Box.createHorizontalGlue()); // for spacing
 		bottomPanel.setBackground(Color.WHITE);
-		
 
 		// Clear panel and add cards
 		leftPanel.removeAll();
@@ -192,45 +188,40 @@ public class View implements MouseListener, ActionListener {
 		for (Card card : leftPanel.getPlayer().getHand().getCards()) {
 			CardButton button = new CardButton(card, leftPanel.getPlayer());
 			if (leftPanel.getPlayer().team == Teams.RED) {
-			    button.setBackground(Color.RED);
+				button.setBackground(Color.RED);
 			} else {
-			    button.setBackground(Color.BLACK);
-			    button.setForeground(Color.WHITE);
+				button.setBackground(Color.BLACK);
+				button.setForeground(Color.WHITE);
 			}
 			leftPanel.add(button);
 		}
 		leftPanel.add(Box.createVerticalGlue()); // for spacing
 		leftPanel.setBackground(Color.WHITE);
-		
 
 		centerPanel.removeAll();
-		 JPanel centerPanelOrganizer = new JPanel(new BorderLayout());
-		
+		JPanel centerPanelOrganizer = new JPanel(new BorderLayout());
+
 		if (game.cardsInPlay.getBlackOneCard() != null) {
-			centerPanelOrganizer.add(new Button(game.cardsInPlay
-					.getBlackOneCard().getCardStringValue()), 
-					 BorderLayout.WEST);
+			centerPanelOrganizer.add(new Button(game.cardsInPlay.getBlackOneCard().getCardStringValue()),
+					BorderLayout.WEST);
 		}
 		if (game.cardsInPlay.getRedOneCard() != null) {
-			centerPanelOrganizer.add(new Button(game.cardsInPlay
-					.getRedOneCard().getCardStringValue()),
-					 BorderLayout.NORTH);
+			centerPanelOrganizer.add(new Button(game.cardsInPlay.getRedOneCard().getCardStringValue()),
+					BorderLayout.NORTH);
 		}
 		if (game.cardsInPlay.getBlackTwoCard() != null) {
-			centerPanelOrganizer.add(new Button(game.cardsInPlay
-					.getBlackTwoCard().getCardStringValue()),
-					 BorderLayout.EAST);
+			centerPanelOrganizer.add(new Button(game.cardsInPlay.getBlackTwoCard().getCardStringValue()),
+					BorderLayout.EAST);
 		}
 		if (game.cardsInPlay.getRedTwoCard() != null) {
-			centerPanelOrganizer.add(new Button(game.cardsInPlay
-					.getRedTwoCard().getCardStringValue()),
-					 BorderLayout.SOUTH);
-		}			
+			centerPanelOrganizer.add(new Button(game.cardsInPlay.getRedTwoCard().getCardStringValue()),
+					BorderLayout.SOUTH);
+		}
 		centerPanelOrganizer.setBackground(Color.WHITE);
 		centerPanelOrganizer.setMaximumSize(new Dimension(550, 500));
 		centerPanelOrganizer.setMinimumSize(new Dimension(550, 500));
 		centerPanel.add(centerPanelOrganizer);
-				
+
 		frame.revalidate();
 		frame.repaint();
 
@@ -243,13 +234,13 @@ public class View implements MouseListener, ActionListener {
 	 *            System registered event
 	 */
 	public void actionPerformed(ActionEvent ae) {
-	    if (ae.getSource() == quitGameItem) {
-		System.exit(0);
-	    }
-	    
-	    if (ae.getSource() == newGameItem) {
-		controller.newGame();
-	    }
+		if (ae.getSource() == quitGameItem) {
+			System.exit(0);
+		}
+
+		if (ae.getSource() == newGameItem) {
+			controller.newGame();
+		}
 	}
 
 	/**
@@ -261,25 +252,24 @@ public class View implements MouseListener, ActionListener {
 	 */
 	public void mouseClicked(final MouseEvent event) {
 		Object obj = event.getSource();
-		
-		if (obj instanceof CardButton) {	
-			CardButton clickedButton = (CardButton) obj;	
+
+		if (obj instanceof CardButton) {
+			CardButton clickedButton = (CardButton) obj;
 			if (clickedButton.getParent().equals(bottomPanel)) {
 				Card clickedCard = clickedButton.getCard();
 				if (game.isValidPlay(clickedCard, clickedButton.getOwner())) {
 					playerArray = rotatePlayerArray(playerArray);
 					centerButtons.add(clickedButton);
 					controller.playCard(clickedCard, clickedButton.getOwner());
-					if (game.cardsInPlay.allPlayed()) {
-					    JOptionPane.showMessageDialog(frame, "The round is over. Clearing board.");
-					    controller.clearTable();
-					}
+
+					if (game.cardsInPlay.allPlayed())
+						controller.trickOver();
 				}
 			}
 		}
-		
+
 		if (event.getSource().equals(quitGameItem)) {
-		    System.exit(0);
+			System.exit(0);
 		}
 	}
 
@@ -322,22 +312,31 @@ public class View implements MouseListener, ActionListener {
 	public void mousePressed(MouseEvent event) {
 
 	}
-	
+
 	/**
 	 * Rotates the player array.
-	 * @param arrayToRotate Array to be rotated
+	 * 
+	 * @param arrayToRotate
+	 *            Array to be rotated
 	 * @return rotated array
 	 */
 	public Player[] rotatePlayerArray(Player[] arrayToRotate) {
-	    Player[] tempArray = new Player[4];
-	    tempArray[0] = arrayToRotate[1];
-	    tempArray[1] = arrayToRotate[2];
-	    tempArray[2] = arrayToRotate[3];
-	    tempArray[3] = arrayToRotate[0];
-	    return tempArray;
+		Player[] tempArray = new Player[4];
+		tempArray[0] = arrayToRotate[1];
+		tempArray[1] = arrayToRotate[2];
+		tempArray[2] = arrayToRotate[3];
+		tempArray[3] = arrayToRotate[0];
+		return tempArray;
+	}
+
+	public void close() {
+		frame.dispose();
 	}
 	
-	public void close() {
-	    frame.dispose();
+	/**
+	 * @return frame for centering JOption panes
+	 */
+	public JFrame getFrame(){
+		return this.frame;
 	}
 }

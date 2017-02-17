@@ -37,13 +37,12 @@ public class GameController {
 	}
 
 	/**
-	 * .
+	 * Starts the game with Red One
 	 */
 	public void start() {
-
 		model.newHand(Teams.RED, PlayerNumber.FIRST);
 		view.render(model);
-
+		selectTrump(model);
 	}
 
 	/**
@@ -68,12 +67,10 @@ public class GameController {
 	 */
 	public void trickOver()
 	{
-		//clearTable();
-		
-		JOptionPane.showMessageDialog(view.getFrame(), "Trick over");
-		
-	}
-	
+		JOptionPane.showMessageDialog(view.getFrame(), "Trick over");		
+		clearTable();		
+		selectTrump(model);
+	}	
 	/**
 	 *  Creates new game
 	 */
@@ -92,7 +89,7 @@ public class GameController {
 	}
 
 	/**
-	 * .
+	 * clears the table
 	 */
 	public void clearTable() {
 		this.model.clearTable();
@@ -101,4 +98,32 @@ public class GameController {
 		refresh();
 	}
 
+	/**
+	 * Select trumps and sets up the passed model
+	 */
+	public void selectTrump(GameModel model)
+	{
+		boolean isTrumpSelected = false;
+		boolean allPlayersPassed = false;
+		int playersPassed = 0;
+		
+		while(!isTrumpSelected && !allPlayersPassed)
+		{						
+			String[] buttons = {"Take card", "Pass" };
+			String displayMessage = model.getCurrentTeam().name() + " " + model.getCurrentPlayerNumber().name()
+					+ ", do you want to take this card? \n\n\t " + model.getTrumpCard().getCardStringValue();
+			
+			int returnValue = JOptionPane.showOptionDialog(view.getFrame(), displayMessage, "Select trump",
+			        JOptionPane.PLAIN_MESSAGE, 0, null, buttons, buttons[0]);
+			
+			isTrumpSelected = (returnValue == 0);
+			
+			model.nextPlayer();
+			playersPassed++;
+			allPlayersPassed = (playersPassed == 4);			
+		}
+		
+		
+	}
+	
 }

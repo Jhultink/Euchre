@@ -34,8 +34,10 @@ public class Hand {
     }
     
     public void setCards(ArrayList<Card> newCards) {
-	this.cards = newCards;
+    	this.cards = newCards;
     }
+    
+    
     
     public boolean isEmpty(){
     	return cards.isEmpty();

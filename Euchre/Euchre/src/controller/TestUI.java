@@ -1,18 +1,19 @@
 package controller;
-
+/*
 import org.junit.Before;
 import org.junit.Test;
-import view.View;
+import models.GameModel;
+*/
 
 /**
  * Tests for UI.
  */
 public class TestUI {
-
+/*
   // View view;
   /**
    * Initializes a new View.
-   */
+   *
   @Before
   public void setupView() {
    // view = new View();
@@ -20,12 +21,11 @@ public class TestUI {
 
   /**
    * Tests a simple view.
-   */
+   *
   @Test
   public void test() {
-    // GameModel model = new GameModel();
-    // model.newHand(Teams.RED, PlayerNumber.FIRST);
+    GameModel model = new GameModel();
 
-    // view.render(model);
-  }
+    view.render(model);
+  }*/
 }

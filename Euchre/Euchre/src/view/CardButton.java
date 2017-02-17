@@ -1,7 +1,11 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.Image;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
@@ -41,6 +45,14 @@ public class CardButton extends JButton {
 		this.setMaximumSize(new Dimension(150, 50));
 		this.setHorizontalTextPosition(SwingConstants.LEFT);
 		this.validate();
+		try {
+		  Image img = ImageIO.read(getClass().getResource("src/card.png"));
+		  this.setIcon(new ImageIcon(img));
+		  this.setBorder(BorderFactory.createEmptyBorder());
+		  this.setContentAreaFilled(false);
+		} catch (Exception e) {
+		  System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
+		}
 	}
 
 	/**
@@ -64,6 +76,14 @@ public class CardButton extends JButton {
 	 */
 	public void setOwner(final Player mOwner) {
 		this.owner = mOwner;
+	}
+	
+	public void isVertical() {
+	  this.setMaximumSize(new Dimension(150, 300));
+	}
+	
+	public void isHorizontal() {
+	  this.setMaximumSize(new Dimension(300, 150));
 	}
 
 }

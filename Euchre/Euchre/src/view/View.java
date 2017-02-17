@@ -175,6 +175,7 @@ public class View implements MouseListener, ActionListener {
 
     for (Card card : topPanel.getPlayer().getHand().getCards()) {
       CardButton button = new CardButton(card, topPanel.getPlayer());
+      button.isHorizontal();
       if (topPanel.getPlayer().getTeam() == Teams.RED) {
         button.setBackground(Color.RED);
       } else {
@@ -196,6 +197,7 @@ public class View implements MouseListener, ActionListener {
 
     for (Card card : (rightPanel.getPlayer().getHand().getCards())) {
       CardButton button = new CardButton(card, rightPanel.getPlayer());
+      button.isVertical();
       if (rightPanel.getPlayer().getTeam() == Teams.RED) {
         button.setBackground(Color.RED);
       } else {
@@ -216,6 +218,7 @@ public class View implements MouseListener, ActionListener {
     bottomPanel.add(currentPlayer);
     for (Card card : bottomPanel.getPlayer().getHand().getCards()) {
       CardButton button = new CardButton(card, bottomPanel.getPlayer());
+      button.isHorizontal();
       if (bottomPanel.getPlayer().getTeam() == Teams.RED) {
         button.setBackground(Color.RED);
       } else {
@@ -236,6 +239,7 @@ public class View implements MouseListener, ActionListener {
     leftPanel.add(Box.createVerticalGlue()); // for spacing
     for (Card card : leftPanel.getPlayer().getHand().getCards()) {
       CardButton button = new CardButton(card, leftPanel.getPlayer());
+      button.isVertical();
       if (leftPanel.getPlayer().getTeam() == Teams.RED) {
         button.setBackground(Color.RED);
       } else {

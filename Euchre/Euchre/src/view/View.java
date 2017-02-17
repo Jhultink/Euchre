@@ -29,11 +29,8 @@ public class View implements MouseListener, ActionListener {
 
 	private GameController controller;
 	private JFrame frame;
-	//private JMenuBar menu;
-	//private JMenu fileMenu;
 	private JMenuItem newGameItem;
 	private JMenuItem quitGameItem;
-	//private JMenu helpMenu;
 	private JMenuItem strategiesItem;
 	private JMenuItem aboutItem;
 	private PlayerPanel topPanel;

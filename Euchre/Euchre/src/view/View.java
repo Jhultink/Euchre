@@ -33,6 +33,9 @@ public class View implements MouseListener, ActionListener {
 	private JMenu fileMenu;
 	private JMenuItem newGameItem;
 	private JMenuItem quitGameItem;
+	private JMenu helpMenu;
+	private JMenuItem strategiesItem;
+	private JMenuItem aboutItem;
 	private PlayerPanel topPanel;
 	private PlayerPanel rightPanel;
 	private PlayerPanel bottomPanel;
@@ -73,13 +76,29 @@ public class View implements MouseListener, ActionListener {
 		// Set up menu bar
 		menu = new JMenuBar();
 		fileMenu = new JMenu("File");
+		helpMenu = new JMenu("Help");
+		
 		quitGameItem = new JMenuItem("Quit");
+		quitGameItem.addActionListener(this);
+		
 		newGameItem = new JMenuItem("New Game");
 		newGameItem.addActionListener(this);
-		quitGameItem.addActionListener(this);
+		
+		strategiesItem = new JMenuItem("Strategies");
+		strategiesItem.addActionListener(this);
+		
+		aboutItem = new JMenuItem("About");
+		aboutItem.addActionListener(this);
+		
+		helpMenu.add(aboutItem);
+		helpMenu.add(strategiesItem);
+		
 		fileMenu.add(quitGameItem);
 		fileMenu.add(newGameItem);
+		
 		menu.add(fileMenu);
+		menu.add(helpMenu);
+		
 		frame.setJMenuBar(menu);
 
 		topPanel = new PlayerPanel();
@@ -233,13 +252,21 @@ public class View implements MouseListener, ActionListener {
 	 * @param ae
 	 *            System registered event
 	 */
-	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource() == quitGameItem) {
+	public void actionPerformed(ActionEvent actionEvent) {
+		if (actionEvent.getSource() == quitGameItem) {
 			System.exit(0);
 		}
 
-		if (ae.getSource() == newGameItem) {
+		if (actionEvent.getSource() == newGameItem) {
 			controller.newGame();
+		}
+		
+		if (actionEvent.getSource() == aboutItem) {
+		    
+		}
+		
+		if (actionEvent.getSource() == strategiesItem) {
+		    
 		}
 	}
 
@@ -320,7 +347,7 @@ public class View implements MouseListener, ActionListener {
 	 *            Array to be rotated
 	 * @return rotated array
 	 */
-	public Player[] rotatePlayerArray(Player[] arrayToRotate) {
+	public Player[] rotatePlayerArray(final Player[] arrayToRotate) {
 		Player[] tempArray = new Player[4];
 		tempArray[0] = arrayToRotate[1];
 		tempArray[1] = arrayToRotate[2];

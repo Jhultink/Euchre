@@ -2,12 +2,15 @@ package controller;
 
 import view.View;
 
+import java.awt.image.RescaleOp;
+
 import javax.swing.JOptionPane;
 
 import models.Card;
 import models.GameModel;
 import models.Player;
 import models.PlayerNumber;
+import models.Suit;
 import models.Teams;
 
 /**
@@ -122,6 +125,7 @@ public class GameController {
 			    displayMessage, "Select trump",
 			    JOptionPane.PLAIN_MESSAGE, 0, null, buttons, buttons[0]);
 			
+			// If selected "Take card" then trump has been selected
 			isTrumpSelected = (returnValue == 0);
 			
 			model.nextPlayer();
@@ -129,10 +133,72 @@ public class GameController {
 			allPlayersPassed = (playersPassed == 4);			
 		}
 		
+		if (!isTrumpSelected) {
+		  
+		  allPlayersPassed = false;
+		  playersPassed = 0;
+		  
+		  while (!isTrumpSelected && !allPlayersPassed) {
+		    
+		    String[] buttons = {"Hearts", "Diamonds", "Clubs", "Spades", "Pass" };
+		    
+	      String displayMessage = model.getCurrentTeam().name() 
+	        + " " + model.getCurrentPlayerNumber().name()
+	        + ", do you want to select trump?";
+	      
+	      int returnValue = JOptionPane.showOptionDialog(view.getFrame(), 
+	          displayMessage, "Select trump",
+	          JOptionPane.PLAIN_MESSAGE, 0, null, buttons, buttons[0]);
+	      
+	      // If selected anything but "pass" then trump has been selected
+	      isTrumpSelected = (returnValue != 4);
+	      
+	      if (isTrumpSelected) {
+	        if (returnValue == 0) {
+	          model.setTrumpSuit(Suit.HEARTS);
+          } else if (returnValue == 1) {
+            model.setTrumpSuit(Suit.DIAMONDS);
+          } else if (returnValue == 2) {
+            model.setTrumpSuit(Suit.CLUBS);
+          } else if (returnValue == 3) {
+            model.setTrumpSuit(Suit.SPADES);
+          }
+	      }
+	      
+	      model.nextPlayer();
+	      playersPassed++; 
+	      allPlayersPassed = (playersPassed == 3);	      
+		  }
+		  
+		  // "Screw the dealer" case
+		  if (allPlayersPassed && !isTrumpSelected) {
+		    String[] buttons = {"Hearts", "Diamonds", "Clubs", "Spades" };
+        
+        String displayMessage = model.getCurrentTeam().name() 
+          + " " + model.getCurrentPlayerNumber().name()
+          + ", please select trump.";
+        
+        int returnValue = JOptionPane.showOptionDialog(view.getFrame(), 
+            displayMessage, "Select trump",
+            JOptionPane.PLAIN_MESSAGE, 0, null, buttons, buttons[0]);
+        
+        if (isTrumpSelected) {
+          if (returnValue == 0) {
+            model.setTrumpSuit(Suit.HEARTS);
+          } else if (returnValue == 1) {
+            model.setTrumpSuit(Suit.DIAMONDS);
+          } else if (returnValue == 2) {
+            model.setTrumpSuit(Suit.CLUBS);
+          } else if (returnValue == 3) {
+            model.setTrumpSuit(Suit.SPADES);
+          }
+        }
+		  }
+		  
+		}	
 		
 		// Reset original starting players
-
-		
-	}
-	
+		model.setCurrentTeam(startingTeam);
+		model.setCurrentPlayerNumber(startingPlayerNumber);		
+	}	
 }

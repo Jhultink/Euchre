@@ -311,4 +311,11 @@ public class GameModel {
 		return getCurrentPlayer();
 	}
 
+	/**
+	 * @param pTrumpSuit suit to set as trump
+	 */
+  public void setTrumpSuit(final Suit pTrumpSuit) {
+    this.trumpSuit = pTrumpSuit;
+  }
+
 }

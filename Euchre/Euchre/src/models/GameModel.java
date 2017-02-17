@@ -24,7 +24,12 @@ public class GameModel {
 	/**
 	 * Suit of current trump.
 	 */
-	private Suit trump;
+	private Suit trumpSuit;
+	
+	/**
+	 * initial trump card
+	 */
+	private Card trumpCard;
 
 	/**
 	 * Black team, player one.
@@ -81,9 +86,7 @@ public class GameModel {
 	 * Initializes the four players.
 	 */
 	public GameModel() {
-		
-		trump = null;
-		
+
 		blackOne = new Player(Teams.BLACK, PlayerNumber.FIRST);
 		blackTwo = new Player(Teams.BLACK, PlayerNumber.SECOND);
 		redOne = new Player(Teams.RED, PlayerNumber.FIRST);
@@ -178,6 +181,9 @@ public class GameModel {
 		redTwo.setHand(deal.getRedTwo());
 		blackOne.setHand(deal.getBlackOne());
 		blackTwo.setHand(deal.getBlackTwo());
+		
+		trumpCard = deal.getTrump();
+		trumpSuit = trumpCard.getCardSuit();
 	}
 
 	/**
@@ -230,6 +236,40 @@ public class GameModel {
 	public boolean isHandOver() {
 		return blackOne.getHand().getCards().isEmpty() && blackTwo.getHand().getCards().isEmpty()
 				&& redOne.getHand().getCards().isEmpty() && redTwo.getHand().getCards().isEmpty();
+	}
+	
+	/**
+	 * @return current trump card
+	 */
+	public Card getTrumpCard(){
+		return trumpCard;
+	}
+	
+	/**
+	 * @return current trump suit
+	 */
+	public Suit getTrumpSuit(){
+		return trumpSuit;
+	}
+	
+	/**
+	 * Sets the next player as the current player
+	 */
+	public Player nextPlayer(){
+		
+		if(currentPlayerNumber == PlayerNumber.FIRST && currentTeam == Teams.RED ){
+			currentTeam = Teams.BLACK;
+		} else if (currentPlayerNumber == PlayerNumber.FIRST && currentTeam == Teams.BLACK) {
+			currentTeam = Teams.RED;
+			currentPlayerNumber = PlayerNumber.SECOND;
+		} else if(currentPlayerNumber == PlayerNumber.SECOND && currentTeam == Teams.RED) {
+			currentTeam = Teams.BLACK;
+		} else if (currentPlayerNumber == PlayerNumber.SECOND && currentTeam == Teams.BLACK) {
+			currentPlayerNumber = PlayerNumber.FIRST;
+			currentTeam = Teams.RED;
+		}
+		
+		return getCurrentPlayer();
 	}
 
 }

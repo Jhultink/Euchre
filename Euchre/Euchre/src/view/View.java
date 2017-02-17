@@ -301,10 +301,14 @@ public class View implements MouseListener, ActionListener {
 
     if (actionEvent.getSource() == aboutItem) {
       // Open new window
+      AboutWindow about = new AboutWindow();
+      about.render();
     }
 
     if (actionEvent.getSource() == strategiesItem) {
       // Open new window
+      StrategiesWindow strat = new StrategiesWindow();
+      strat.render();
     }
   }
 

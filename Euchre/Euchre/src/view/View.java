@@ -29,11 +29,11 @@ public class View implements MouseListener, ActionListener {
 
 	private GameController controller;
 	private JFrame frame;
-	private JMenuBar menu;
-	private JMenu fileMenu;
+	//private JMenuBar menu;
+	//private JMenu fileMenu;
 	private JMenuItem newGameItem;
 	private JMenuItem quitGameItem;
-	private JMenu helpMenu;
+	//private JMenu helpMenu;
 	private JMenuItem strategiesItem;
 	private JMenuItem aboutItem;
 	private PlayerPanel topPanel;
@@ -74,9 +74,9 @@ public class View implements MouseListener, ActionListener {
 		playerArray[3] = b2;
 
 		// Set up menu bar
-		menu = new JMenuBar();
-		fileMenu = new JMenu("File");
-		helpMenu = new JMenu("Help");
+		JMenuBar menu = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		JMenu helpMenu = new JMenu("Help");
 		
 		quitGameItem = new JMenuItem("Quit");
 		quitGameItem.addActionListener(this);

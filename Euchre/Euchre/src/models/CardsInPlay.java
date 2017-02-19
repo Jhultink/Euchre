@@ -2,130 +2,177 @@ package models;
 
 /**
  * Holds values for all four cards in play.
- *   
+ * 
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  *
  */
 public class CardsInPlay {
-	
-	/** First red player's played card. */
-	private Card redOneCard;
-	
-	/** Second red player's played card. */
-	private Card redTwoCard;
-	
-	/** First black player's played card. */
-	private Card blackOneCard;
-	
-	/** Seconds black player's played card. */
-	private Card blackTwoCard;
-	
-	/**
-	 * @return the redOneCard, null if no card is played yet
-	 */
-	public Card getRedOneCard() {
-		return redOneCard;
-	}
-	
-	/**
-	 * @param mRedOneCard the mRedOneCard to set
-	 */
-	public void setRedOneCard(final Card mRedOneCard) {
-		this.redOneCard = mRedOneCard;
-	}
-	
-	/**
-	 * @return the redTwoCard, null if no card is played yet
-	 */
-	public Card getRedTwoCard() {
-		return redTwoCard;
-	}
-	
-	/**
-	 * @param mRedTwoCard the mRedTwoCard to set
-	 */
-	public void setRedTwoCard(final Card mRedTwoCard) {
-		this.redTwoCard = mRedTwoCard;
-	}
-	
-	/**
-	 * @return the blackOneCard, null if no card is played yet
-	 */
-	public Card getBlackOneCard() {
-		return blackOneCard;
-	}
-	
-	/**
-	 * @param mBlackOneCard the mBlackOneCard to set
-	 */
-	public void setBlackOneCard(final Card mBlackOneCard) {
-		this.blackOneCard = mBlackOneCard;
-	}
-	
-	/**
-	 * @return the blackTwoCard, null if no card is played yet
-	 */
-	public Card getBlackTwoCard() {
-		return blackTwoCard;
-	}
-	
-	/**
-	 * @param mBlackTwoCard the mBlackTwoCard to set
-	 */
-	public void setBlackTwoCard(final Card mBlackTwoCard) {
-		this.blackTwoCard = mBlackTwoCard;
-	}
-	
-	/**
-	 * Assigns the card to appropriate slot.
-	 * @param mCard card to assign
-	 * @param team team of card
-	 * @param playerNumber playerNumber of card
-	 */
-	public void setCard(final Card mCard, final Teams team, 
-	    final PlayerNumber playerNumber) {
-						
-		if (team == Teams.RED) {
-			if (playerNumber == PlayerNumber.FIRST) {
-				setRedOneCard(mCard);
-			} else {
-				setRedTwoCard(mCard);
-			}
-		} else {
-			if (playerNumber == PlayerNumber.SECOND)	{
-				setBlackOneCard(mCard);
-			} else {
-				setBlackTwoCard(mCard);
-			}
-		}
-	}
-	
-	/**
-	 * .
-	 * @return Boolean value of all cards played
-	 */ 
-	public boolean allPlayed() {
-	    boolean redOneTrue = (this.getRedOneCard() != null);
-	    boolean redTwoTrue = (this.getRedTwoCard() != null);
-	    boolean blackOneTrue = (this.getBlackOneCard() != null);
-	    boolean blackTwoTrue = (this.getBlackTwoCard() != null);
-	    
-	    if (redOneTrue && redTwoTrue && blackOneTrue && blackTwoTrue) {
-		return true;
-	    }
-	    
-	    return false;
-	}
-	
-	/**
-	 * 
-	 */
-	public void clear() {
-	    if (allPlayed()) {
-		this.setBlackOneCard(null);
-		this.setBlackTwoCard(null);
-		this.setRedOneCard(null);
-		this.setRedTwoCard(null);
-	    }
-	}
+
+  /** First red player's played card. */
+  private Card redOneCard;
+
+  /** Second red player's played card. */
+  private Card redTwoCard;
+
+  /** First black player's played card. */
+  private Card blackOneCard;
+
+  /** Seconds black player's played card. */
+  private Card blackTwoCard;
+
+  /**
+   * @return the redOneCard, null if no card is played yet
+   */
+  public Card getRedOneCard() {
+    return redOneCard;
+  }
+
+  /**
+   * @param mRedOneCard
+   *          the mRedOneCard to set
+   */
+  public void setRedOneCard(final Card mRedOneCard) {
+    this.redOneCard = mRedOneCard;
+  }
+
+  /**
+   * @return the redTwoCard, null if no card is played yet
+   */
+  public Card getRedTwoCard() {
+    return redTwoCard;
+  }
+
+  /**
+   * @param mRedTwoCard
+   *          the mRedTwoCard to set
+   */
+  public void setRedTwoCard(final Card mRedTwoCard) {
+    this.redTwoCard = mRedTwoCard;
+  }
+
+  /**
+   * @return the blackOneCard, null if no card is played yet
+   */
+  public Card getBlackOneCard() {
+    return blackOneCard;
+  }
+
+  /**
+   * @param mBlackOneCard
+   *          the mBlackOneCard to set
+   */
+  public void setBlackOneCard(final Card mBlackOneCard) {
+    this.blackOneCard = mBlackOneCard;
+  }
+
+  /**
+   * @return the blackTwoCard, null if no card is played yet
+   */
+  public Card getBlackTwoCard() {
+    return blackTwoCard;
+  }
+
+  /**
+   * @param mBlackTwoCard
+   *          the mBlackTwoCard to set
+   */
+  public void setBlackTwoCard(final Card mBlackTwoCard) {
+    this.blackTwoCard = mBlackTwoCard;
+  }
+
+  /**
+   * Assigns the card to appropriate slot.
+   * 
+   * @param mCard
+   *          card to assign
+   * @param team
+   *          team of card
+   * @param playerNumber
+   *          playerNumber of card
+   */
+  public void setCard(final Card mCard, final Teams team,
+      final PlayerNumber playerNumber) {
+
+    if (team == Teams.RED) {
+      if (playerNumber == PlayerNumber.FIRST) {
+        setRedOneCard(mCard);
+      } else {
+        setRedTwoCard(mCard);
+      }
+    } else {
+      if (playerNumber == PlayerNumber.FIRST) {
+        setBlackOneCard(mCard);
+      } else {
+        setBlackTwoCard(mCard);
+      }
+    }
+  }
+  
+  /**
+   * @param team team of card to get
+   * @param playerNumber playerNumber of card to get
+   * @return card car passed player info
+   */
+  public Card getCard(final Teams team, final PlayerNumber playerNumber) {
+
+    if (team == Teams.RED) {
+      if (playerNumber == PlayerNumber.FIRST) {
+        return getRedOneCard();
+      } else {
+        return getRedTwoCard();
+      }
+    } else {
+      if (playerNumber == PlayerNumber.FIRST) {
+        return getBlackOneCard();
+      } else {
+        return getBlackTwoCard();
+      }
+    }
+  }
+
+  /**
+   * Override that takes a player.
+   * @param player player who owns card
+   * @return card of player
+   */
+  public Card getCard(final Player player) {
+    return getCard(player.getTeam(), player.getPlayerPosition());
+  }
+  
+  /**
+   * Returns true if all four slots are full and false otherwise.
+   * 
+   * @return Boolean value of all cards played
+   */
+  public boolean allPlayed() {
+    boolean redOneTrue = (this.getRedOneCard() != null);
+    boolean redTwoTrue = (this.getRedTwoCard() != null);
+    boolean blackOneTrue = (this.getBlackOneCard() != null);
+    boolean blackTwoTrue = (this.getBlackTwoCard() != null);
+
+    if (redOneTrue && redTwoTrue && blackOneTrue && blackTwoTrue) {
+      return true;
+    }
+
+    return false;
+  }
+  /**
+   * @return boolean value of all played
+   */
+  public boolean isEmpty() {
+    return (this.getRedOneCard() == null)
+            && (this.getRedTwoCard() == null)
+            && (this.getBlackOneCard() == null)
+            && (this.getBlackTwoCard() == null);
+  }
+
+  /**
+   * Clears this object.
+   */
+  public void clear() {
+    this.setBlackOneCard(null);
+    this.setBlackTwoCard(null);
+    this.setRedOneCard(null);
+    this.setRedTwoCard(null);
+  }
 }

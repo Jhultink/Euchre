@@ -77,11 +77,15 @@ public class CardButton extends JButton {
 	public void setOwner(final Player mOwner) {
 		this.owner = mOwner;
 	}
-	
+	/**
+	 * Sets card to be a vertical card.
+	 */
 	public void isVertical() {
 	  this.setMaximumSize(new Dimension(150, 300));
 	}
-	
+	/**
+	 * Sets card to be a horizontal card.
+	 */
 	public void isHorizontal() {
 	  this.setMaximumSize(new Dimension(300, 150));
 	}

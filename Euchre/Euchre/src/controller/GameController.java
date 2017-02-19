@@ -1,12 +1,11 @@
 package controller;
 
 import view.View;
-
-//import java.awt.image.RescaleOp;
-
 import javax.swing.JOptionPane;
+import javax.xml.transform.Templates;
 
 import models.Card;
+import models.CardsInPlay;
 import models.GameModel;
 import models.Player;
 import models.PlayerNumber;
@@ -36,6 +35,7 @@ public class GameController {
   GameController() {
 
     this.model = new GameModel();
+    model.newHand(Teams.BLACK, PlayerNumber.FIRST);
     this.view = new View(this, model);
   }
 
@@ -43,7 +43,6 @@ public class GameController {
    * Starts the game with Red One.
    */
   public void start() {
-    model.newHand(Teams.RED, PlayerNumber.FIRST);
     view.render(model);
     selectTrump();
   }
@@ -72,6 +71,17 @@ public class GameController {
   public void trickOver() {
     JOptionPane.showMessageDialog(view.getFrame(), "Trick over");
     clearTable();
+
+    if (model.isHandOver()) {
+      handOver();
+    }
+  }
+
+  /**
+   * Called when a hand is over.
+   */
+  public void handOver() {
+    JOptionPane.showMessageDialog(view.getFrame(), "Hand over");
   }
 
   /**
@@ -85,7 +95,7 @@ public class GameController {
   }
 
   /**
-   * .
+   * Re-renders the model.
    */
   public void refresh() {
     view.render(model);
@@ -96,8 +106,8 @@ public class GameController {
    */
   public void clearTable() {
     this.model.clearTable();
-    view.close();
-    view = new View(this, model);
+    // view.close();
+    // view = new View(this, model);
     refresh();
   }
 
@@ -110,6 +120,9 @@ public class GameController {
     Teams startingTeam = model.getCurrentTeam();
     PlayerNumber startingPlayerNumber = model.getCurrentPlayerNumber();
 
+    Teams teamWhoChoseTrump = null;
+    PlayerNumber playerWhoChoseTrump = null;
+
     boolean isTrumpSelected = false;
     boolean allPlayersPassed = false;
     int playersPassed = 0;
@@ -117,7 +130,7 @@ public class GameController {
     while (!isTrumpSelected && !allPlayersPassed) {
 
       // Display option pane
-      String[] buttons = {"Take card", "Pass"};
+      String[] buttons = {"Take card", "Pass" };
       String displayMessage = model.getCurrentTeam().name() + " "
           + model.getCurrentPlayerNumber().name()
           + ", do you want to take this card? \n\n"
@@ -127,7 +140,31 @@ public class GameController {
           buttons, buttons[0]);
 
       // If selected "Take card" then trump has been selected
-      isTrumpSelected = (returnValue == 0);
+      if (returnValue == 0) {
+        isTrumpSelected = true;
+        playerWhoChoseTrump = model.getCurrentPlayerNumber();
+        teamWhoChoseTrump = model.getCurrentTeam();
+
+        model.getCurrentPlayer().getHand().add(model.getTrumpCard());
+
+        view.render(model);
+        
+        // Create array of strings for display
+        String[] cards = new String[model.getCurrentPlayer().getHand()
+            .getCards().size()];
+        int i = 0;
+        for (Card card : model.getCurrentPlayer().getHand().getCards()) {
+          cards[i] = card.getCardStringValue();
+          i++;
+        }
+        
+        int cardIndex = JOptionPane.showOptionDialog(view.getFrame(),
+            "Choose a card to discard", "Discard", JOptionPane.PLAIN_MESSAGE, 0,
+            null, cards, cards[0]);
+
+        model.getCurrentPlayer().getHand().removeAt(cardIndex);
+
+      }
 
       model.nextPlayer();
       playersPassed++;
@@ -141,7 +178,7 @@ public class GameController {
 
       while (!isTrumpSelected && !allPlayersPassed) {
 
-        String[] buttons = {"Hearts", "Diamonds", "Clubs", "Spades", "Pass"};
+        String[] buttons = { "Hearts", "Diamonds", "Clubs", "Spades", "Pass" };
 
         String displayMessage = model.getCurrentTeam().name() + " "
             + model.getCurrentPlayerNumber().name()
@@ -164,6 +201,10 @@ public class GameController {
           } else if (returnValue == 3) {
             model.setTrumpSuit(Suit.SPADES);
           }
+
+          playerWhoChoseTrump = model.getCurrentPlayerNumber();
+          teamWhoChoseTrump = model.getCurrentTeam();
+
         }
 
         model.nextPlayer();
@@ -173,7 +214,7 @@ public class GameController {
 
       // "Screw the dealer" case
       if (allPlayersPassed && !isTrumpSelected) {
-        String[] buttons = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        String[] buttons = { "Hearts", "Diamonds", "Clubs", "Spades" };
 
         String displayMessage = model.getCurrentTeam().name() + " "
             + model.getCurrentPlayerNumber().name() + ", please select trump.";
@@ -182,23 +223,27 @@ public class GameController {
             displayMessage, "Select trump", JOptionPane.PLAIN_MESSAGE, 0, null,
             buttons, buttons[0]);
 
-        if (isTrumpSelected) {
-          if (returnValue == 0) {
-            model.setTrumpSuit(Suit.HEARTS);
-          } else if (returnValue == 1) {
-            model.setTrumpSuit(Suit.DIAMONDS);
-          } else if (returnValue == 2) {
-            model.setTrumpSuit(Suit.CLUBS);
-          } else if (returnValue == 3) {
-            model.setTrumpSuit(Suit.SPADES);
-          }
+        if (returnValue == 0) {
+          model.setTrumpSuit(Suit.HEARTS);
+        } else if (returnValue == 1) {
+          model.setTrumpSuit(Suit.DIAMONDS);
+        } else if (returnValue == 2) {
+          model.setTrumpSuit(Suit.CLUBS);
+        } else if (returnValue == 3) {
+          model.setTrumpSuit(Suit.SPADES);
         }
-      }
 
+        teamWhoChoseTrump = model.getCurrentTeam();
+
+      }
     }
+
+    model.setTeamWhoCalledTrump(teamWhoChoseTrump);
 
     // Reset original starting players
     model.setCurrentTeam(startingTeam);
     model.setCurrentPlayerNumber(startingPlayerNumber);
+
+    view.render(model);
   }
 }

@@ -2,6 +2,8 @@ package models;
 
 import java.util.ArrayList;
 
+import javax.activity.InvalidActivityException;
+
 /**
  * Class that contains necessary components to run a Euchre game instance.
  * 
@@ -9,6 +11,17 @@ import java.util.ArrayList;
  *
  */
 public class GameModel {
+  
+  /**
+   * Object representing the team of the player whose turn it is.
+   */
+  private Teams startingTeam;
+
+  /**
+   * Object representing the player number of the player whose turn it is.
+   */
+  private PlayerNumber startingPlayerNumber;
+  
   /**
    * Object representing the team of the player whose turn it is.
    */
@@ -75,6 +88,11 @@ public class GameModel {
    * Red team overall game score.
    */
   private int redGameScore;
+  
+  /**
+   * Team that called trump.
+   */
+  private Teams teamWhoCalledTrump;
 
   /**
    * Black team current hand score.
@@ -108,13 +126,20 @@ public class GameModel {
   /**
    * Sets up model to have a completely new hand.
    * 
-   * @param startingTeam
+   * @param pStartingTeam
    *          First Team to play
-   * @param startingPlayerNumber
+   * @param pStartingPlayerNumber
    *          First player to get a hand
    */
-  public void newHand(final Teams startingTeam,
-      final PlayerNumber startingPlayerNumber) {
+  public void newHand(final Teams pStartingTeam,
+      final PlayerNumber pStartingPlayerNumber) {
+    
+    this.startingTeam = pStartingTeam;
+    this.startingPlayerNumber = pStartingPlayerNumber;
+    
+    this.currentTeam = pStartingTeam;
+    this.currentPlayerNumber = pStartingPlayerNumber;
+        
     deck.shuffle();
     dealOutCards();
 
@@ -207,10 +232,26 @@ public class GameModel {
    * @return boolean value of card's ability to be played
    */
   public boolean isValidPlay(final Card selectedCard, final Player player) {
-    if (!getCurrentPlayer().equals(player)) {
-      return false;
+    // If card played belongs to the current player
+    if (getCurrentPlayer().equals(player)) {
+            
+      // If no cards are played, any play is valid
+      if (getCardsInPlay().isEmpty()) {
+        return true;
+      }
+      
+      Suit leadSuit = getFirstPlayedCard().getCardSuit();
+      
+      // If player does not have the lead suit, any play is valid
+      if (!player.getHand().containsSuit(leadSuit)) {
+        return true;
+      } else {
+        // Play valid only if played card suit matches lead suit
+        return selectedCard.getCardSuit() == leadSuit;
+      }
+    
     }
-    return true;
+    return false;
   }
 
   /**
@@ -299,18 +340,35 @@ public class GameModel {
   public Player nextPlayer() {
 
     if (currentPlayerNumber == PlayerNumber.FIRST && currentTeam == Teams.RED) {
+      
       currentTeam = Teams.BLACK;
-    } else if (currentPlayerNumber == PlayerNumber.FIRST
+      currentPlayerNumber = PlayerNumber.FIRST;
+      
+    } else if (currentPlayerNumber == PlayerNumber.FIRST 
         && currentTeam == Teams.BLACK) {
+      
       currentTeam = Teams.RED;
       currentPlayerNumber = PlayerNumber.SECOND;
-    } else if (currentPlayerNumber == PlayerNumber.SECOND
+      
+    } else if (currentPlayerNumber == PlayerNumber.SECOND  
         && currentTeam == Teams.RED) {
+      
       currentTeam = Teams.BLACK;
-    } else if (currentPlayerNumber == PlayerNumber.SECOND
+      currentPlayerNumber = PlayerNumber.SECOND;
+      
+    } else if (currentPlayerNumber == PlayerNumber.SECOND  
         && currentTeam == Teams.BLACK) {
+      
       currentPlayerNumber = PlayerNumber.FIRST;
       currentTeam = Teams.RED;
+      
+    } else {
+      try {
+        throw new InvalidActivityException();
+      } catch (InvalidActivityException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     }
 
     return getCurrentPlayer();
@@ -322,6 +380,56 @@ public class GameModel {
    */
   public void setTrumpSuit(final Suit pTrumpSuit) {
     this.trumpSuit = pTrumpSuit;
+  }
+
+  /**
+   * @return the startingTeam
+   */
+  public Teams getStartingTeam() {
+    return startingTeam;
+  }
+
+  /**
+   * @param pStartingTeam the startingTeam to set
+   */
+  public void setStartingTeam(final Teams pStartingTeam) {
+    this.startingTeam = pStartingTeam;
+  }
+
+  /**
+   * @return the startingPlayerNumber
+   */
+  public PlayerNumber getStartingPlayerNumber() {
+    return startingPlayerNumber;
+  }
+
+  /**
+   * @param pStartingPlayerNumber the startingPlayerNumber to set
+   */
+  public void setStartingPlayerNumber(
+      final PlayerNumber pStartingPlayerNumber) {
+    this.startingPlayerNumber = pStartingPlayerNumber;
+  }
+  
+  /**
+   * @return first played card 
+   */
+  public Card getFirstPlayedCard() {
+    return cardsInPlay.getCard(getPlayer(startingTeam, startingPlayerNumber));
+  }
+
+  /**
+   * @return the teamWhoCalledTrump
+   */
+  public Teams getTeamWhoCalledTrump() {
+    return teamWhoCalledTrump;
+  }
+
+  /**
+   * @param pTeamWhoCalledTrump the teamWhoCalledTrump to set
+   */
+  public void setTeamWhoCalledTrump(final Teams pTeamWhoCalledTrump) {
+    this.teamWhoCalledTrump = pTeamWhoCalledTrump;
   }
 
 }

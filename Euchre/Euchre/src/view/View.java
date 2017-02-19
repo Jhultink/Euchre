@@ -19,17 +19,23 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import org.omg.CosNaming._BindingIteratorImplBase;
+
 import controller.GameController;
 import models.Card;
 import models.GameModel;
 import models.Player;
-import models.PlayerNumber;
 import models.Teams;
 
 /**
  * This class handles all the UI and talks to the passed controllers.
  */
 public class View implements MouseListener, ActionListener {
+
+  /**
+   * Bool to determine whether or not to show debug info.
+   */
+  private static final boolean IS_DEBUG = true;
 
   /** Controller for game. */
   private GameController controller;
@@ -54,15 +60,7 @@ public class View implements MouseListener, ActionListener {
   /** panel for playing cards. */
   private JPanel centerPanel;
   /** Model that hold all the game info. */
-  private GameModel game;
-  /** Red one player. */
-  private Player r1;
-  /** Red two player. */
-  private Player r2;
-  /** Black one player. */
-  private Player b1;
-  /** Black two player. */
-  private Player b2;
+  private GameModel gameModel;
   /** Array of all players. */
   private Player[] playerArray;
   /** All buttons in the center. */
@@ -86,16 +84,13 @@ public class View implements MouseListener, ActionListener {
     centerButtons = new ArrayList<CardButton>();
 
     this.controller = newController;
-    this.game = model;
+    this.gameModel = model;
     this.playerArray = new Player[4];
-    r1 = game.getPlayer(Teams.RED, PlayerNumber.FIRST);
-    r2 = game.getPlayer(Teams.RED, PlayerNumber.SECOND);
-    b1 = game.getPlayer(Teams.BLACK, PlayerNumber.FIRST);
-    b2 = game.getPlayer(Teams.BLACK, PlayerNumber.SECOND);
-    playerArray[0] = r1;
-    playerArray[1] = b1;
-    playerArray[2] = r2;
-    playerArray[3] = b2;
+    playerArray[0] = gameModel.getCurrentPlayer();
+    playerArray[1] = gameModel.nextPlayer();
+    playerArray[2] = gameModel.nextPlayer();
+    playerArray[3] = gameModel.nextPlayer();
+    gameModel.nextPlayer();
 
     // Set up menu bar
     JMenuBar menu = new JMenuBar();
@@ -159,8 +154,8 @@ public class View implements MouseListener, ActionListener {
   public void render(final GameModel model) {
 
     frame.setVisible(true);
-    this.game = model;
-    game.setCurrentPlayer(playerArray[0]);
+    this.gameModel = model;
+    //gameModel.setCurrentPlayer(playerArray[0]);
 
     // Clear panel and add cards
     topPanel.removeAll();
@@ -225,6 +220,7 @@ public class View implements MouseListener, ActionListener {
         button.setBackground(Color.BLACK);
         button.setForeground(Color.WHITE);
       }
+      button.setEnabled(model.isValidPlay(card, bottomPanel.getPlayer()));
       button.addMouseListener(this);
       bottomPanel.add(button);
     }
@@ -254,30 +250,45 @@ public class View implements MouseListener, ActionListener {
     centerPanel.removeAll();
     JPanel centerPanelOrganizer = new JPanel(new BorderLayout());
 
-    if (game.getCardsInPlay().getBlackOneCard() != null) {
-      centerPanelOrganizer.add(
-          new Button(
-              game.getCardsInPlay().getBlackOneCard().getCardStringValue()),
+    if (gameModel.getCardsInPlay().getBlackOneCard() != null) {
+      centerPanelOrganizer.add(new Button(
+          gameModel.getCardsInPlay().getBlackOneCard().getCardStringValue()),
           BorderLayout.WEST);
     }
-    if (game.getCardsInPlay().getRedOneCard() != null) {
+    if (gameModel.getCardsInPlay().getRedOneCard() != null) {
       centerPanelOrganizer.add(
           new Button(
-              game.getCardsInPlay().getRedOneCard().getCardStringValue()),
+              gameModel.getCardsInPlay().getRedOneCard().getCardStringValue()),
           BorderLayout.NORTH);
     }
-    if (game.getCardsInPlay().getBlackTwoCard() != null) {
-      centerPanelOrganizer.add(
-          new Button(
-              game.getCardsInPlay().getBlackTwoCard().getCardStringValue()),
+    if (gameModel.getCardsInPlay().getBlackTwoCard() != null) {
+      centerPanelOrganizer.add(new Button(
+          gameModel.getCardsInPlay().getBlackTwoCard().getCardStringValue()),
           BorderLayout.EAST);
     }
-    if (game.getCardsInPlay().getRedTwoCard() != null) {
+    if (gameModel.getCardsInPlay().getRedTwoCard() != null) {
       centerPanelOrganizer.add(
           new Button(
-              game.getCardsInPlay().getRedTwoCard().getCardStringValue()),
+              gameModel.getCardsInPlay().getRedTwoCard().getCardStringValue()),
           BorderLayout.SOUTH);
     }
+
+    if (IS_DEBUG) {
+
+      JPanel debugPanel = new JPanel();
+
+      debugPanel.add(new JLabel(
+          "Current Player: " + model.getCurrentPlayer().getTeam().name() + " "
+              + model.getCurrentPlayer().getPlayerPosition().name()));
+
+      debugPanel.add(new JLabel("Current trump: " + model.getTrumpSuit()));
+      debugPanel
+          .add(new JLabel("Calling team: " + model.getTeamWhoCalledTrump()));
+
+      centerPanelOrganizer.add(debugPanel, BorderLayout.CENTER);
+
+    }
+
     centerPanelOrganizer.setBackground(Color.WHITE);
     centerPanelOrganizer.setMaximumSize(new Dimension(550, 500));
     centerPanelOrganizer.setMinimumSize(new Dimension(550, 500));
@@ -330,12 +341,12 @@ public class View implements MouseListener, ActionListener {
       CardButton clickedButton = (CardButton) obj;
       if (clickedButton.getParent().equals(bottomPanel)) {
         Card clickedCard = clickedButton.getCard();
-        if (game.isValidPlay(clickedCard, clickedButton.getOwner())) {
+        if (gameModel.isValidPlay(clickedCard, clickedButton.getOwner())) {
           playerArray = rotatePlayerArray(playerArray);
           centerButtons.add(clickedButton);
           controller.playCard(clickedCard, clickedButton.getOwner());
 
-          if (game.getCardsInPlay().allPlayed()) {
+          if (gameModel.getCardsInPlay().allPlayed()) {
             controller.trickOver();
           }
         }

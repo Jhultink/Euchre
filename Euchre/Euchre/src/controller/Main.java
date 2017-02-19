@@ -1,5 +1,8 @@
 package controller;
-
+/**
+ * Main class with entry method.
+ *
+ */
 public class Main {
   /**
    * Main method, entry for program.

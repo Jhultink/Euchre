@@ -46,4 +46,32 @@ public class Hand {
     public boolean isEmpty() {
     	return cards.isEmpty();
     }
+    
+    /**
+     * @param suit suit to check for
+     * @return boolean if hand currently contains this suit
+     */
+    public boolean containsSuit(final Suit suit) {
+      for (Card card : cards) {
+        if (card.getCardSuit() == suit) {
+          return true;
+        }
+      }      
+      return false;
+    }
+    
+    /**
+     * @param card card to add to hand.
+     */
+    public void add(final Card card) {
+      cards.add(card);
+    }
+    
+    /**
+     * @param index to remove at
+     * @throws IndexOutOfBoundsException if out of bounds
+     */
+    public void removeAt(final int index) throws IndexOutOfBoundsException {
+      cards.remove(index);
+    }
 }

@@ -233,7 +233,7 @@ public class GameModel {
    */
   public boolean isValidPlay(final Card selectedCard, final Player player) {
     // If card played belongs to the current player
-    if (getCurrentPlayer().equals(player)) {
+    //if (getCurrentPlayer().equals(player)) {
             
       // If no cards are played, any play is valid
       if (getCardsInPlay().isEmpty()) {
@@ -250,8 +250,8 @@ public class GameModel {
         return selectedCard.getCardSuit() == leadSuit;
       }
     
-    }
-    return false;
+    //}
+    //return false;
   }
 
   /**

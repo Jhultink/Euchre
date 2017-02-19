@@ -220,7 +220,7 @@ public class View implements MouseListener, ActionListener {
         button.setBackground(Color.BLACK);
         button.setForeground(Color.WHITE);
       }
-      button.setEnabled(model.isValidPlay(card, bottomPanel.getPlayer()));
+      //button.setEnabled(model.isValidPlay(card, bottomPanel.getPlayer()));
       button.addMouseListener(this);
       bottomPanel.add(button);
     }

@@ -1,23 +1,29 @@
 package view;
+/*
+Java implemented packages.
+*/
 
-import java.awt.BorderLayout;
-import java.awt.Button;
+//import java.awt.BorderLayout;
+//import java.awt.Button;
+//import java.awt.Image;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+//import javax.swing.JFrame;
+//import javax.imageio.ImageIO;
+//import javax.management.modelmbean.ModelMBean;
+
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.imageio.ImageIO;
-import javax.management.modelmbean.ModelMBean;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/*
+ * Custom implemented packages.
+ */
 import controller.GameController;
 import models.Card;
 import models.GameModel;
@@ -32,33 +38,43 @@ public class PlayerPanel extends JPanel implements MouseListener {
    * Serial ID.
    */
   private static final long serialVersionUID = 1L;
+
   /**
    * Player who owns this panel.
    */
   private Player panelPlayer;
+
   /**
    * Model for game.
    */
   private GameModel gameModel;
+
   /**
    * Controller for game.
    */
   private GameController controller;
+
   /**
-   * View for game
+   * View for game.
    */
   private View view;
+
   /**
-   * Layout
+   * Layout variable.
    */
   private int layout;
 
   /**
-   * @return player associated with this panel
+   * Constructor for playerpanel.
+   * 
    * @throws Exception
    *           if invalid layout
+   * @param pView
+   *          view to be referenced
+   * @param pLayout
+   *          layout reference number
    */
-  PlayerPanel(int pLayout, View pView) {
+  PlayerPanel(final int pLayout, final View pView) {
     this.layout = pLayout;
     this.view = pView;
     this.gameModel = pView.getGameModel();
@@ -73,6 +89,11 @@ public class PlayerPanel extends JPanel implements MouseListener {
     }
   }
 
+  /**
+   * Return player belonging to the panel.
+   * 
+   * @return player
+   */
   public Player getPlayer() {
     return this.panelPlayer;
   }
@@ -86,6 +107,9 @@ public class PlayerPanel extends JPanel implements MouseListener {
     refresh();
   }
 
+  /**
+   * 
+   */
   private void refresh() {
 
     JPanel cardPanel = new JPanel();
@@ -94,10 +118,9 @@ public class PlayerPanel extends JPanel implements MouseListener {
     for (Card card : this.getPlayer().getHand().getCards()) {
       CardButton button = new CardButton(card, this.getPlayer());
       try {
-        //Image img = ImageIO.read(getClass().getResource("src/card.png"));
         button.setIcon(new ImageIcon("src/smallcard.png"));
       } catch (Exception e) {
-        // System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
+        // card is not found
       }
       button.addMouseListener(this);
       button.isHorizontal();
@@ -122,7 +145,12 @@ public class PlayerPanel extends JPanel implements MouseListener {
 
   }
 
-  @Override
+  /**
+   * Handles case of user clicking a button.
+   * 
+   * @param event
+   *          registered mouse event
+   */
   public void mouseClicked(final MouseEvent event) {
     Object obj = event.getSource();
 
@@ -148,25 +176,25 @@ public class PlayerPanel extends JPanel implements MouseListener {
   }
 
   @Override
-  public void mouseEntered(MouseEvent arg0) {
+  public void mouseEntered(final MouseEvent arg0) {
     // TODO Auto-generated method stub
 
   }
 
   @Override
-  public void mouseExited(MouseEvent arg0) {
+  public void mouseExited(final MouseEvent arg0) {
     // TODO Auto-generated method stub
 
   }
 
   @Override
-  public void mousePressed(MouseEvent arg0) {
+  public void mousePressed(final MouseEvent arg0) {
     // TODO Auto-generated method stub
 
   }
 
   @Override
-  public void mouseReleased(MouseEvent arg0) {
+  public void mouseReleased(final MouseEvent arg0) {
     // TODO Auto-generated method stub
 
   }

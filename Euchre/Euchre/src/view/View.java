@@ -341,3 +341,63 @@ public class View implements ActionListener {
     return this.frame;
   }
 }
+
+/**
+ * Strategies window is opened up by view to display potential play strategies
+ * to the user.
+ * 
+ * @author Ryan Jones, Jaredt Hultink, Keith Rodgers
+ *
+ */
+class AboutWindow {
+
+  /**
+   * 
+   */
+  private JFrame frame;
+
+  /**
+   * 
+   */
+  AboutWindow() {
+    frame = new JFrame("About the Game");
+    frame.setSize(300, 300);
+  }
+
+  /**
+   * 
+   */
+  public void render() {
+    frame.setVisible(true);
+  }
+}
+
+/**
+ * Strategies window is opened up by view to display potential play strategies
+ * to the user.
+ * 
+ * @author Ryan Jones, Jaredt Hultink, Keith Rodgers
+ *
+ */
+class StrategiesWindow {
+
+  /**
+   * 
+   */
+  private JFrame frame;
+
+  /**
+   * 
+   */
+  StrategiesWindow() {
+    frame = new JFrame("Pro Strats");
+    frame.setSize(300, 300);
+  }
+
+  /**
+   * 
+   */
+  public void render() {
+    frame.setVisible(true);
+  }
+}

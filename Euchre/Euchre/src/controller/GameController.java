@@ -70,7 +70,7 @@ public class GameController {
   public void trickOver() {
 
     for (Card card : model.getCardsInPlay().getAllCards()) {
-      Card c = card;
+      System.out.println(card.getCardIntValue());
     }
 
     JOptionPane.showMessageDialog(view.getFrame(), "Trick over");

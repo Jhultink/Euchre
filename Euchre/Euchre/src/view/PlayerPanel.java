@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.management.modelmbean.ModelMBean;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -92,12 +93,12 @@ public class PlayerPanel extends JPanel implements MouseListener {
 
     for (Card card : this.getPlayer().getHand().getCards()) {
       CardButton button = new CardButton(card, this.getPlayer());
-      /*
-       * try { Image img = ImageIO.read(getClass().getResource("src/card.png"));
-       * button = new CardButton(card, this.getPlayer(), img); } catch
-       * (Exception e) {
-       * //System.out.println("ERROR: COULD NOT FIND CARD IMAGE"); }
-       */
+      try {
+        //Image img = ImageIO.read(getClass().getResource("src/card.png"));
+        button.setIcon(new ImageIcon("src/smallcard.png"));
+      } catch (Exception e) {
+        // System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
+      }
       button.addMouseListener(this);
       button.isHorizontal();
       if (this.getPlayer().getTeam() == Teams.RED) {

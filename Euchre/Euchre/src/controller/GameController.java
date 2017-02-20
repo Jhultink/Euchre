@@ -2,7 +2,6 @@ package controller;
 
 import view.View;
 import javax.swing.JOptionPane;
-import javax.xml.transform.Templates;
 
 import models.Card;
 import models.CardsInPlay;
@@ -56,12 +55,13 @@ public class GameController {
    *          player who played card
    */
   public void playCard(final Card chosenCard, final Player player) {
-    if (model.isValidPlay(chosenCard, player)) {
-      model.getCurrentPlayer().getHand().getCards().remove(chosenCard);
+    model.getPlayer(player.getTeam(), player.getPlayerPosition()).getHand()
+        .getCards().remove(chosenCard);
 
-      model.getCardsInPlay().setCard(chosenCard, model.getCurrentTeam(),
-          model.getCurrentPlayerNumber());
-    }
+    model.getCardsInPlay().setCard(chosenCard, model.getCurrentTeam(),
+        model.getCurrentPlayerNumber());
+
+    model.nextPlayer();
     view.render(model);
   }
 
@@ -69,6 +69,13 @@ public class GameController {
    * Called by view when trick is over.
    */
   public void trickOver() {
+    
+    
+    for(Card card : model.getCardsInPlay().getAllCards()) {
+      
+    }
+    
+    
     JOptionPane.showMessageDialog(view.getFrame(), "Trick over");
     clearTable();
 
@@ -130,7 +137,7 @@ public class GameController {
     while (!isTrumpSelected && !allPlayersPassed) {
 
       // Display option pane
-      String[] buttons = {"Take card", "Pass" };
+      String[] buttons = { "Take card", "Pass" };
       String displayMessage = model.getCurrentTeam().name() + " "
           + model.getCurrentPlayerNumber().name()
           + ", do you want to take this card? \n\n"
@@ -148,7 +155,7 @@ public class GameController {
         model.getCurrentPlayer().getHand().add(model.getTrumpCard());
 
         view.render(model);
-        
+
         // Create array of strings for display
         String[] cards = new String[model.getCurrentPlayer().getHand()
             .getCards().size()];
@@ -157,7 +164,7 @@ public class GameController {
           cards[i] = card.getCardStringValue();
           i++;
         }
-        
+
         int cardIndex = JOptionPane.showOptionDialog(view.getFrame(),
             "Choose a card to discard", "Discard", JOptionPane.PLAIN_MESSAGE, 0,
             null, cards, cards[0]);

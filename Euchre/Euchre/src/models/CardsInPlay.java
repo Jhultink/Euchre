@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 /**
  * Holds values for all four cards in play.
  * 
@@ -20,6 +22,9 @@ public class CardsInPlay {
   /** Seconds black player's played card. */
   private Card blackTwoCard;
 
+  /** First played card */
+  private Card firstPlayedCard;
+  
   /**
    * @return the redOneCard, null if no card is played yet
    */
@@ -32,6 +37,7 @@ public class CardsInPlay {
    *          the mRedOneCard to set
    */
   public void setRedOneCard(final Card mRedOneCard) {
+    if(isEmpty()) firstPlayedCard = mRedOneCard;
     this.redOneCard = mRedOneCard;
   }
 
@@ -47,6 +53,7 @@ public class CardsInPlay {
    *          the mRedTwoCard to set
    */
   public void setRedTwoCard(final Card mRedTwoCard) {
+    if(isEmpty()) firstPlayedCard = mRedTwoCard;
     this.redTwoCard = mRedTwoCard;
   }
 
@@ -62,6 +69,7 @@ public class CardsInPlay {
    *          the mBlackOneCard to set
    */
   public void setBlackOneCard(final Card mBlackOneCard) {
+    if(isEmpty()) firstPlayedCard = mBlackOneCard;
     this.blackOneCard = mBlackOneCard;
   }
 
@@ -77,6 +85,7 @@ public class CardsInPlay {
    *          the mBlackTwoCard to set
    */
   public void setBlackTwoCard(final Card mBlackTwoCard) {
+    if(isEmpty()) firstPlayedCard = mBlackTwoCard;
     this.blackTwoCard = mBlackTwoCard;
   }
 
@@ -174,5 +183,25 @@ public class CardsInPlay {
     this.setBlackTwoCard(null);
     this.setRedOneCard(null);
     this.setRedTwoCard(null);
+  }
+  
+  /**
+   * @return first played card
+   */
+  public Card getFirstPlayedCard() {
+    return firstPlayedCard;
+  }
+  
+  /**
+   * Gets all cards in play
+   * @return all cards in play
+   */
+  public ArrayList<Card> getAllCards() {
+    ArrayList<Card> cards = new ArrayList<Card>();
+    cards.add(getBlackOneCard());
+    cards.add(getBlackTwoCard());
+    cards.add(getRedOneCard());
+    cards.add(getRedTwoCard());
+    return cards;
   }
 }

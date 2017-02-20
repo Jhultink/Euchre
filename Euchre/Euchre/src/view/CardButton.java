@@ -51,7 +51,7 @@ public class CardButton extends JButton {
 		  this.setBorder(BorderFactory.createEmptyBorder());
 		  this.setContentAreaFilled(false);
 		} catch (Exception e) {
-		  System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
+		  //System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
 		}
 	}
 

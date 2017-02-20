@@ -30,7 +30,7 @@ import models.Teams;
 /**
  * This class handles all the UI and talks to the passed controllers.
  */
-public class View implements MouseListener, ActionListener {
+public class View implements ActionListener {
 
   /**
    * Bool to determine whether or not to show debug info.
@@ -120,17 +120,10 @@ public class View implements MouseListener, ActionListener {
 
     frame.setJMenuBar(menu);
 
-    topPanel = new PlayerPanel();
-    topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
-
-    rightPanel = new PlayerPanel();
-    rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-
-    bottomPanel = new PlayerPanel();
-    bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
-
-    leftPanel = new PlayerPanel();
-    leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+    topPanel = new PlayerPanel(BoxLayout.X_AXIS, this);
+    rightPanel = new PlayerPanel(BoxLayout.Y_AXIS, this);
+    bottomPanel = new PlayerPanel(BoxLayout.X_AXIS, this);
+    leftPanel = new PlayerPanel(BoxLayout.Y_AXIS, this);
 
     centerPanel = new JPanel();
     centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
@@ -155,123 +148,25 @@ public class View implements MouseListener, ActionListener {
 
     frame.setVisible(true);
     this.gameModel = model;
-    //gameModel.setCurrentPlayer(playerArray[0]);
 
     // Clear panel and add cards
     topPanel.removeAll();
-
-    // set player assigned to panel
     topPanel.setPlayer(playerArray[2]);
-
-    // set label for panel
-    JLabel thirdPlayer = new JLabel(topPanel.getPlayer().toString() + ":   ");
-    topPanel.add(thirdPlayer);
-    topPanel.add(Box.createHorizontalGlue()); // for spacing
-
-    for (Card card : topPanel.getPlayer().getHand().getCards()) {
-      CardButton button = new CardButton(card, topPanel.getPlayer());
-      button.isHorizontal();
-      if (topPanel.getPlayer().getTeam() == Teams.RED) {
-        button.setBackground(Color.RED);
-      } else {
-        button.setBackground(Color.BLACK);
-        button.setForeground(Color.WHITE);
-      }
-      topPanel.add(button);
-    }
-    topPanel.add(Box.createHorizontalGlue()); // for spacing
-    topPanel.setBackground(Color.WHITE);
 
     // Clear panel and add cards
     rightPanel.removeAll();
     rightPanel.setPlayer(playerArray[1]);
-    rightPanel.add(Box.createVerticalGlue()); // for spacing
-    JLabel secondPlayer = new JLabel(
-        rightPanel.getPlayer().toString() + ":   ");
-    rightPanel.add(secondPlayer);
-
-    for (Card card : (rightPanel.getPlayer().getHand().getCards())) {
-      CardButton button = new CardButton(card, rightPanel.getPlayer());
-      button.isVertical();
-      if (rightPanel.getPlayer().getTeam() == Teams.RED) {
-        button.setBackground(Color.RED);
-      } else {
-        button.setBackground(Color.BLACK);
-        button.setForeground(Color.WHITE);
-      }
-      rightPanel.add(button);
-    }
-    rightPanel.add(Box.createVerticalGlue()); // for spacing
-    rightPanel.setBackground(Color.WHITE);
 
     // Clear panel and add cards
     bottomPanel.removeAll();
     bottomPanel.setPlayer(playerArray[0]);
-    bottomPanel.add(Box.createHorizontalGlue()); // for spacing
-    JLabel currentPlayer = new JLabel(
-        bottomPanel.getPlayer().toString() + ":   ");
-    bottomPanel.add(currentPlayer);
-    for (Card card : bottomPanel.getPlayer().getHand().getCards()) {
-      CardButton button = new CardButton(card, bottomPanel.getPlayer());
-      button.isHorizontal();
-      if (bottomPanel.getPlayer().getTeam() == Teams.RED) {
-        button.setBackground(Color.RED);
-      } else {
-        button.setBackground(Color.BLACK);
-        button.setForeground(Color.WHITE);
-      }
-      //button.setEnabled(model.isValidPlay(card, bottomPanel.getPlayer()));
-      button.addMouseListener(this);
-      bottomPanel.add(button);
-    }
-    bottomPanel.add(Box.createHorizontalGlue()); // for spacing
-    bottomPanel.setBackground(Color.WHITE);
 
     // Clear panel and add cards
     leftPanel.removeAll();
     leftPanel.setPlayer(playerArray[3]);
-    JLabel fourthPlayer = new JLabel(leftPanel.getPlayer().toString() + ":");
-    leftPanel.add(fourthPlayer);
-    leftPanel.add(Box.createVerticalGlue()); // for spacing
-    for (Card card : leftPanel.getPlayer().getHand().getCards()) {
-      CardButton button = new CardButton(card, leftPanel.getPlayer());
-      button.isVertical();
-      if (leftPanel.getPlayer().getTeam() == Teams.RED) {
-        button.setBackground(Color.RED);
-      } else {
-        button.setBackground(Color.BLACK);
-        button.setForeground(Color.WHITE);
-      }
-      leftPanel.add(button);
-    }
-    leftPanel.add(Box.createVerticalGlue()); // for spacing
-    leftPanel.setBackground(Color.WHITE);
 
     centerPanel.removeAll();
     JPanel centerPanelOrganizer = new JPanel(new BorderLayout());
-
-    if (gameModel.getCardsInPlay().getBlackOneCard() != null) {
-      centerPanelOrganizer.add(new Button(
-          gameModel.getCardsInPlay().getBlackOneCard().getCardStringValue()),
-          BorderLayout.WEST);
-    }
-    if (gameModel.getCardsInPlay().getRedOneCard() != null) {
-      centerPanelOrganizer.add(
-          new Button(
-              gameModel.getCardsInPlay().getRedOneCard().getCardStringValue()),
-          BorderLayout.NORTH);
-    }
-    if (gameModel.getCardsInPlay().getBlackTwoCard() != null) {
-      centerPanelOrganizer.add(new Button(
-          gameModel.getCardsInPlay().getBlackTwoCard().getCardStringValue()),
-          BorderLayout.EAST);
-    }
-    if (gameModel.getCardsInPlay().getRedTwoCard() != null) {
-      centerPanelOrganizer.add(
-          new Button(
-              gameModel.getCardsInPlay().getRedTwoCard().getCardStringValue()),
-          BorderLayout.SOUTH);
-    }
 
     if (IS_DEBUG) {
 
@@ -297,6 +192,19 @@ public class View implements MouseListener, ActionListener {
     frame.revalidate();
     frame.repaint();
 
+  }
+  /**
+   * @return controller for this view
+   */
+  public GameController getController() {
+    return controller;
+  }
+  
+  /**
+   * @return model for this view
+   */
+  public GameModel getGameModel() {
+    return gameModel;
   }
 
   /**
@@ -336,22 +244,22 @@ public class View implements MouseListener, ActionListener {
    */
   public void mouseClicked(final MouseEvent event) {
     Object obj = event.getSource();
-
-    if (obj instanceof CardButton) {
-      CardButton clickedButton = (CardButton) obj;
-      if (clickedButton.getParent().equals(bottomPanel)) {
-        Card clickedCard = clickedButton.getCard();
-        if (gameModel.isValidPlay(clickedCard, clickedButton.getOwner())) {
-          playerArray = rotatePlayerArray(playerArray);
-          centerButtons.add(clickedButton);
-          controller.playCard(clickedCard, clickedButton.getOwner());
-
-          if (gameModel.getCardsInPlay().allPlayed()) {
-            controller.trickOver();
-          }
-        }
-      }
-    }
+//
+//    if (obj instanceof CardButton) {
+//      CardButton clickedButton = (CardButton) obj;
+//      if (clickedButton.getParent().equals(bottomPanel)) {
+//        Card clickedCard = clickedButton.getCard();
+//        if (gameModel.isValidPlay(clickedCard, clickedButton.getOwner())) {
+//          rotatePlayerArray();
+//          centerButtons.add(clickedButton);
+//          controller.playCard(clickedCard, clickedButton.getOwner());
+//
+//          if (gameModel.getCardsInPlay().allPlayed()) {
+//            controller.trickOver();
+//          }
+//        }
+//      }
+//    }
 
     if (event.getSource().equals(quitGameItem)) {
       System.exit(0);
@@ -406,13 +314,13 @@ public class View implements MouseListener, ActionListener {
    *          Array to be rotated
    * @return rotated array
    */
-  public Player[] rotatePlayerArray(final Player[] arrayToRotate) {
+  public void rotatePlayerArray() {
     Player[] tempArray = new Player[4];
-    tempArray[0] = arrayToRotate[1];
-    tempArray[1] = arrayToRotate[2];
-    tempArray[2] = arrayToRotate[3];
-    tempArray[3] = arrayToRotate[0];
-    return tempArray;
+    tempArray[0] = this.playerArray[1];
+    tempArray[1] = this.playerArray[2];
+    tempArray[2] = this.playerArray[3];
+    tempArray[3] = this.playerArray[0];
+    this.playerArray = tempArray;
   }
 
   /**

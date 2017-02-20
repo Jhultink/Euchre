@@ -1,18 +1,17 @@
 package view;
 
+/**
+ * Java implemented 
+ */
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,13 +20,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import org.omg.CosNaming._BindingIteratorImplBase;
+//import org.omg.CosNaming._BindingIteratorImplBase;
+//import java.awt.event.MouseListener;
+//import models.Card;
+//import models.Teams;
 
 import controller.GameController;
-import models.Card;
 import models.GameModel;
 import models.Player;
-import models.Teams;
 
 /**
  * This class handles all the UI and talks to the passed controllers.
@@ -82,7 +82,7 @@ public class View implements ActionListener {
     frame = new JFrame("Euchre");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(800, 600);
-    //frame.setResizable(false);
+    // frame.setResizable(false);
     centerButtons = new ArrayList<CardButton>();
 
     this.controller = newController;
@@ -251,7 +251,7 @@ public class View implements ActionListener {
    *          MouseEvent registered
    */
   public void mouseClicked(final MouseEvent event) {
-    Object obj = event.getSource();
+    //Object obj = event.getSource();
     //
     // if (obj instanceof CardButton) {
     // CardButton clickedButton = (CardButton) obj;
@@ -317,10 +317,6 @@ public class View implements ActionListener {
 
   /**
    * Rotates the player array.
-   * 
-   * @param arrayToRotate
-   *          Array to be rotated
-   * @return rotated array
    */
   public void rotatePlayerArray() {
     Player[] tempArray = new Player[4];

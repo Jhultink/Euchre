@@ -4,7 +4,6 @@ import view.View;
 import javax.swing.JOptionPane;
 
 import models.Card;
-import models.CardsInPlay;
 import models.GameModel;
 import models.Player;
 import models.PlayerNumber;
@@ -71,7 +70,7 @@ public class GameController {
   public void trickOver() {
 
     for (Card card : model.getCardsInPlay().getAllCards()) {
-
+      Card c = card;
     }
 
     JOptionPane.showMessageDialog(view.getFrame(), "Trick over");
@@ -135,7 +134,7 @@ public class GameController {
     while (!isTrumpSelected && !allPlayersPassed) {
 
       // Display option pane
-      String[] buttons = { "Take card", "Pass" };
+      String[] buttons = {"Take card", "Pass" };
       String displayMessage = model.getCurrentTeam().name() + " "
           + model.getCurrentPlayerNumber().name()
           + ", do you want to take this card? \n\n"
@@ -183,7 +182,7 @@ public class GameController {
 
       while (!isTrumpSelected && !allPlayersPassed) {
 
-        String[] buttons = { "Hearts", "Diamonds", "Clubs", "Spades", "Pass" };
+        String[] buttons = {"Hearts", "Diamonds", "Clubs", "Spades", "Pass" };
 
         String displayMessage = model.getCurrentTeam().name() + " "
             + model.getCurrentPlayerNumber().name()
@@ -219,7 +218,7 @@ public class GameController {
 
       // "Screw the dealer" case
       if (allPlayersPassed && !isTrumpSelected) {
-        String[] buttons = { "Hearts", "Diamonds", "Clubs", "Spades" };
+        String[] buttons = {"Hearts", "Diamonds", "Clubs", "Spades" };
 
         String displayMessage = model.getCurrentTeam().name() + " "
             + model.getCurrentPlayerNumber().name() + ", please select trump.";

@@ -22,7 +22,7 @@ public class CardsInPlay {
   /** Seconds black player's played card. */
   private Card blackTwoCard;
 
-  /** First played card */
+  /** First played card. */
   private Card firstPlayedCard;
   
   /**
@@ -37,7 +37,9 @@ public class CardsInPlay {
    *          the mRedOneCard to set
    */
   public void setRedOneCard(final Card mRedOneCard) {
-    if(isEmpty()) firstPlayedCard = mRedOneCard;
+    if (isEmpty()) {
+      firstPlayedCard = mRedOneCard;
+    }
     this.redOneCard = mRedOneCard;
   }
 
@@ -53,7 +55,9 @@ public class CardsInPlay {
    *          the mRedTwoCard to set
    */
   public void setRedTwoCard(final Card mRedTwoCard) {
-    if(isEmpty()) firstPlayedCard = mRedTwoCard;
+    if (isEmpty()) {
+      firstPlayedCard = mRedTwoCard;
+    }
     this.redTwoCard = mRedTwoCard;
   }
 
@@ -69,7 +73,9 @@ public class CardsInPlay {
    *          the mBlackOneCard to set
    */
   public void setBlackOneCard(final Card mBlackOneCard) {
-    if(isEmpty()) firstPlayedCard = mBlackOneCard;
+    if (isEmpty()) {
+      firstPlayedCard = mBlackOneCard;
+    }
     this.blackOneCard = mBlackOneCard;
   }
 
@@ -85,7 +91,9 @@ public class CardsInPlay {
    *          the mBlackTwoCard to set
    */
   public void setBlackTwoCard(final Card mBlackTwoCard) {
-    if(isEmpty()) firstPlayedCard = mBlackTwoCard;
+    if (isEmpty()) {
+      firstPlayedCard = mBlackTwoCard;
+    }
     this.blackTwoCard = mBlackTwoCard;
   }
 
@@ -193,7 +201,7 @@ public class CardsInPlay {
   }
   
   /**
-   * Gets all cards in play
+   * Gets all cards in play.
    * @return all cards in play
    */
   public ArrayList<Card> getAllCards() {

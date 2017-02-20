@@ -1,4 +1,5 @@
 package controller;
+
 /**
  * Main class with entry method.
  *

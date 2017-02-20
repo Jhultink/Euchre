@@ -3,11 +3,13 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.imageio.ImageIO;
 import javax.management.modelmbean.ModelMBean;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -90,6 +92,12 @@ public class PlayerPanel extends JPanel implements MouseListener {
 
     for (Card card : this.getPlayer().getHand().getCards()) {
       CardButton button = new CardButton(card, this.getPlayer());
+      /*
+       * try { Image img = ImageIO.read(getClass().getResource("src/card.png"));
+       * button = new CardButton(card, this.getPlayer(), img); } catch
+       * (Exception e) {
+       * //System.out.println("ERROR: COULD NOT FIND CARD IMAGE"); }
+       */
       button.addMouseListener(this);
       button.isHorizontal();
       if (this.getPlayer().getTeam() == Teams.RED) {

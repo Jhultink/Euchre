@@ -4,12 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -148,6 +150,11 @@ public class View implements ActionListener {
 
     frame.setVisible(true);
     this.gameModel = model;
+    try {
+      Image img = ImageIO.read(getClass().getResource("src/card.png"));
+    } catch (Exception e) {
+      System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
+    }
 
     // Clear panel and add cards
     topPanel.removeAll();
@@ -193,13 +200,14 @@ public class View implements ActionListener {
     frame.repaint();
 
   }
+
   /**
    * @return controller for this view
    */
   public GameController getController() {
     return controller;
   }
-  
+
   /**
    * @return model for this view
    */
@@ -244,22 +252,22 @@ public class View implements ActionListener {
    */
   public void mouseClicked(final MouseEvent event) {
     Object obj = event.getSource();
-//
-//    if (obj instanceof CardButton) {
-//      CardButton clickedButton = (CardButton) obj;
-//      if (clickedButton.getParent().equals(bottomPanel)) {
-//        Card clickedCard = clickedButton.getCard();
-//        if (gameModel.isValidPlay(clickedCard, clickedButton.getOwner())) {
-//          rotatePlayerArray();
-//          centerButtons.add(clickedButton);
-//          controller.playCard(clickedCard, clickedButton.getOwner());
-//
-//          if (gameModel.getCardsInPlay().allPlayed()) {
-//            controller.trickOver();
-//          }
-//        }
-//      }
-//    }
+    //
+    // if (obj instanceof CardButton) {
+    // CardButton clickedButton = (CardButton) obj;
+    // if (clickedButton.getParent().equals(bottomPanel)) {
+    // Card clickedCard = clickedButton.getCard();
+    // if (gameModel.isValidPlay(clickedCard, clickedButton.getOwner())) {
+    // rotatePlayerArray();
+    // centerButtons.add(clickedButton);
+    // controller.playCard(clickedCard, clickedButton.getOwner());
+    //
+    // if (gameModel.getCardsInPlay().allPlayed()) {
+    // controller.trickOver();
+    // }
+    // }
+    // }
+    // }
 
     if (event.getSource().equals(quitGameItem)) {
       System.exit(0);

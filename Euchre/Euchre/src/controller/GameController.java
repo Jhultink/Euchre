@@ -69,13 +69,11 @@ public class GameController {
    * Called by view when trick is over.
    */
   public void trickOver() {
-    
-    
-    for(Card card : model.getCardsInPlay().getAllCards()) {
-      
+
+    for (Card card : model.getCardsInPlay().getAllCards()) {
+
     }
-    
-    
+
     JOptionPane.showMessageDialog(view.getFrame(), "Trick over");
     clearTable();
 

@@ -3,6 +3,8 @@ package view;
 Java implemented packages.
 */
 
+import java.awt.BorderLayout;
+
 //import java.awt.BorderLayout;
 //import java.awt.Button;
 //import java.awt.Image;
@@ -15,6 +17,8 @@ Java implemented packages.
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Ellipse2D;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -62,7 +66,7 @@ public class PlayerPanel extends JPanel implements MouseListener {
   /**
    * Layout variable.
    */
-  private int layout;
+  private String layout;
 
   /**
    * Constructor for playerpanel.
@@ -74,18 +78,19 @@ public class PlayerPanel extends JPanel implements MouseListener {
    * @param pLayout
    *          layout reference number
    */
-  PlayerPanel(final int pLayout, final View pView) {
+  PlayerPanel(final String pLayout, final View pView) {
+    
     this.layout = pLayout;
     this.view = pView;
     this.gameModel = pView.getGameModel();
     this.controller = pView.getController();
 
-    if (layout == BoxLayout.X_AXIS) {
-      this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-    } else if (layout == BoxLayout.Y_AXIS) {
+    if (layout.equals(BorderLayout.EAST) || layout.equals(BorderLayout.WEST)) {
       this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+    } else if (layout.equals(BorderLayout.NORTH) || layout.equals(BorderLayout.SOUTH)) {
+      this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     } else {
-      System.err.println("Invalid layout. Must be X_AXIS or Y_AXIS");
+      System.err.println("Invalid layout. Must be NORTH, SOUTH, EAST, OR WEST");
     }
   }
 
@@ -113,15 +118,16 @@ public class PlayerPanel extends JPanel implements MouseListener {
   private void refresh() {
 
     JPanel cardPanel = new JPanel();
-    cardPanel.setLayout(new BoxLayout(cardPanel, layout));
+    
+    if (layout.equals(BorderLayout.EAST) || layout.equals(BorderLayout.WEST)) {
+      cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.Y_AXIS));
+    } else if (layout.equals(BorderLayout.NORTH) || layout.equals(BorderLayout.SOUTH)) {
+      cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.X_AXIS));
+    }
 
+    cardPanel.add(Box.createHorizontalGlue()); // for spacing
     for (Card card : this.getPlayer().getHand().getCards()) {
       CardButton button = new CardButton(card, this.getPlayer());
-      try {
-        button.setIcon(new ImageIcon("src/smallcard.png"));
-      } catch (Exception e) {
-        // card is not found
-      }
       button.addMouseListener(this);
       button.isHorizontal();
       if (this.getPlayer().getTeam() == Teams.RED) {
@@ -135,12 +141,24 @@ public class PlayerPanel extends JPanel implements MouseListener {
     cardPanel.add(Box.createHorizontalGlue()); // for spacing
     cardPanel.setBackground(Color.WHITE);
 
-    this.add(cardPanel);
 
     if (gameModel.getCardsInPlay().getCard(getPlayer()) != null) {
       CardButton playedCard = new CardButton(
           gameModel.getCardsInPlay().getCard(getPlayer()), getPlayer());
-      this.add(playedCard);
+      
+            
+      
+      if (layout.equals(BorderLayout.NORTH) || layout.equals(BorderLayout.WEST)) {
+        this.add(cardPanel);
+        this.add(playedCard);
+      } else if (layout.equals(BorderLayout.EAST) || layout.equals(BorderLayout.SOUTH)) {
+        this.add(playedCard);
+        this.add(cardPanel);
+      }
+      
+      
+    } else {
+      this.add(cardPanel);
     }
 
   }

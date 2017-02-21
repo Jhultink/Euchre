@@ -19,6 +19,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 //import org.omg.CosNaming._BindingIteratorImplBase;
 //import java.awt.event.MouseListener;
@@ -69,8 +70,6 @@ public class View implements ActionListener {
   private ArrayList<CardButton> centerButtons;
 
   /**
-   * .
-   * 
    * @param newController
    *          Controller object
    * @param model
@@ -122,10 +121,10 @@ public class View implements ActionListener {
 
     frame.setJMenuBar(menu);
 
-    topPanel = new PlayerPanel(BoxLayout.X_AXIS, this);
-    rightPanel = new PlayerPanel(BoxLayout.Y_AXIS, this);
-    bottomPanel = new PlayerPanel(BoxLayout.X_AXIS, this);
-    leftPanel = new PlayerPanel(BoxLayout.Y_AXIS, this);
+    topPanel = new PlayerPanel(BorderLayout.NORTH, this);
+    rightPanel = new PlayerPanel(BorderLayout.EAST, this);
+    bottomPanel = new PlayerPanel(BorderLayout.SOUTH, this);
+    leftPanel = new PlayerPanel(BorderLayout.WEST, this);
 
     centerPanel = new JPanel();
     centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));

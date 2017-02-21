@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Dimension;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
@@ -41,6 +43,13 @@ public class CardButton extends JButton {
     this.setText(buttonCard.getCardStringValue());
     this.setMaximumSize(new Dimension(150, 50));
     this.setHorizontalTextPosition(SwingConstants.LEFT);
+    
+    try {
+      this.setIcon(new ImageIcon("src/smallcard.png"));
+    } catch (Exception e) {
+      // card is not found
+    }
+    
     this.validate();
   }
 

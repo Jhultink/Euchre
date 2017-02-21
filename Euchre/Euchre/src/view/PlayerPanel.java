@@ -130,6 +130,11 @@ public class PlayerPanel extends JPanel implements MouseListener {
       CardButton button = new CardButton(card, this.getPlayer());
       button.addMouseListener(this);
       button.isHorizontal();
+      
+      if(!gameModel.getCurrentPlayer().equals(getPlayer())) {
+        button.setText("");
+      }
+      
       if (this.getPlayer().getTeam() == Teams.RED) {
         button.setBackground(Color.RED);
       } else {
@@ -146,8 +151,7 @@ public class PlayerPanel extends JPanel implements MouseListener {
       CardButton playedCard = new CardButton(
           gameModel.getCardsInPlay().getCard(getPlayer()), getPlayer());
       
-            
-      
+           
       if (layout.equals(BorderLayout.NORTH) || layout.equals(BorderLayout.WEST)) {
         this.add(cardPanel);
         this.add(playedCard);

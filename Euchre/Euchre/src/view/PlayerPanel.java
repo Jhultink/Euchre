@@ -17,11 +17,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.Ellipse2D;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -85,9 +83,11 @@ public class PlayerPanel extends JPanel implements MouseListener {
     this.gameModel = pView.getGameModel();
     this.controller = pView.getController();
 
-    if (layout.equals(BorderLayout.EAST) || layout.equals(BorderLayout.WEST)) {
+    if (layout.equals(BorderLayout.EAST) 
+        || layout.equals(BorderLayout.WEST)) {
       this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-    } else if (layout.equals(BorderLayout.NORTH) || layout.equals(BorderLayout.SOUTH)) {
+    } else if (layout.equals(BorderLayout.NORTH) 
+        || layout.equals(BorderLayout.SOUTH)) {
       this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     } else {
       System.err.println("Invalid layout. Must be NORTH, SOUTH, EAST, OR WEST");
@@ -119,9 +119,11 @@ public class PlayerPanel extends JPanel implements MouseListener {
 
     JPanel cardPanel = new JPanel();
     
-    if (layout.equals(BorderLayout.EAST) || layout.equals(BorderLayout.WEST)) {
+    if (layout.equals(BorderLayout.EAST)
+        || layout.equals(BorderLayout.WEST)) {
       cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.Y_AXIS));
-    } else if (layout.equals(BorderLayout.NORTH) || layout.equals(BorderLayout.SOUTH)) {
+    } else if (layout.equals(BorderLayout.NORTH) 
+        || layout.equals(BorderLayout.SOUTH)) {
       cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.X_AXIS));
     }
 
@@ -131,7 +133,7 @@ public class PlayerPanel extends JPanel implements MouseListener {
       button.addMouseListener(this);
       button.isHorizontal();
       
-      if(!gameModel.getCurrentPlayer().equals(getPlayer())) {
+      if (!gameModel.getCurrentPlayer().equals(getPlayer())) {
         button.setText("");
       }
       
@@ -152,10 +154,12 @@ public class PlayerPanel extends JPanel implements MouseListener {
           gameModel.getCardsInPlay().getCard(getPlayer()), getPlayer());
       
            
-      if (layout.equals(BorderLayout.NORTH) || layout.equals(BorderLayout.WEST)) {
+      if (layout.equals(BorderLayout.NORTH) 
+          || layout.equals(BorderLayout.WEST)) {
         this.add(cardPanel);
         this.add(playedCard);
-      } else if (layout.equals(BorderLayout.EAST) || layout.equals(BorderLayout.SOUTH)) {
+      } else if (layout.equals(BorderLayout.EAST) 
+          || layout.equals(BorderLayout.SOUTH)) {
         this.add(playedCard);
         this.add(cardPanel);
       }

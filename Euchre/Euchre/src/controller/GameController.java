@@ -3,12 +3,11 @@ package controller;
 import view.View;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 import javax.swing.JOptionPane;
-
 import models.Card;
+import models.CardValue;
 import models.GameModel;
 import models.Player;
 import models.PlayerNumber;
@@ -77,34 +76,73 @@ public class GameController {
     ArrayList<Card> trumpCards = new ArrayList<>();
     ArrayList<Card> leadSuitCards = new ArrayList<>();
     
+    // Add cards to either trumpCards or leadSuit since those
+    // are the only cases a player can win with
     for (Card card : model.getCardsInPlay().getAllCards()) {
-      if(card.isTrump(model.getTrumpSuit())){
+      if (card.isTrump(model.getTrumpSuit())) {
         trumpCards.add(card);
-      } else if (card.getCardSuit() == model.getCardsInPlay().getFirstPlayedCard().getCardSuit()) {
+      } else if (card.getCardSuit() == model.getCardsInPlay()
+          .getFirstPlayedCard().getCardSuit()) {
         leadSuitCards.add(card);
       }
     }
     
-    if(!trumpCards.isEmpty()) {
-      if
-    } else {
+    Card winningCard = null;
+    
+    // find winning card
+    if (!trumpCards.isEmpty()) { // If there is trump, trump will win
+      if (trumpCards.contains(new Card(CardValue.JACK, model.getTrumpSuit()))) {
+        // right bower
+        winningCard = new Card(CardValue.JACK, model.getTrumpSuit());
+        
+      } else if (trumpCards.contains(new Card(CardValue.JACK, 
+          model.getTrumpSuit().oppositeSuit()))) {
+        // left bower
+        winningCard = new Card(CardValue.JACK, 
+            model.getTrumpSuit().oppositeSuit());        
+      } else {
+        // sort by int representation and pull top one
+        // guaranteed to not have bowers, so a normal sort will work
+        Collections.sort(trumpCards);
+        winningCard = trumpCards.get(0);
+      }
+      
+    } else { // If no trump, lead suit will win
+      // sort by int representation and pull top one
       Collections.sort(leadSuitCards);
-      model.getCardsInPlay().leadSuitCards.get(0)
+      winningCard = leadSuitCards.get(0);
     }
-
-    JOptionPane.showMessageDialog(view.getFrame(), "Trick over");
+    
+    Teams winningTeam = model.getCardsInPlay().getTeamOf(winningCard);
+    PlayerNumber winningPlayerNumber = model.getCardsInPlay()
+        .getPlayerNumberOf(winningCard);
+    
+    if (winningTeam == Teams.BLACK) {
+      model.increaseBlackHandScore();
+    } else if (winningTeam == Teams.RED) {
+      model.increaseRedHandScore();
+    } else {
+      System.err.println("Winning team is null");
+    }
+    
+    JOptionPane.showMessageDialog(view.getFrame(), "Trick over - " 
+        + winningTeam.name() + " " + winningPlayerNumber.name());
     clearTable();
 
     if (model.isHandOver()) {
-      handOver();
+      handOver(winningTeam, winningPlayerNumber);
     }
   }
 
   /**
    * Called when a hand is over.
+   * @param winningTeam winning team
+   * @param winningPlayerNumber winning player number
    */
-  public void handOver() {
+  public void handOver(final Teams winningTeam, 
+      final PlayerNumber winningPlayerNumber) {
     JOptionPane.showMessageDialog(view.getFrame(), "Hand over");
+    model.newHand(winningTeam, winningPlayerNumber);
   }
 
   /**
@@ -191,6 +229,7 @@ public class GameController {
       }
 
       model.nextPlayer();
+      refresh();
       playersPassed++;
       allPlayersPassed = (playersPassed == 4);
     }
@@ -232,6 +271,7 @@ public class GameController {
         }
 
         model.nextPlayer();
+        refresh();
         playersPassed++;
         allPlayersPassed = (playersPassed == 3);
       }

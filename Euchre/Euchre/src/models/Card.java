@@ -6,7 +6,7 @@ package models;
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  * 
  */
-public class Card implements Comparable {
+public class Card implements Comparable<Card> {
 
   /** Value of card. */
   private CardValue cardValue;
@@ -94,8 +94,13 @@ public class Card implements Comparable {
   public String getCardStringValue() {
     return getCardValue().toString() + " of " + getCardSuit().toString();
   }
-
-  public boolean isTrump(Suit trumpSuit) {
+  /**
+   * Determines if card is trump based on passed trump.
+   * Handles Jack logic
+   * @param trumpSuit suit
+   * @return bool is trump
+   */
+  public boolean isTrump(final Suit trumpSuit) {
     if (this.cardSuit == trumpSuit) {
       return true;
     }
@@ -112,11 +117,41 @@ public class Card implements Comparable {
     return false;
   }
 
+  /**
+   * Compares to cards based on their int values.
+   * @param card Card to compare
+   */
   @Override
-  public int compareTo(Object o) {
-    Card card = (Card)o;
+  public int compareTo(final Card card) {
     
     return this.getCardIntValue() - card.getCardIntValue();
     
   }
+  
+  /**
+   * Return whether or not the passed object is equal.
+   * @param o object
+   * @return bool equality
+   */
+  @Override
+  public boolean equals(final Object o) {
+     Card card = (Card) o;
+     if (card == null) {
+       return false;
+     }
+     
+     return this.getCardSuit() == card.getCardSuit() 
+         && this.getCardValue() == card.getCardValue();
+     
+  }
+  
+  /**
+   * Return base hash.
+   * @return int hash
+   */
+  @Override
+  public int hashCode() {
+    return super.hashCode();
+  }
+  
 }

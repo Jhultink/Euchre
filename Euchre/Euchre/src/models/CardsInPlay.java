@@ -212,4 +212,32 @@ public class CardsInPlay {
     cards.add(getRedTwoCard());
     return cards;
   }
+  
+  /**
+   * @param card card to see if it belongs to a player
+   * @return Team who card belongs to
+   */
+  public Teams getTeamOf(final Card card) {
+    if (card.equals(getBlackOneCard()) || card.equals(getBlackTwoCard())) {
+      return Teams.BLACK;
+    } else if (card.equals(getRedOneCard()) || card.equals(getRedTwoCard())) {
+      return Teams.RED;
+    } else {
+      return null;
+    }    
+  }
+  /**
+   * 
+   * @param card card to see if it belongs to a player
+   * @return PlayerNumber who card belongs to
+   */
+  public PlayerNumber getPlayerNumberOf(final Card card) {
+    if (card.equals(getRedOneCard()) || card.equals(getBlackOneCard())) {
+      return PlayerNumber.FIRST;
+    } else if (card.equals(getRedTwoCard()) || card.equals(getBlackTwoCard())) {
+      return PlayerNumber.SECOND;
+    } else {
+      return null;
+    }
+  }
 }

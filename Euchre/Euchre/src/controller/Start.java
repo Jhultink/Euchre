@@ -2,9 +2,16 @@ package controller;
 
 /**
  * Main class with entry method.
- *
  */
-public final class Main {
+final class Start {
+  
+  /**
+   * To prevent instantiation and to make checkstyle happy.
+   */
+  private Start() {
+    
+  }
+  
   /**
    * Main method, entry for program.
    * 

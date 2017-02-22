@@ -431,5 +431,35 @@ public class GameModel {
   public void setTeamWhoCalledTrump(final Teams pTeamWhoCalledTrump) {
     this.teamWhoCalledTrump = pTeamWhoCalledTrump;
   }
+  
+  /**
+   * Increase black hand score by one.
+   */
+  public void increaseBlackHandScore() {
+    blackHandScore++;
+  }
+  
+  /**
+   * Increase red hand score by one.
+   */
+  public void increaseRedHandScore() {
+    redHandScore++;
+  }
+  
+  /**
+   * Increases black game score.
+   * @param i increment
+   */
+  public void addToBlackScore(final int i) {
+    blackGameScore += i;
+  }
+  
+  /**
+   * Increases red game score.
+   * @param i increment
+   */
+  public void addToRedScore(final int i) {
+    redGameScore += i;
+  }
 
 }

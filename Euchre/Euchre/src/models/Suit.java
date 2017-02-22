@@ -33,4 +33,21 @@ public enum Suit {
     }
     return "Diamonds";
   }
+  
+  /**
+   * Returns the other suit of the same color.
+   * @return suit other suit
+   */
+  public Suit oppositeSuit() {
+    if (this == Suit.CLUBS) {
+      return SPADES;
+    }
+    if (this == Suit.SPADES) {
+      return CLUBS;
+    }
+    if (this == Suit.HEARTS) {
+      return Suit.DIAMONDS;
+    }
+    return HEARTS;
+  }
 }

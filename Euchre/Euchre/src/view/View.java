@@ -19,7 +19,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 //import org.omg.CosNaming._BindingIteratorImplBase;
 //import java.awt.event.MouseListener;

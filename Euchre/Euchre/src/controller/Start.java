@@ -2,6 +2,8 @@ package controller;
 
 /**
  * Main class with entry method.
+ * 
+ * @author Jaredt Hultink, Keith Rodgers, Ryan Jones
  */
 final class Start {
   

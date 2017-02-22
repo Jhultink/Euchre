@@ -3,7 +3,11 @@ package controller;
 /**
  * Main class with entry method.
  * 
+<<<<<<< HEAD
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
+=======
+ * @author Jaredt Hultink, Keith Rodgers, Ryan Jones
+>>>>>>> branch 'master' of https://github.com/Jhultink/Euchre.git
  */
 final class Start {
   

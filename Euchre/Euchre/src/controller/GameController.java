@@ -1,6 +1,11 @@
 package controller;
 
 import view.View;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.swing.JOptionPane;
 
 import models.Card;
@@ -69,8 +74,22 @@ public class GameController {
    */
   public void trickOver() {
 
+    ArrayList<Card> trumpCards = new ArrayList<>();
+    ArrayList<Card> leadSuitCards = new ArrayList<>();
+    
     for (Card card : model.getCardsInPlay().getAllCards()) {
-      System.out.println(card.getCardIntValue());
+      if(card.isTrump(model.getTrumpSuit())){
+        trumpCards.add(card);
+      } else if (card.getCardSuit() == model.getCardsInPlay().getFirstPlayedCard().getCardSuit()) {
+        leadSuitCards.add(card);
+      }
+    }
+    
+    if(!trumpCards.isEmpty()) {
+      if
+    } else {
+      Collections.sort(leadSuitCards);
+      model.getCardsInPlay().leadSuitCards.get(0)
     }
 
     JOptionPane.showMessageDialog(view.getFrame(), "Trick over");

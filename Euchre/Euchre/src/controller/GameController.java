@@ -34,7 +34,7 @@ public class GameController {
   /**
    * Sets up a new model and view.
    */
-  GameController() {
+  public GameController() {
 
     this.model = new GameModel();
     model.newHand(Teams.BLACK, PlayerNumber.FIRST);
@@ -50,7 +50,7 @@ public class GameController {
   }
 
   /**
-   * Checks if played card is valid and puts it in play if it is.
+   * Plays card, whether or not it is valid
    * 
    * @param chosenCard
    *          card to check

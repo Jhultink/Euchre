@@ -2,7 +2,6 @@ package models;
 
 import java.util.ArrayList;
 
-import javax.activity.InvalidActivityException;
 
 /**
  * Class that contains necessary components to run a Euchre game instance.
@@ -164,8 +163,8 @@ public class GameModel {
    *          player to set as current player
    */
   public void setCurrentPlayer(final Player currentPlayer) {
-    currentTeam = currentPlayer.getTeam();
-    currentPlayerNumber = currentPlayer.getPlayerPosition();
+    setCurrentTeam(currentPlayer.getTeam());
+    setCurrentPlayerNumber(currentPlayer.getPlayerPosition());
   }
 
   /**
@@ -344,34 +343,29 @@ public class GameModel {
       
       currentTeam = Teams.BLACK;
       currentPlayerNumber = PlayerNumber.FIRST;
-      
-    } else if (currentPlayerNumber == PlayerNumber.FIRST 
+    }
+    
+    if (currentPlayerNumber == PlayerNumber.FIRST 
         && currentTeam == Teams.BLACK) {
       
       currentTeam = Teams.RED;
       currentPlayerNumber = PlayerNumber.SECOND;
-      
-    } else if (currentPlayerNumber == PlayerNumber.SECOND  
+    }
+    
+    if (currentPlayerNumber == PlayerNumber.SECOND  
         && currentTeam == Teams.RED) {
       
       currentTeam = Teams.BLACK;
       currentPlayerNumber = PlayerNumber.SECOND;
-      
-    } else if (currentPlayerNumber == PlayerNumber.SECOND  
+    } 
+    
+    if (currentPlayerNumber == PlayerNumber.SECOND  
         && currentTeam == Teams.BLACK) {
       
       currentPlayerNumber = PlayerNumber.FIRST;
       currentTeam = Teams.RED;
-      
-    } else {
-      try {
-        throw new InvalidActivityException();
-      } catch (InvalidActivityException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
     }
-
+    
     return getCurrentPlayer();
   }
 

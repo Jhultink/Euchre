@@ -57,11 +57,8 @@ public class Card implements Comparable<Card> {
     case KING:
       value = 13;
       break;
-    case ACE:
-      value = 14;
-      break;
     default:
-      value = -1;
+      value = 14;
     }
 
     return value;
@@ -146,12 +143,12 @@ public class Card implements Comparable<Card> {
   }
   
   /**
-   * Return base hash.
+   * Return hash.
    * @return int hash
    */
   @Override
   public int hashCode() {
-    return super.hashCode();
+    return cardSuit.hashCode() * getCardIntValue();
   }
   
 }

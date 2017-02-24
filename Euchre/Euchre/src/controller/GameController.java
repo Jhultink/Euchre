@@ -50,7 +50,7 @@ public class GameController {
   }
 
   /**
-   * Plays card, whether or not it is valid
+   * Plays card, whether or not it is valid.
    * 
    * @param chosenCard
    *          card to check

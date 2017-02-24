@@ -1,7 +1,5 @@
 package models;
 
-import java.nio.file.AccessDeniedException;
-
 import org.junit.Assert;
 import org.junit.Test;
 

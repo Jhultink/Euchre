@@ -2,7 +2,6 @@ package models;
 
 import java.util.ArrayList;
 
-import javax.activity.InvalidActivityException;
 
 /**
  * Class that contains necessary components to run a Euchre game instance.

@@ -312,10 +312,11 @@ public class GameModel {
    * @return boolean value of players still having cards.
    */
   public boolean isHandOver() {
-    return blackOne.getHand().getCards().isEmpty()
-        && blackTwo.getHand().getCards().isEmpty()
-        && redOne.getHand().getCards().isEmpty()
-        && redTwo.getHand().getCards().isEmpty();
+    if (!blackOne.getHand().getCards().isEmpty()) return false;
+    if (!blackTwo.getHand().getCards().isEmpty()) return false;
+    if (!redOne.getHand().getCards().isEmpty()) return false;
+    if (!redTwo.getHand().getCards().isEmpty()) return false;
+    return true;
   }
 
   /**

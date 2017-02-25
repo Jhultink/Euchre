@@ -2,7 +2,6 @@ package models;
 
 import java.util.ArrayList;
 
-
 /**
  * Class that contains necessary components to run a Euchre game instance.
  * 
@@ -10,7 +9,7 @@ import java.util.ArrayList;
  *
  */
 public class GameModel {
-  
+
   /**
    * Object representing the team of the player whose turn it is.
    */
@@ -20,7 +19,7 @@ public class GameModel {
    * Object representing the player number of the player whose turn it is.
    */
   private PlayerNumber startingPlayerNumber;
-  
+
   /**
    * Object representing the team of the player whose turn it is.
    */
@@ -87,7 +86,7 @@ public class GameModel {
    * Red team overall game score.
    */
   private int redGameScore;
-  
+
   /**
    * Team that called trump.
    */
@@ -135,10 +134,12 @@ public class GameModel {
     
     this.startingTeam = pStartingTeam;
     this.startingPlayerNumber = pStartingPlayerNumber;
-    
+
     this.currentTeam = pStartingTeam;
     this.currentPlayerNumber = pStartingPlayerNumber;
-        
+
+    this.clearTable();
+
     deck.shuffle();
     dealOutCards();
 
@@ -231,26 +232,21 @@ public class GameModel {
    * @return boolean value of card's ability to be played
    */
   public boolean isValidPlay(final Card selectedCard, final Player player) {
-    // If card played belongs to the current player
-    //if (getCurrentPlayer().equals(player)) {
-            
-      // If no cards are played, any play is valid
-      if (getCardsInPlay().isEmpty()) {
-        return true;
-      }
-      
-      Suit leadSuit = getFirstPlayedCard().getCardSuit();
-      
-      // If player does not have the lead suit, any play is valid
-      if (!player.getHand().containsSuit(leadSuit)) {
-        return true;
-      } else {
-        // Play valid only if played card suit matches lead suit
-        return selectedCard.getCardSuit() == leadSuit;
-      }
-    
-    //}
-    //return false;
+
+    // If no cards are played, any play is valid
+    if (getCardsInPlay().isEmpty()) {
+      return true;
+    }
+
+    Suit leadSuit = getFirstPlayedCard().getCardSuit();
+
+    // If player does not have the lead suit, any play is valid
+    if (!player.getHand().containsSuit(leadSuit)) {
+      return true;
+    } else {
+      // Play valid only if played card suit matches lead suit
+      return selectedCard.getCardSuit() == leadSuit;
+    }
   }
 
   /**
@@ -311,10 +307,14 @@ public class GameModel {
    * @return boolean value of players still having cards.
    */
   public boolean isHandOver() {
-    if (!blackOne.getHand().getCards().isEmpty()) return false;
-    if (!blackTwo.getHand().getCards().isEmpty()) return false;
-    if (!redOne.getHand().getCards().isEmpty()) return false;
-    if (!redTwo.getHand().getCards().isEmpty()) return false;
+    if (!blackOne.getHand().getCards().isEmpty())
+      return false;
+    if (!blackTwo.getHand().getCards().isEmpty())
+      return false;
+    if (!redOne.getHand().getCards().isEmpty())
+      return false;
+    if (!redTwo.getHand().getCards().isEmpty())
+      return false;
     return true;
   }
 
@@ -340,32 +340,32 @@ public class GameModel {
   public Player nextPlayer() {
 
     if (currentPlayerNumber == PlayerNumber.FIRST && currentTeam == Teams.RED) {
-      
+
       currentTeam = Teams.BLACK;
       currentPlayerNumber = PlayerNumber.FIRST;
     }
-    
-    if (currentPlayerNumber == PlayerNumber.FIRST 
+
+    else if (currentPlayerNumber == PlayerNumber.FIRST
         && currentTeam == Teams.BLACK) {
-      
+
       currentTeam = Teams.RED;
       currentPlayerNumber = PlayerNumber.SECOND;
     }
-    
-    if (currentPlayerNumber == PlayerNumber.SECOND  
+
+    else if (currentPlayerNumber == PlayerNumber.SECOND
         && currentTeam == Teams.RED) {
-      
+
       currentTeam = Teams.BLACK;
       currentPlayerNumber = PlayerNumber.SECOND;
-    } 
-    
-    if (currentPlayerNumber == PlayerNumber.SECOND  
+    }
+
+    else if (currentPlayerNumber == PlayerNumber.SECOND
         && currentTeam == Teams.BLACK) {
-      
+
       currentPlayerNumber = PlayerNumber.FIRST;
       currentTeam = Teams.RED;
     }
-    
+
     return getCurrentPlayer();
   }
 
@@ -385,7 +385,8 @@ public class GameModel {
   }
 
   /**
-   * @param pStartingTeam the startingTeam to set
+   * @param pStartingTeam
+   *          the startingTeam to set
    */
   public void setStartingTeam(final Teams pStartingTeam) {
     this.startingTeam = pStartingTeam;
@@ -399,15 +400,16 @@ public class GameModel {
   }
 
   /**
-   * @param pStartingPlayerNumber the startingPlayerNumber to set
+   * @param pStartingPlayerNumber
+   *          the startingPlayerNumber to set
    */
   public void setStartingPlayerNumber(
       final PlayerNumber pStartingPlayerNumber) {
     this.startingPlayerNumber = pStartingPlayerNumber;
   }
-  
+
   /**
-   * @return first played card 
+   * @return first played card
    */
   public Card getFirstPlayedCard() {
     return cardsInPlay.getCard(getPlayer(startingTeam, startingPlayerNumber));
@@ -421,40 +423,73 @@ public class GameModel {
   }
 
   /**
-   * @param pTeamWhoCalledTrump the teamWhoCalledTrump to set
+   * @param pTeamWhoCalledTrump
+   *          the teamWhoCalledTrump to set
    */
   public void setTeamWhoCalledTrump(final Teams pTeamWhoCalledTrump) {
     this.teamWhoCalledTrump = pTeamWhoCalledTrump;
   }
-  
+
   /**
    * Increase black hand score by one.
    */
   public void increaseBlackHandScore() {
     blackHandScore++;
   }
-  
+
   /**
    * Increase red hand score by one.
    */
   public void increaseRedHandScore() {
     redHandScore++;
   }
-  
+
   /**
    * Increases black game score.
-   * @param i increment
+   * 
+   * @param i
+   *          increment
    */
   public void addToBlackScore(final int i) {
     blackGameScore += i;
   }
-  
+
   /**
    * Increases red game score.
-   * @param i increment
+   * 
+   * @param i
+   *          increment
    */
   public void addToRedScore(final int i) {
     redGameScore += i;
+  }
+  
+  /**
+   * @return black game score
+   */
+  public int getBlackGameScore() {
+    return blackGameScore;
+  }
+  
+  /**
+   * @return red game score
+   */
+  public int getRedGameScore() {
+    return redGameScore;
+  }
+  
+  /**
+   * @return black hand score
+   */
+  public int getBlackHandScore() {
+    return blackHandScore;
+  }
+  
+  /**
+   * @return red hand score
+   */
+  public int getRedHandScore() {
+    return redHandScore;
   }
 
 }

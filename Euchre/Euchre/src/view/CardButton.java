@@ -41,7 +41,8 @@ public class CardButton extends JButton {
     this.buttonCard = c;
     this.owner = p;
     this.setText(buttonCard.getCardStringValue());
-    this.setMaximumSize(new Dimension(150, 50));
+    this.setMaximumSize(new Dimension(300, 100));
+    this.setMinimumSize(new Dimension(200, 100));
     this.setHorizontalTextPosition(SwingConstants.LEFT);
     
     try {
@@ -76,19 +77,4 @@ public class CardButton extends JButton {
   public void setOwner(final Player mOwner) {
     this.owner = mOwner;
   }
-
-  /**
-   * Sets card to be a vertical card.
-   */
-  public void isVertical() {
-    this.setMaximumSize(new Dimension(150, 300));
-  }
-
-  /**
-   * Sets card to be a horizontal card.
-   */
-  public void isHorizontal() {
-    this.setMaximumSize(new Dimension(300, 150));
-  }
-
 }

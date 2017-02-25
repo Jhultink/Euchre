@@ -131,18 +131,20 @@ public class PlayerPanel extends JPanel implements MouseListener {
     for (Card card : this.getPlayer().getHand().getCards()) {
       CardButton button = new CardButton(card, this.getPlayer());
       button.addMouseListener(this);
-      button.isHorizontal();
-      
-      if (!gameModel.getCurrentPlayer().equals(getPlayer())) {
-        button.setText("");
-      }
-      
+           
       if (this.getPlayer().getTeam() == Teams.RED) {
         button.setBackground(Color.RED);
-      } else {
+      } else { 
         button.setBackground(Color.BLACK);
         button.setForeground(Color.WHITE);
       }
+      
+      if (!gameModel.getCurrentPlayer().equals(getPlayer())) {
+        button.setText("");
+      } else if (gameModel.isValidPlay(card, getPlayer())) {
+        button.setBackground(Color.GREEN);
+      }
+      
       cardPanel.add(button);
     }
     cardPanel.add(Box.createHorizontalGlue()); // for spacing
@@ -168,6 +170,11 @@ public class PlayerPanel extends JPanel implements MouseListener {
     } else {
       this.add(cardPanel);
     }
+    
+    if (gameModel.getCurrentPlayer().equals(getPlayer())) {
+      cardPanel.grabFocus();
+    }
+
 
   }
 

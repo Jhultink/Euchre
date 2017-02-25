@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JOptionPane;
+
+import org.omg.CosNaming._BindingIteratorImplBase;
+
 import models.Card;
 import models.CardValue;
 import models.GameModel;
@@ -35,7 +38,6 @@ public class GameController {
    * Sets up a new model and view.
    */
   public GameController() {
-
     this.model = new GameModel();
     model.newHand(Teams.BLACK, PlayerNumber.FIRST);
     this.view = new View(this, model);
@@ -125,10 +127,12 @@ public class GameController {
       System.err.println("Winning team is null");
     }
     
-    JOptionPane.showMessageDialog(view.getFrame(), "Trick over - " 
+    JOptionPane.showMessageDialog(view.getFrame(), "Winning team: " 
         + winningTeam.name() + " " + winningPlayerNumber.name());
-    clearTable();
-
+    
+    this.clearTable();
+    refresh();
+    
     if (model.isHandOver()) {
       handOver(winningTeam, winningPlayerNumber);
     }
@@ -141,8 +145,36 @@ public class GameController {
    */
   public void handOver(final Teams winningTeam, 
       final PlayerNumber winningPlayerNumber) {
-    JOptionPane.showMessageDialog(view.getFrame(), "Hand over");
-    model.newHand(winningTeam, winningPlayerNumber);
+        
+      JOptionPane.showMessageDialog(view.getFrame(), "Hand over. Black: "
+          + model.getBlackHandScore() + " Red: " + model.getRedHandScore());     
+      
+      // If red won hand
+      if (model.getRedGameScore() > model.getBlackGameScore()) {
+        
+        // Won every trick, 4 points
+        if (model.getRedHandScore() == 5) {
+          model.addToRedScore(4);
+        } else if (model.getTeamWhoCalledTrump() == Teams.RED) { // Red called trump, one point
+          model.addToRedScore(1);
+        } else { // Euchred black
+          model.addToRedScore(2);
+        }
+        
+      } else { // Else black won
+        
+        if (model.getBlackHandScore() == 5) { // Won all 4 tricks
+          model.addToBlackScore(4); 
+        } else if (model.getTeamWhoCalledTrump() == Teams.BLACK) { // Black called trump
+          model.addToBlackScore(1);
+        } else { // Euchred red
+          model.addToBlackScore(2);
+        }        
+      }
+      
+      model.newHand(winningTeam, winningPlayerNumber);
+      
+      refresh();
   }
 
   /**
@@ -168,8 +200,6 @@ public class GameController {
    */
   public void clearTable() {
     this.model.clearTable();
-    // view.close();
-    // view = new View(this, model);
     refresh();
   }
 
@@ -230,6 +260,7 @@ public class GameController {
 
       model.nextPlayer();
       refresh();
+
       playersPassed++;
       allPlayersPassed = (playersPassed == 4);
     }

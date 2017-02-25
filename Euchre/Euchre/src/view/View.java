@@ -37,7 +37,7 @@ public class View implements ActionListener {
   /**
    * Bool to determine whether or not to show debug info.
    */
-  private static final boolean IS_DEBUG = true;
+  private static final boolean IS_DEBUG = false;
 
   /** Controller for game. */
   private GameController controller;
@@ -79,7 +79,7 @@ public class View implements ActionListener {
     // Set up JFrame
     frame = new JFrame("Euchre");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(800, 600);
+    frame.setSize(1000, 800);
     // frame.setResizable(false);
     centerButtons = new ArrayList<CardButton>();
 
@@ -148,10 +148,11 @@ public class View implements ActionListener {
 
     frame.setVisible(true);
     this.gameModel = model;
+    
     try {
       Image img = ImageIO.read(getClass().getResource("src/card.png"));
     } catch (Exception e) {
-      System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
+      //System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
     }
 
     // Clear panel and add cards
@@ -173,27 +174,33 @@ public class View implements ActionListener {
     centerPanel.removeAll();
     JPanel centerPanelOrganizer = new JPanel(new BorderLayout());
 
+    JPanel infoPanel = new JPanel();
+    infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+
     if (IS_DEBUG) {
-
-      JPanel debugPanel = new JPanel();
-
-      debugPanel.add(new JLabel(
-          "Current Player: " + model.getCurrentPlayer().getTeam().name() + " "
-              + model.getCurrentPlayer().getPlayerPosition().name()));
-
-      debugPanel.add(new JLabel("Current trump: " + model.getTrumpSuit()));
-      debugPanel
-          .add(new JLabel("Calling team: " + model.getTeamWhoCalledTrump()));
-
-      centerPanelOrganizer.add(debugPanel, BorderLayout.CENTER);
-
+      infoPanel.add(new JLabel(
+        "Current Player: " + model.getCurrentPlayer().getTeam().name() + " "
+            + model.getCurrentPlayer().getPlayerPosition().name()));
     }
+
+    infoPanel.add(new JLabel("Current trump: " + model.getTrumpSuit()));
+    infoPanel
+        .add(new JLabel("Calling team: " + model.getTeamWhoCalledTrump()));
+    
+    infoPanel.add(new JLabel("Black hand score: " + model.getBlackHandScore()));
+    infoPanel.add(new JLabel("Red hand score: " + model.getRedHandScore()));
+    infoPanel.add(new JLabel("Black game score: " + model.getBlackGameScore()));
+    infoPanel.add(new JLabel("Red game score: " + model.getRedGameScore()));
+
+    centerPanelOrganizer.add(infoPanel, BorderLayout.CENTER);
+   
 
     centerPanelOrganizer.setBackground(Color.WHITE);
     centerPanelOrganizer.setMaximumSize(new Dimension(550, 500));
     centerPanelOrganizer.setMinimumSize(new Dimension(550, 500));
     centerPanel.add(centerPanelOrganizer);
 
+    
     frame.revalidate();
     frame.repaint();
 
@@ -249,24 +256,6 @@ public class View implements ActionListener {
    *          MouseEvent registered
    */
   public void mouseClicked(final MouseEvent event) {
-    //Object obj = event.getSource();
-    //
-    // if (obj instanceof CardButton) {
-    // CardButton clickedButton = (CardButton) obj;
-    // if (clickedButton.getParent().equals(bottomPanel)) {
-    // Card clickedCard = clickedButton.getCard();
-    // if (gameModel.isValidPlay(clickedCard, clickedButton.getOwner())) {
-    // rotatePlayerArray();
-    // centerButtons.add(clickedButton);
-    // controller.playCard(clickedCard, clickedButton.getOwner());
-    //
-    // if (gameModel.getCardsInPlay().allPlayed()) {
-    // controller.trickOver();
-    // }
-    // }
-    // }
-    // }
-
     if (event.getSource().equals(quitGameItem)) {
       System.exit(0);
     }
@@ -326,7 +315,7 @@ public class View implements ActionListener {
   }
 
   /**
-   * .
+   * Closes frame.
    */
   public void close() {
     frame.dispose();
@@ -350,12 +339,12 @@ public class View implements ActionListener {
 class AboutWindow {
 
   /**
-   * 
+   * About window frame
    */
   private JFrame frame;
 
   /**
-   * 
+   * opens about window
    */
   AboutWindow() {
     frame = new JFrame("About the Game");
@@ -363,7 +352,7 @@ class AboutWindow {
   }
 
   /**
-   * 
+   * Sets visible
    */
   public void render() {
     frame.setVisible(true);

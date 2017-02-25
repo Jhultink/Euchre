@@ -121,7 +121,7 @@ public class Card implements Comparable<Card> {
   @Override
   public int compareTo(final Card card) {
     
-    return this.getCardIntValue() - card.getCardIntValue();
+    return card.getCardIntValue() - this.getCardIntValue();
     
   }
   

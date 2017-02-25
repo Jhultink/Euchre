@@ -75,9 +75,6 @@ public class CardsTest {
 	  Card card3 = new Card(CardValue.KING, Suit.CLUBS);
 	  Card card4 = new Card(CardValue.KING, Suit.DIAMONDS);
     Assert.assertFalse(card.equals(card2));
-    Assert.assertTrue(card.compareTo(card2) > 0);
-    Assert.assertTrue(card2.compareTo(card) < 0);
-    Assert.assertTrue(card2.compareTo(card3) == 0);
     Assert.assertFalse(card3.equals(card4));
     Assert.assertFalse(card.equals(null));
     Assert.assertTrue(card2.equals(card3));

@@ -10,7 +10,10 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -348,7 +351,22 @@ class AboutWindow {
    */
   AboutWindow() {
     frame = new JFrame("About the Game");
-    frame.setSize(300, 300);
+    frame.setSize(800, 600);
+    JLabel label = new JLabel();
+    String labelText = "<html>";
+    try {
+      Scanner inFile = new Scanner(new FileReader("src/about.txt"));
+      while (inFile.hasNextLine()) {
+        labelText += (inFile.nextLine() + "<br />");
+        frame.add(new JLabel(labelText));
+      }
+      inFile.close();
+      labelText += "</html>";
+      label.setText(labelText);
+    } catch (Exception e) {
+      System.out.println("ERROR; COULD NOT LOCATE FILE: 'about.txt'");
+    }
+    frame.add(label);
   }
 
   /**
@@ -377,8 +395,23 @@ class StrategiesWindow {
    * 
    */
   StrategiesWindow() {
-    frame = new JFrame("Pro Strats");
-    frame.setSize(300, 300);
+    frame = new JFrame("Euchre Strategies");
+    frame.setSize(1000, 600);
+    JLabel label = new JLabel();
+    String labelText = "<html>";
+    try {
+      Scanner inFile = new Scanner(new FileReader("src/strategies.txt"));
+      while (inFile.hasNextLine()) {
+        labelText += (inFile.nextLine() + "<br />");
+        frame.add(new JLabel(labelText));
+      }
+      inFile.close();
+      labelText += "</html>";
+      label.setText(labelText);
+    } catch (Exception e) {
+      System.out.println("ERROR; COULD NOT LOCATE FILE: 'about.txt'");
+    }
+    frame.add(label);
   }
 
   /**

@@ -1,0 +1,20 @@
+Four people play in two partnerships. Euchre uses the standard 52-card pack, but with 28 cards removed (everything below the 9). Hoyle Card Games does not use the joker.
+
+The rank of cards in each non-trump suit: ace (the highest), king, queen, jack, 10, 9 (the lowest).
+
+The rank of cards in trumps: the jack of the trump suit (the Right Bower) followed by the jack of the same color (the Left Bower). For example, if hearts are trumps, they would rank as follows: the jack of hearts, jack of diamonds, and then the rest of the hearts. The trump suit always has seven cards; the next suit (same color as the trump suit) has five; and the cross suits (opposite color as the trump) each have six.
+
+Five cards are dealt to each player. The pack is placed face-down, with the top card turned face-up. This card determines the trump suit for the deal.
+
+The first player may either pass or accept the turned-up card as trumps. If the first player passes, the next player faces the same decision, and so on. As soon as a player accepts the turned-up card as trumps, the dealer discards a card. The discard is placed cross- wise under the undealt cards. The turned-up card belongs to the dealer in place of the discard.
+
+If all players pass, the first player then has the right to name the trump suit, or to pass. (If the first player passes, the next player has an opportunity to name a trump suit, and so on.) The suit of the rejected card cannot be used for trumps. If all players pass a second time around, the cards are thrown in for a new deal.
+
+The player who declares the trump suit has the right to play alone. The partner of this lone wolf lays his or her cards face-down and does not participate in the hand.
+
+In play, players must follow suit of whatever card is lead (if able). A trick is won by the highest trump or by the highest card of the suit led. The winner of a trick leads the next card.
+
+The object is to win at least three tricks (of a possible five). If the side that called trumps fails this, it is euchred. The winning of all five tricks is called march.
+
+In the traditional scoring, the side that called trumps wins one point for making three or four tricks; for making five tricks or march, they score two points. For the person playing alone: three or four tricks gain one point; march nets four points. If the side that called trumps is euchred, their opponents win two points. Four-hand euchre is usually played for a game of five points.
+http://www.hoylegaming.com/

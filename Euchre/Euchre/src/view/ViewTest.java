@@ -21,14 +21,16 @@ public class ViewTest {
   public static void testGuiComponents() throws Exception {
     GameController controller = new GameController();
     GameModel model = new GameModel();
+    Assert.assertNotNull(controller);
+    Assert.assertNotNull(model);
+    
     View testView = new View(controller, model);
     
-    Assert.assertTrue(testView != null);
-    
     testView.render(model);
-    Assert.assertTrue(testView.getGameModel() != null);
+    Assert.assertTrue(testView.getGameModel() == model);
     
     AboutWindow aw = new AboutWindow();
-    Assert.assertTrue(aw != null);
+    Assert.assertNotNull(aw);
+    
   }
 }

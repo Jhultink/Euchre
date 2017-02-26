@@ -18,7 +18,7 @@ public class GameModelTest {
     model.clearTable();
     model.newHand(Teams.RED, PlayerNumber.FIRST);
 
-    // Palyer setup
+    // Player setup
     model.setCurrentPlayer(new Player(Teams.RED, PlayerNumber.FIRST));
     Assert.assertEquals(new Player(Teams.RED, PlayerNumber.FIRST),
         model.getCurrentPlayer());
@@ -59,7 +59,6 @@ public class GameModelTest {
     model.addToRedScore(1);
     model.increaseBlackHandScore();
     model.increaseRedHandScore();
-    model.getCardsInPlay();
 
     model.setTrumpSuit(Suit.DIAMONDS);
     Assert.assertEquals(Suit.DIAMONDS, model.getTrumpSuit());

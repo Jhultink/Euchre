@@ -51,7 +51,7 @@ public class GameDeck {
     	deal.setBlackOne(new Hand(new ArrayList<Card>(deck.subList(10, 15))));
     	deal.setBlackTwo(new Hand(new ArrayList<Card>(deck.subList(15, 20))));
     
-    	deal.setHiddenCards(deck.subList(20, 23).toArray(new Card[3]));
+    	//deal.setHiddenCards(deck.subList(20, 23).toArray(new Card[3]));
     	deal.setTrump(deck.get(23));
     
     	return deal;

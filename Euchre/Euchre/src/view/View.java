@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -68,8 +69,6 @@ public class View implements ActionListener {
   private GameModel gameModel;
   /** Array of all players. */
   private Player[] playerArray;
-  /** All buttons in the center. */
-  private ArrayList<CardButton> centerButtons;
 
   /**
    * @param newController
@@ -83,8 +82,6 @@ public class View implements ActionListener {
     frame = new JFrame("Euchre");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(1000, 800);
-    // frame.setResizable(false);
-    centerButtons = new ArrayList<CardButton>();
 
     this.controller = newController;
     this.gameModel = model;
@@ -151,11 +148,11 @@ public class View implements ActionListener {
 
     frame.setVisible(true);
     this.gameModel = model;
-    
+
     try {
       Image img = ImageIO.read(getClass().getResource("src/card.png"));
     } catch (Exception e) {
-      //System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
+      // System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
     }
 
     // Clear panel and add cards
@@ -182,28 +179,25 @@ public class View implements ActionListener {
 
     if (IS_DEBUG) {
       infoPanel.add(new JLabel(
-        "Current Player: " + model.getCurrentPlayer().getTeam().name() + " "
-            + model.getCurrentPlayer().getPlayerPosition().name()));
+          "Current Player: " + model.getCurrentPlayer().getTeam().name() + " "
+              + model.getCurrentPlayer().getPlayerPosition().name()));
     }
 
     infoPanel.add(new JLabel("Current trump: " + model.getTrumpSuit()));
-    infoPanel
-        .add(new JLabel("Calling team: " + model.getTeamWhoCalledTrump()));
-    
+    infoPanel.add(new JLabel("Calling team: " + model.getTeamWhoCalledTrump()));
+
     infoPanel.add(new JLabel("Black hand score: " + model.getBlackHandScore()));
     infoPanel.add(new JLabel("Red hand score: " + model.getRedHandScore()));
     infoPanel.add(new JLabel("Black game score: " + model.getBlackGameScore()));
     infoPanel.add(new JLabel("Red game score: " + model.getRedGameScore()));
 
     centerPanelOrganizer.add(infoPanel, BorderLayout.CENTER);
-   
 
     centerPanelOrganizer.setBackground(Color.WHITE);
     centerPanelOrganizer.setMaximumSize(new Dimension(550, 500));
     centerPanelOrganizer.setMinimumSize(new Dimension(550, 500));
     centerPanel.add(centerPanelOrganizer);
 
-    
     frame.revalidate();
     frame.repaint();
 
@@ -231,7 +225,7 @@ public class View implements ActionListener {
    */
   public void actionPerformed(final ActionEvent actionEvent) {
     if (actionEvent.getSource() == quitGameItem) {
-      System.exit(0);
+      frame.dispose();
     }
 
     if (actionEvent.getSource() == newGameItem) {
@@ -260,7 +254,7 @@ public class View implements ActionListener {
    */
   public void mouseClicked(final MouseEvent event) {
     if (event.getSource().equals(quitGameItem)) {
-      System.exit(0);
+      frame.dispose();
     }
   }
 
@@ -342,27 +336,27 @@ public class View implements ActionListener {
 class AboutWindow {
 
   /**
-   * About window frame
+   * About window frame.
    */
   private JFrame frame;
 
   /**
-   * opens about window
+   * opens about window.
    */
   AboutWindow() {
     frame = new JFrame("About the Game");
     frame.setSize(800, 600);
     JLabel label = new JLabel();
-    String labelText = "<html>";
+    StringBuffer labelText = new StringBuffer("<html>");
     try {
-      Scanner inFile = new Scanner(new FileReader("src/about.txt"));
+      Scanner inFile = new Scanner(new FileInputStream("src/about.txt"),
+          "UTF-8");
       while (inFile.hasNextLine()) {
-        labelText += (inFile.nextLine() + "<br />");
-        frame.add(new JLabel(labelText));
+        labelText.append(inFile.nextLine() + "<br />");
       }
       inFile.close();
-      labelText += "</html>";
-      label.setText(labelText);
+      labelText.append("</html>");
+      label.setText(labelText.toString());
     } catch (Exception e) {
       System.out.println("ERROR; COULD NOT LOCATE FILE: 'about.txt'");
     }
@@ -398,16 +392,16 @@ class StrategiesWindow {
     frame = new JFrame("Euchre Strategies");
     frame.setSize(1000, 600);
     JLabel label = new JLabel();
-    String labelText = "<html>";
+    StringBuffer labelText = new StringBuffer("<html>");
     try {
-      Scanner inFile = new Scanner(new FileReader("src/strategies.txt"));
+      Scanner inFile = new Scanner(new FileInputStream("src/strategies.txt"),
+          "UTF-8");
       while (inFile.hasNextLine()) {
-        labelText += (inFile.nextLine() + "<br />");
-        frame.add(new JLabel(labelText));
+        labelText.append(inFile.nextLine() + "<br />");
       }
       inFile.close();
-      labelText += "</html>";
-      label.setText(labelText);
+      labelText.append("</html>");
+      label.setText(labelText.toString());
     } catch (Exception e) {
       System.out.println("ERROR; COULD NOT LOCATE FILE: 'about.txt'");
     }

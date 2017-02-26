@@ -128,17 +128,18 @@ public class Card implements Comparable<Card> {
   /**
    * Return whether or not the passed object is equal.
    * @param o object
-   * @return bool equality
+   * @return boolean equality of objects
    */
   @Override
   public boolean equals(final Object o) {
-     Card card = (Card) o;
-     if (card == null) {
+     if (!(o instanceof Card)) {
        return false;
+     } else {
+       Card card = (Card) o;
+       return this.getCardSuit() == card.getCardSuit() 
+           && this.getCardValue() == card.getCardValue();
      }
      
-     return this.getCardSuit() == card.getCardSuit() 
-         && this.getCardValue() == card.getCardValue();
      
   }
   

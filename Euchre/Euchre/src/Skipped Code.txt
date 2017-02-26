@@ -1,0 +1,21 @@
+(Lines 90-104 in Deal.java):
+  /**
+   * @return the hiddenCards
+   */
+  public Card[] getHiddenCards() {
+    return hiddenCards;
+  }
+
+  /**
+   * @param pHiddenCards
+   *          the hiddenCards to set
+   */
+  public void setHiddenCards(final Card[] pHiddenCards) {
+    this.hiddenCards = pHiddenCards;
+  }
+  
+  
+  (Lines 21-24 in Deal.java):
+  
+  /** Three cards that are hidden when dealt. */
+  private Card[] hiddenCards = new Card[3];

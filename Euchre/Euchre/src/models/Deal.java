@@ -8,113 +8,96 @@ package models;
  *
  */
 public class Deal {
-	/** First red player hand. */
-    private Hand redOne;
-    
-    /** Second red player hand. */
-    private Hand redTwo;
-    
-    /** First black player hand. */
-    private Hand blackOne;
-    
-    /** Second black player hand. */
-    private Hand blackTwo;
+  /** First red player hand. */
+  private Hand redOne;
 
-    /** Three cards that are hidden when dealt. */
-    private Card[] hiddenCards = new Card[3];
+  /** Second red player hand. */
+  private Hand redTwo;
 
-    /** Trump card. */
-    private Card trump;
+  /** First black player hand. */
+  private Hand blackOne;
 
-    /**
-     * 
-     * @return the redOne
-     */
-    public Hand getRedOne() {
-	return redOne;
-    }
+  /** Second black player hand. */
+  private Hand blackTwo;
 
-    /**
-     * 
-     * @param pRedOne
-     *            the redOne to set
-     */
-    public void setRedOne(final Hand pRedOne) {
-	this.redOne = pRedOne;
-    }
+  /** Trump card. */
+  private Card trump;
 
-    /**
-     * @return the redTwo
-     */
-    public Hand getRedTwo() {
-    	return redTwo;
-    }
+  /**
+   * 
+   * @return the redOne
+   */
+  public Hand getRedOne() {
+    return redOne;
+  }
 
-    /**
-     * @param pRredTwo the redTwo to set
-     */
-    public void setRedTwo(final Hand pRredTwo) {
-    	this.redTwo = pRredTwo;
-    }
+  /**
+   * 
+   * @param pRedOne
+   *          the redOne to set
+   */
+  public void setRedOne(final Hand pRedOne) {
+    this.redOne = pRedOne;
+  }
 
-    /**
-     * @return the blackOne
-     */
-    public Hand getBlackOne() {
-    	return blackOne;
-    }
+  /**
+   * @return the redTwo
+   */
+  public Hand getRedTwo() {
+    return redTwo;
+  }
 
-    /**
-     * @param pblackOne
-     *            the blackOne to set
-     */
-    public void setBlackOne(final Hand pblackOne) {
-    	this.blackOne = pblackOne;
-    }
+  /**
+   * @param pRredTwo
+   *          the redTwo to set
+   */
+  public void setRedTwo(final Hand pRredTwo) {
+    this.redTwo = pRredTwo;
+  }
 
-    /**
-     * @return the blackTwo
-     */
-    public Hand getBlackTwo() {
-    	return blackTwo;
-    }
+  /**
+   * @return the blackOne
+   */
+  public Hand getBlackOne() {
+    return blackOne;
+  }
 
-    /**
-     * @param pblackTwo
-     *            the blackTwo to set
-     */
-    public void setBlackTwo(final Hand pblackTwo) {
-    	this.blackTwo = pblackTwo;
-    }
+  /**
+   * @param pblackOne
+   *          the blackOne to set
+   */
+  public void setBlackOne(final Hand pblackOne) {
+    this.blackOne = pblackOne;
+  }
 
-    /**
-     * @return the hiddenCards
-     */
-    public Card[] getHiddenCards() {
-	return hiddenCards;
-    }
+  /**
+   * @return the blackTwo
+   */
+  public Hand getBlackTwo() {
+    return blackTwo;
+  }
 
-    /**
-     * @param pHiddenCards
-     *            the hiddenCards to set
-     */
-    public void setHiddenCards(final Card[] pHiddenCards) {
-    	this.hiddenCards = pHiddenCards;
-    }
+  /**
+   * @param pblackTwo
+   *          the blackTwo to set
+   */
+  public void setBlackTwo(final Hand pblackTwo) {
+    this.blackTwo = pblackTwo;
+  }
 
-    /**
-     * @return the trump
-     */
-    public Card getTrump() {
-    	return trump;
-    }
+  /**
+   * @return the trump
+   */
+  public Card getTrump() {
+    return trump;
+  }
 
-    /**
-     * @param pTrump
-     *            the trump to set
-     */
-    public void setTrump(final Card pTrump) {
-    	this.trump = pTrump;
-    }
+  /**
+   * @param pTrump
+   *          the trump to set
+   */
+  public void setTrump(final Card pTrump) {
+    this.trump = pTrump;
+  }
 
 }

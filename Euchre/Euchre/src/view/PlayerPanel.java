@@ -4,16 +4,6 @@ Java implemented packages.
 */
 
 import java.awt.BorderLayout;
-
-//import java.awt.BorderLayout;
-//import java.awt.Button;
-//import java.awt.Image;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-//import javax.swing.JFrame;
-//import javax.imageio.ImageIO;
-//import javax.management.modelmbean.ModelMBean;
-
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -113,7 +103,7 @@ public class PlayerPanel extends JPanel implements MouseListener {
   }
 
   /**
-   * 
+   * Refreshes player panel
    */
   private void refresh() {
 
@@ -148,21 +138,36 @@ public class PlayerPanel extends JPanel implements MouseListener {
       cardPanel.add(button);
     }
     cardPanel.add(Box.createHorizontalGlue()); // for spacing
-    cardPanel.setBackground(Color.WHITE);
+    //cardPanel.setBackground(Color.WHITE);
 
 
     if (gameModel.getCardsInPlay().getCard(getPlayer()) != null) {
+      
+      JPanel playedPanel = new JPanel();
+
+      if (layout.equals(BorderLayout.EAST)
+          || layout.equals(BorderLayout.WEST)) {
+        playedPanel.setLayout(new BoxLayout(playedPanel, BoxLayout.Y_AXIS));
+      } else if (layout.equals(BorderLayout.NORTH) 
+          || layout.equals(BorderLayout.SOUTH)) {
+        playedPanel.setLayout(new BoxLayout(playedPanel, BoxLayout.X_AXIS));
+      }
+            
       CardButton playedCard = new CardButton(
           gameModel.getCardsInPlay().getCard(getPlayer()), getPlayer());
       
-           
+      playedPanel.add(Box.createGlue());
+      playedPanel.add(playedCard);
+      playedPanel.add(Box.createGlue());
+
+      
       if (layout.equals(BorderLayout.NORTH) 
           || layout.equals(BorderLayout.WEST)) {
         this.add(cardPanel);
-        this.add(playedCard);
+        this.add(playedPanel);
       } else if (layout.equals(BorderLayout.EAST) 
           || layout.equals(BorderLayout.SOUTH)) {
-        this.add(playedCard);
+        this.add(playedPanel);
         this.add(cardPanel);
       }
       

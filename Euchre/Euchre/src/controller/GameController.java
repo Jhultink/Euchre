@@ -150,7 +150,7 @@ public class GameController {
           + model.getBlackHandScore() + " Red: " + model.getRedHandScore());     
       
       // If red won hand
-      if (model.getRedGameScore() > model.getBlackGameScore()) {
+      if (model.getRedHandScore() > model.getBlackHandScore()) {
         
         // Won every trick, 4 points
         if (model.getRedHandScore() == 5) {

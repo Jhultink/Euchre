@@ -43,10 +43,10 @@ public enum CardValue {
 	        case KING:
 	        	value = "King";
 	            break;
-	        case ACE:
+	         default:
 	        	value = "Ace";
 	            break;
-	        default:
+
 		}
 		
 		return value;

@@ -21,12 +21,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-
-//import org.omg.CosNaming._BindingIteratorImplBase;
-//import java.awt.event.MouseListener;
-//import models.Card;
-//import models.Teams;
-
 import controller.GameController;
 import models.GameModel;
 import models.Player;

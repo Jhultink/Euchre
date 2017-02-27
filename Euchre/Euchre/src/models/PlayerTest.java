@@ -18,9 +18,7 @@ public class PlayerTest {
     assertFalse(p1.equals(new Object()));
     assertFalse(p1.equals(p3));
     assertFalse(p1.equals(p4));
-    
-    p1.hashCode();
-    
+      
     p4.setPlayerPosition(PlayerNumber.FIRST);
     assertTrue(p4.getPlayerPosition() == PlayerNumber.FIRST);
   }

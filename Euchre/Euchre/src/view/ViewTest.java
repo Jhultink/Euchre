@@ -14,17 +14,18 @@ import models.GameModel;
  */
 public class ViewTest {  
   /**
-   * Test gui 
+   * Test gui .
    */
   @Test
   public void testGuiComponents() {
     GameController controller = new GameController();
-    GameModel model = new GameModel();
     Assert.assertNotNull(controller);
+    
+    GameModel model = new GameModel();
     Assert.assertNotNull(model);
     
     View testView = new View(controller, model);
-  
+    Assert.assertNotNull(testView);
     
     AboutWindow aw = new AboutWindow();
     Assert.assertNotNull(aw);

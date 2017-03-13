@@ -21,6 +21,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
 import controller.GameController;
 import models.GameModel;
 import models.Player;
@@ -70,6 +71,12 @@ public class View implements ActionListener {
    */
   public View(final GameController newController, final GameModel model) {
 
+//    try {
+//      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//    } catch (Exception ex) {
+//        ex.printStackTrace();
+//    }
+    
     // Set up JFrame
     frame = new JFrame("Euchre");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -118,7 +125,7 @@ public class View implements ActionListener {
     leftPanel = new PlayerPanel(BorderLayout.WEST, this);
 
     centerPanel = new JPanel();
-    centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
+    centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
     frame.setLayout(new BorderLayout());
 
@@ -164,30 +171,48 @@ public class View implements ActionListener {
     leftPanel.setPlayer(playerArray[3]);
 
     centerPanel.removeAll();
-    JPanel centerPanelOrganizer = new JPanel(new BorderLayout());
+    JPanel centerPanelOrganizer = new JPanel();
+    centerPanelOrganizer.setLayout(
+        new BoxLayout(centerPanelOrganizer, BoxLayout.Y_AXIS));
 
-    JPanel infoPanel = new JPanel();
-    infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+    //infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 
     if (IS_DEBUG) {
-      infoPanel.add(new JLabel(
+      centerPanelOrganizer.add(new JLabel(
           "Current Player: " + model.getCurrentPlayer().getTeam().name() + " "
               + model.getCurrentPlayer().getPlayerPosition().name()));
     }
 
-    infoPanel.add(new JLabel("Current trump: " + model.getTrumpSuit()));
-    infoPanel.add(new JLabel("Calling team: " + model.getTeamWhoCalledTrump()));
-
-    infoPanel.add(new JLabel("Black hand score: " + model.getBlackHandScore()));
-    infoPanel.add(new JLabel("Red hand score: " + model.getRedHandScore()));
-    infoPanel.add(new JLabel("Black game score: " + model.getBlackGameScore()));
-    infoPanel.add(new JLabel("Red game score: " + model.getRedGameScore()));
-
-    centerPanelOrganizer.add(infoPanel, BorderLayout.CENTER);
+    JLabel a = new JLabel("Current trump: " + model.getTrumpSuit());
+    JLabel b = new JLabel("Calling team: " + model.getTeamWhoCalledTrump());
+    JLabel c = new JLabel("Black hand score: " + model.getBlackHandScore());
+    JLabel d = new JLabel("Red hand score: " + model.getRedHandScore());
+    JLabel e = new JLabel("Black game score: " + model.getBlackGameScore());
+    JLabel f = new JLabel("Red game score: " + model.getRedGameScore());
+    
+    a.setHorizontalAlignment(JLabel.CENTER);
+    b.setHorizontalAlignment(JLabel.CENTER);
+    c.setHorizontalAlignment(JLabel.CENTER);
+    d.setHorizontalAlignment(JLabel.CENTER);
+    e.setHorizontalAlignment(JLabel.CENTER);
+    f.setHorizontalAlignment(JLabel.CENTER);
+   
+    a.setVerticalAlignment(JLabel.CENTER);
+    b.setVerticalAlignment(JLabel.CENTER);
+    c.setVerticalAlignment(JLabel.CENTER);
+    d.setVerticalAlignment(JLabel.CENTER);
+    e.setVerticalAlignment(JLabel.CENTER);
+    f.setVerticalAlignment(JLabel.CENTER);
+    
+    centerPanel.add(a);
+    centerPanel.add(b);
+    centerPanel.add(c);
+    centerPanel.add(d);
+    centerPanel.add(e);
+    centerPanel.add(f);
 
     centerPanelOrganizer.setBackground(Color.WHITE);
-    centerPanelOrganizer.setMaximumSize(new Dimension(550, 500));
-    centerPanelOrganizer.setMinimumSize(new Dimension(550, 500));
+
     centerPanel.add(centerPanelOrganizer);
 
     frame.revalidate();
@@ -356,7 +381,7 @@ class AboutWindow {
   }
 
   /**
-   * Sets visible
+   * Sets visible.
    */
   public void render() {
     frame.setVisible(true);

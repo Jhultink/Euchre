@@ -1,11 +1,19 @@
 package models;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-
+/**
+ * 
+ * @author Jaredt
+ *
+ */
 public class PlayerTest {
-
+  
+  /**
+   * Test players.
+   */
   @Test
   public void test() {
     Player p1 = new Player(Teams.RED, PlayerNumber.FIRST);

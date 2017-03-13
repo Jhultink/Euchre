@@ -103,7 +103,7 @@ public class PlayerPanel extends JPanel implements MouseListener {
   }
 
   /**
-   * Refreshes player panel
+   * Refreshes player panel.
    */
   private void refresh() {
 

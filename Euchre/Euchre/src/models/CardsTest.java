@@ -19,7 +19,10 @@ public class CardsTest {
 	public void test() {
 		//fail("Not yet implemented");
 	}
-	  
+	
+  /**
+   * Test card values.
+   */
 	public void testGetCardValue() {
 		Card card9 = new Card(CardValue.NINE, Suit.CLUBS);
 		int val9 = card9.getCardIntValue();

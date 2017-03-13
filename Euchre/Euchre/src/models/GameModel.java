@@ -307,14 +307,18 @@ public class GameModel {
    * @return boolean value of players still having cards.
    */
   public boolean isHandOver() {
-    if (!blackOne.getHand().getCards().isEmpty())
+    if (!blackOne.getHand().getCards().isEmpty()) {
       return false;
-    if (!blackTwo.getHand().getCards().isEmpty())
+    }
+    if (!blackTwo.getHand().getCards().isEmpty()) {
       return false;
-    if (!redOne.getHand().getCards().isEmpty())
+    }
+    if (!redOne.getHand().getCards().isEmpty()) {
       return false;
-    if (!redTwo.getHand().getCards().isEmpty())
+    }
+    if (!redTwo.getHand().getCards().isEmpty()) {
       return false;
+    }
     return true;
   }
 
@@ -343,23 +347,17 @@ public class GameModel {
 
       currentTeam = Teams.BLACK;
       currentPlayerNumber = PlayerNumber.FIRST;
-    }
-
-    else if (currentPlayerNumber == PlayerNumber.FIRST
+    } else if (currentPlayerNumber == PlayerNumber.FIRST
         && currentTeam == Teams.BLACK) {
 
       currentTeam = Teams.RED;
       currentPlayerNumber = PlayerNumber.SECOND;
-    }
-
-    else if (currentPlayerNumber == PlayerNumber.SECOND
+    } else if (currentPlayerNumber == PlayerNumber.SECOND
         && currentTeam == Teams.RED) {
 
       currentTeam = Teams.BLACK;
       currentPlayerNumber = PlayerNumber.SECOND;
-    }
-
-    else if (currentPlayerNumber == PlayerNumber.SECOND
+    }  else if (currentPlayerNumber == PlayerNumber.SECOND
         && currentTeam == Teams.BLACK) {
 
       currentPlayerNumber = PlayerNumber.FIRST;

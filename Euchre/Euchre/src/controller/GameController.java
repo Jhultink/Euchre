@@ -7,8 +7,6 @@ import java.util.Collections;
 
 import javax.swing.JOptionPane;
 
-import org.omg.CosNaming._BindingIteratorImplBase;
-
 import models.Card;
 import models.CardValue;
 import models.GameModel;
@@ -147,7 +145,7 @@ public class GameController {
       final PlayerNumber winningPlayerNumber) {
         
       JOptionPane.showMessageDialog(view.getFrame(), "Hand over. Black: "
-          + model.getBlackHandScore() + " Red: " + model.getRedHandScore());     
+          + model.getBlackHandScore() + " Red: " + model.getRedHandScore());
       
       // If red won hand
       if (model.getRedHandScore() > model.getBlackHandScore()) {
@@ -155,7 +153,8 @@ public class GameController {
         // Won every trick, 4 points
         if (model.getRedHandScore() == 5) {
           model.addToRedScore(4);
-        } else if (model.getTeamWhoCalledTrump() == Teams.RED) { // Red called trump, one point
+        } else if (model.getTeamWhoCalledTrump() == Teams.RED) { 
+          // Red called trump, one point
           model.addToRedScore(1);
         } else { // Euchred black
           model.addToRedScore(2);
@@ -165,7 +164,8 @@ public class GameController {
         
         if (model.getBlackHandScore() == 5) { // Won all 4 tricks
           model.addToBlackScore(4); 
-        } else if (model.getTeamWhoCalledTrump() == Teams.BLACK) { // Black called trump
+        } else if (model.getTeamWhoCalledTrump() == Teams.BLACK) { 
+          // Black called trump
           model.addToBlackScore(1);
         } else { // Euchred red
           model.addToBlackScore(2);

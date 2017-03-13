@@ -6,7 +6,14 @@ package controller;
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  */
 final class Start {
-             
+  
+ /**
+  * Private to make this non-instantiable.   
+  */
+  private Start() {
+    
+  }
+  
   /**
    * Main method, entry for program.
    * 

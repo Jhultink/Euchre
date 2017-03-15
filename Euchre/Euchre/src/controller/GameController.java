@@ -7,6 +7,8 @@ import java.util.Collections;
 
 import javax.swing.JOptionPane;
 
+import ai.AI;
+import ai.AIDifficulty;
 import models.Card;
 import models.CardValue;
 import models.GameModel;
@@ -49,6 +51,27 @@ public class GameController {
     selectTrump();
   }
 
+  
+  /**
+   * Plays AI cards until it hits a non-AI player.
+   */
+  public void playAI() {
+    while (model.getCurrentPlayer().isAI() && !
+        model.isHandOver()) {
+      
+      Card aiPlay = AI.getPlay(model, 
+          model.getCurrentPlayer(), AIDifficulty.EASY);
+      
+      model.getCurrentPlayer().getHand().getCards().remove(aiPlay);
+      
+      model.getCardsInPlay().setCard(aiPlay, model.getCurrentTeam(),
+          model.getCurrentPlayerNumber());
+      
+      model.nextPlayer();    
+      view.render(model);
+    }
+  }
+  
   /**
    * Plays card, whether or not it is valid.
    * 
@@ -58,14 +81,18 @@ public class GameController {
    *          player who played card
    */
   public void playCard(final Card chosenCard, final Player player) {
+    
     model.getPlayer(player.getTeam(), player.getPlayerPosition()).getHand()
-        .getCards().remove(chosenCard);
+      .getCards().remove(chosenCard);
 
     model.getCardsInPlay().setCard(chosenCard, model.getCurrentTeam(),
         model.getCurrentPlayerNumber());
-
-    model.nextPlayer();
+    
+    model.nextPlayer();    
     view.render(model);
+    
+    playAI();
+    
   }
 
   /**
@@ -173,7 +200,11 @@ public class GameController {
       }
       
       model.newHand(winningTeam, winningPlayerNumber);
+      refresh();
       
+      selectTrump();
+      
+      playAI();
       refresh();
   }
 

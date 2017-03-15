@@ -27,7 +27,8 @@ public final class AI {
       
     // If player has no cards, throw exception
     if (player.getHand().getCards().isEmpty()) {
-      throw new IllegalArgumentException("Passed player with no cards");
+      throw new IllegalArgumentException("Passed player " 
+          + player + " with no cards");
     }
     
     // If player has one card, play that
@@ -35,7 +36,14 @@ public final class AI {
       return player.getHand().getCards().get(0);
     }
     
-    return null;
+    for (int i = 0; i < player.getHand().getCards().size(); i++) {
+      if (model.isValidPlay(player.getHand().getCards().get(0), player)) {
+        return player.getHand().getCards().get(0); 
+      }
+    }
+    
+    // Temp return first card
+    return player.getHand().getCards().get(0);
     
     
   }

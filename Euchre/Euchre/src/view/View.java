@@ -10,11 +10,13 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -44,6 +46,8 @@ public class View implements ActionListener {
   private JMenuItem newGameItem;
   /** Quit game option. */
   private JMenuItem quitGameItem;
+  /** Save game option. */
+  private JMenuItem saveGameItem;
   /** Strategies option. */
   private JMenuItem strategiesItem;
   /** About item. */
@@ -101,6 +105,9 @@ public class View implements ActionListener {
 
     newGameItem = new JMenuItem("New Game");
     newGameItem.addActionListener(this);
+    
+    saveGameItem = new JMenuItem("Save Game");
+    saveGameItem.addActionListener(this);
 
     strategiesItem = new JMenuItem("Strategies");
     strategiesItem.addActionListener(this);
@@ -113,6 +120,7 @@ public class View implements ActionListener {
 
     fileMenu.add(quitGameItem);
     fileMenu.add(newGameItem);
+    fileMenu.add(saveGameItem);
 
     menu.add(fileMenu);
     menu.add(helpMenu);
@@ -259,6 +267,15 @@ public class View implements ActionListener {
       // Open new window
       StrategiesWindow strat = new StrategiesWindow();
       strat.render();
+    }
+    
+    if (actionEvent.getSource() == saveGameItem) {
+      JFileChooser fileChooser = new JFileChooser();
+
+      if (fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
+         System.out.println("getSelectedFile() : " 
+            +  fileChooser.getSelectedFile());
+      }
     }
   }
 

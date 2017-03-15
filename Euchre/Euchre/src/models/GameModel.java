@@ -112,6 +112,11 @@ public class GameModel {
     redOne = new Player(Teams.RED, PlayerNumber.FIRST);
     redTwo = new Player(Teams.RED, PlayerNumber.SECOND);
 
+    blackOne.setIsAI(false);
+    blackTwo.setIsAI(true);
+    redOne.setIsAI(true);
+    redTwo.setIsAI(true);
+    
     deck = new GameDeck();
     cardsInPlay = new CardsInPlay();
 
@@ -365,6 +370,41 @@ public class GameModel {
     }
 
     return getCurrentPlayer();
+  }
+  
+  
+  /**
+   * Sets the next player as the current player.
+   * 
+   * @return the current player after switching
+   */
+  public Player getNextPlayer() {
+
+    Teams tempTeam = null;
+    PlayerNumber tempPlayerNumber = null;
+    
+    if (currentPlayerNumber == PlayerNumber.FIRST && currentTeam == Teams.RED) {
+
+      tempTeam = Teams.BLACK;
+      tempPlayerNumber = PlayerNumber.FIRST;
+    } else if (currentPlayerNumber == PlayerNumber.FIRST
+        && currentTeam == Teams.BLACK) {
+
+      tempTeam = Teams.RED;
+      tempPlayerNumber = PlayerNumber.SECOND;
+    } else if (currentPlayerNumber == PlayerNumber.SECOND
+        && currentTeam == Teams.RED) {
+
+      tempTeam = Teams.BLACK;
+      tempPlayerNumber = PlayerNumber.SECOND;
+    }  else if (currentPlayerNumber == PlayerNumber.SECOND
+        && currentTeam == Teams.BLACK) {
+
+      tempPlayerNumber = PlayerNumber.FIRST;
+      tempTeam = Teams.RED;
+    }
+
+    return getPlayer(tempTeam, tempPlayerNumber);
   }
 
   /**

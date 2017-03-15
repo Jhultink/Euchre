@@ -20,6 +20,11 @@ public class Player {
    * Hand of player.
    */
   private Hand hand;
+  
+  /**
+   * Whether player is AI.
+   */
+  private boolean isAI;
 
   /**
    * Constructor for Player class initializes player's team and position.
@@ -107,6 +112,19 @@ public class Player {
     this.team = pTeam;
   }
   
+  /**
+   * @return bool if player is AI
+   */
+  public boolean isAI() {
+    return isAI;
+  }
+  
+  /**
+   * @param pIsAI bool isAI.
+   */
+  public void setIsAI(final boolean pIsAI) {
+    this.isAI = pIsAI;
+  }
 
 
 }

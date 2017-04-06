@@ -179,8 +179,6 @@ public class PlayerPanel extends JPanel implements MouseListener {
     if (gameModel.getCurrentPlayer().equals(getPlayer())) {
       cardPanel.grabFocus();
     }
-
-
   }
 
   /**
@@ -194,10 +192,13 @@ public class PlayerPanel extends JPanel implements MouseListener {
 
     if (obj instanceof CardButton) {
       CardButton clickedButton = (CardButton) obj;
+      
       if (clickedButton.getOwner().equals(gameModel.getCurrentPlayer())) {
         Card clickedCard = clickedButton.getCard();
+        
         if (gameModel.isValidPlay(clickedCard, clickedButton.getOwner())) {
-          view.rotatePlayerArray();
+          
+          //view.rotatePlayerArray();
           controller.playCard(clickedCard, clickedButton.getOwner());
 
           if (gameModel.getCardsInPlay().allPlayed()) {

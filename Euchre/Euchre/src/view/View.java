@@ -5,12 +5,10 @@ package view;
  */
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.FileInputStream;
 import java.util.Scanner;
 
@@ -88,12 +86,6 @@ public class View implements ActionListener {
 
     this.controller = newController;
     this.gameModel = model;
-    this.playerArray = new Player[4];
-    playerArray[0] = gameModel.getCurrentPlayer();
-    playerArray[1] = gameModel.nextPlayer();
-    playerArray[2] = gameModel.nextPlayer();
-    playerArray[3] = gameModel.nextPlayer();
-    gameModel.nextPlayer();
 
     // Set up menu bar
     JMenuBar menu = new JMenuBar();
@@ -162,21 +154,24 @@ public class View implements ActionListener {
       // System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
     }
 
-    // Clear panel and add cards
-    topPanel.removeAll();
-    topPanel.setPlayer(playerArray[2]);
-
-    // Clear panel and add cards
-    rightPanel.removeAll();
-    rightPanel.setPlayer(playerArray[1]);
-
+    Player[] players = model.getPlayersInOrder();
+    
     // Clear panel and add cards
     bottomPanel.removeAll();
-    bottomPanel.setPlayer(playerArray[0]);
+    bottomPanel.setPlayer(players[0]);
 
     // Clear panel and add cards
     leftPanel.removeAll();
-    leftPanel.setPlayer(playerArray[3]);
+    leftPanel.setPlayer(players[1]);
+    
+    // Clear panel and add cards
+    topPanel.removeAll();
+    topPanel.setPlayer(players[2]);
+
+    // Clear panel and add cards
+    rightPanel.removeAll();
+    rightPanel.setPlayer(players[3]);
+    
 
     centerPanel.removeAll();
     JPanel centerPanelOrganizer = new JPanel();
@@ -331,18 +326,6 @@ public class View implements ActionListener {
 
   public void mousePressed(final MouseEvent event) {
 
-  }
-
-  /**
-   * Rotates the player array.
-   */
-  public void rotatePlayerArray() {
-    Player[] tempArray = new Player[4];
-    tempArray[0] = this.playerArray[1];
-    tempArray[1] = this.playerArray[2];
-    tempArray[2] = this.playerArray[3];
-    tempArray[3] = this.playerArray[0];
-    this.playerArray = tempArray;
   }
 
   /**

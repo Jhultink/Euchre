@@ -238,6 +238,11 @@ public class GameModel {
    */
   public boolean isValidPlay(final Card selectedCard, final Player player) {
 
+    if (!getCurrentPlayer().equals(player)) {
+      return false;
+    }
+    
+    
     // If no cards are played, any play is valid
     if (getCardsInPlay().isEmpty()) {
       return true;
@@ -450,7 +455,8 @@ public class GameModel {
    * @return first played card
    */
   public Card getFirstPlayedCard() {
-    return cardsInPlay.getCard(getPlayer(startingTeam, startingPlayerNumber));
+    //return cardsInPlay.getCard(startingTeam, startingPlayerNumber);
+    return cardsInPlay.getFirstPlayedCard();
   }
 
   /**
@@ -530,4 +536,22 @@ public class GameModel {
     return redHandScore;
   }
 
+  /**
+   * @return array of players in order
+   */
+  public Player[] getPlayersInOrder() {
+    Player[] players = new Player[4];
+    players[0] = getCurrentPlayer();
+    players[1] = nextPlayer();
+    players[2] = nextPlayer();
+    players[3] = nextPlayer();
+    
+    nextPlayer();
+    
+    return players;
+  }
+  
+  public boolean isTrickOver() {
+    return cardsInPlay.allPlayed();
+  }
 }

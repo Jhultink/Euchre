@@ -56,8 +56,8 @@ public class GameController {
    * Plays AI cards until it hits a non-AI player.
    */
   public void playAI() {
-    while (model.getCurrentPlayer().isAI() && !
-        model.isHandOver()) {
+    while (model.getCurrentPlayer().isAI() 
+        && !model.isTrickOver()) {
       
       Card aiPlay = AI.getPlay(model, 
           model.getCurrentPlayer(), AIDifficulty.EASY);
@@ -70,6 +70,7 @@ public class GameController {
       model.nextPlayer();    
       view.render(model);
     }
+    
   }
   
   /**
@@ -82,16 +83,23 @@ public class GameController {
    */
   public void playCard(final Card chosenCard, final Player player) {
     
+    if (!player.equals(model.getCurrentPlayer())) {
+      int i = 0;
+      i++;
+    }
+    
     model.getPlayer(player.getTeam(), player.getPlayerPosition()).getHand()
       .getCards().remove(chosenCard);
 
-    model.getCardsInPlay().setCard(chosenCard, model.getCurrentTeam(),
-        model.getCurrentPlayerNumber());
+    model.getCardsInPlay().setCard(chosenCard, player.getTeam(),
+        player.getPlayerPosition());
     
     model.nextPlayer();    
     view.render(model);
     
-    playAI();
+    if (!model.isTrickOver()) {
+      playAI();
+    }
     
   }
 
@@ -156,11 +164,20 @@ public class GameController {
         + winningTeam.name() + " " + winningPlayerNumber.name());
     
     this.clearTable();
-    refresh();
+    
+    model.setCurrentPlayerNumber(winningPlayerNumber);
+    model.setCurrentTeam(winningTeam);
+    
+    model.setStartingTeam(winningTeam);
+    model.setStartingPlayerNumber(winningPlayerNumber);
+    
+    view.render(model);
     
     if (model.isHandOver()) {
       handOver(winningTeam, winningPlayerNumber);
     }
+    
+    playAI();
   }
 
   /**

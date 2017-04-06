@@ -62,8 +62,6 @@ public class View implements ActionListener {
   private JPanel centerPanel;
   /** Model that hold all the game info. */
   private GameModel gameModel;
-  /** Array of all players. */
-  private Player[] playerArray;
 
   /**
    * @param newController
@@ -148,11 +146,11 @@ public class View implements ActionListener {
     frame.setVisible(true);
     this.gameModel = model;
 
-    try {
-      Image img = ImageIO.read(getClass().getResource("src/card.png"));
-    } catch (Exception e) {
-      // System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
-    }
+//    try {
+//      Image img = ImageIO.read(getClass().getResource("src/card.png"));
+//    } catch (Exception e) {
+//      // System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
+//    }
 
     Player[] players = model.getPlayersInOrder();
     

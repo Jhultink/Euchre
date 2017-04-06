@@ -551,6 +551,9 @@ public class GameModel {
     return players;
   }
   
+  /**
+   * @return bool whether trick is over
+   */
   public boolean isTrickOver() {
     return cardsInPlay.allPlayed();
   }

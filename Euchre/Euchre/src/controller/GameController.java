@@ -82,12 +82,7 @@ public class GameController {
    *          player who played card
    */
   public void playCard(final Card chosenCard, final Player player) {
-    
-    if (!player.equals(model.getCurrentPlayer())) {
-      int i = 0;
-      i++;
-    }
-    
+            
     model.getPlayer(player.getTeam(), player.getPlayerPosition()).getHand()
       .getCards().remove(chosenCard);
 
@@ -261,8 +256,7 @@ public class GameController {
     PlayerNumber startingPlayerNumber = model.getCurrentPlayerNumber();
 
     Teams teamWhoChoseTrump = null;
-    PlayerNumber playerWhoChoseTrump = null;
-
+    
     boolean isTrumpSelected = false;
     boolean allPlayersPassed = false;
     int playersPassed = 0;
@@ -282,7 +276,6 @@ public class GameController {
       // If selected "Take card" then trump has been selected
       if (returnValue == 0) {
         isTrumpSelected = true;
-        playerWhoChoseTrump = model.getCurrentPlayerNumber();
         teamWhoChoseTrump = model.getCurrentTeam();
 
         model.getCurrentPlayer().getHand().add(model.getTrumpCard());
@@ -344,7 +337,6 @@ public class GameController {
             model.setTrumpSuit(Suit.SPADES);
           }
 
-          playerWhoChoseTrump = model.getCurrentPlayerNumber();
           teamWhoChoseTrump = model.getCurrentTeam();
 
         }

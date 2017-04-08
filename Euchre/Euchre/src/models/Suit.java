@@ -1,12 +1,14 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Class that holds suit information.
  * 
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  *
  */
-public enum Suit {
+public enum Suit implements Serializable {
   
   /** Clubs suit. */
   CLUBS,

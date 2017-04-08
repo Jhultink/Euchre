@@ -7,7 +7,7 @@ import org.junit.Test;
  * Test CardsInPlay.
  *
  */
-public class CardsInPlayTest {
+public class CardsInPlayTest  {
 
   /**
    * Test case.

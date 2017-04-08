@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  *
  */
-public class CardsInPlay {
+public class CardsInPlay implements Serializable {
 
   /** First red player's played card. */
   private Card redOneCard;

@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,12 @@ import java.util.ArrayList;
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  *
  */
-public class GameModel {
+public class GameModel implements Serializable {
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
 
   /**
    * Object representing the team of the player whose turn it is.

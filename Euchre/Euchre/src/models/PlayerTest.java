@@ -3,13 +3,15 @@ package models;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.Serializable;
+
 import org.junit.Test;
 /**
  * 
  * @author Jaredt
  *
  */
-public class PlayerTest {
+public class PlayerTest implements Serializable {
   
   /**
    * Test players.

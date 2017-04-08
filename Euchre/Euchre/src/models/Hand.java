@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  *
  */
-public class Hand {
+public class Hand implements Serializable {
 
     /**
      * Player cards.

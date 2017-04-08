@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * This class holds the result of a deal, which is returned by the
  * GameDeck.Deal() method.
@@ -7,7 +9,7 @@ package models;
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  *
  */
-public class Deal {
+public class Deal implements Serializable {
   /** First red player hand. */
   private Hand redOne;
 

@@ -1,4 +1,7 @@
 package models;
+
+import java.io.Serializable;
+
 /**
  * Enum of all card values from 9 through Ace.
  * 
@@ -6,7 +9,7 @@ package models;
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  *
  */
-public enum CardValue {
+public enum CardValue implements Serializable {
 	/** Ace. */
 	ACE,
 	/** King. */

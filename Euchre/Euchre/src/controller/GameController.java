@@ -50,6 +50,18 @@ public class GameController {
     view.render(model);
     selectTrump();
   }
+  
+  /**
+   * Loads new game from the passed game model.
+   * @param newModel model to load
+   */
+  public void loadGame(final GameModel newModel) {
+    this.model = newModel;
+    this.view.close();
+    this.view = new View(this, model);   
+    playAI();
+    this.view.render(model);
+  }
 
   
   /**

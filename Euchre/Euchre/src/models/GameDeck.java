@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -9,7 +10,7 @@ import java.util.Collections;
  * @author Jaredt Hultink, Ryan Jones, Keith Rodgers
  *
  */
-public class GameDeck {
+public class GameDeck implements Serializable {
 
     /** ArrayList to contain instances of Cards. */
     private ArrayList<Card> deck;

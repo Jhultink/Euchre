@@ -5,14 +5,20 @@ package view;
  */
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
-import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -20,7 +26,9 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.GameController;
 import models.GameModel;
@@ -46,6 +54,8 @@ public class View implements ActionListener {
   private JMenuItem quitGameItem;
   /** Save game option. */
   private JMenuItem saveGameItem;
+  /** Load game option. */
+  private JMenuItem loadGameItem;
   /** Strategies option. */
   private JMenuItem strategiesItem;
   /** About item. */
@@ -98,6 +108,9 @@ public class View implements ActionListener {
     
     saveGameItem = new JMenuItem("Save Game");
     saveGameItem.addActionListener(this);
+    
+    loadGameItem = new JMenuItem("Load Game");
+    loadGameItem.addActionListener(this);
 
     strategiesItem = new JMenuItem("Strategies");
     strategiesItem.addActionListener(this);
@@ -111,6 +124,7 @@ public class View implements ActionListener {
     fileMenu.add(quitGameItem);
     fileMenu.add(newGameItem);
     fileMenu.add(saveGameItem);
+    fileMenu.add(loadGameItem);
 
     menu.add(fileMenu);
     menu.add(helpMenu);
@@ -264,12 +278,64 @@ public class View implements ActionListener {
     
     if (actionEvent.getSource() == saveGameItem) {
       JFileChooser fileChooser = new JFileChooser();
+                 
+      fileChooser.setSelectedFile(new File(
+          new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")
+          .format(new Date()) + "_Euchre.sav"));
 
       if (fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
-         System.out.println("getSelectedFile() : " 
-            +  fileChooser.getSelectedFile());
+        
+        try {
+          
+          File file = fileChooser.getSelectedFile();
+                  
+          ObjectOutputStream oos = new ObjectOutputStream(
+              new BufferedOutputStream(new FileOutputStream(file)));
+          oos.writeObject(gameModel);
+          
+          oos.close();
+          
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(getFrame(), "Failed to save file");
+          System.err.println(e.toString());
+        }
+        
       }
     }
+    
+    if (actionEvent.getSource() == loadGameItem) {
+      
+      JFileChooser fileChooser = new JFileChooser();
+      fileChooser.setFileFilter(
+          new FileNameExtensionFilter("Saved Files", "sav"));
+      
+      GameModel savedModel = null;
+      
+      if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
+        try {
+          File file = fileChooser.getSelectedFile();
+          ObjectInputStream objectInputStream = new ObjectInputStream(
+              new BufferedInputStream(new FileInputStream(file)));
+          
+          savedModel = (GameModel) objectInputStream.readObject();
+          
+          objectInputStream.close();
+
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(getFrame(), "Failed to open file");
+          System.err.println(e.toString());
+        }
+        
+        int option = JOptionPane.showConfirmDialog(frame, 
+            "Are you sure you want to open another game?");
+        
+        if (option == JOptionPane.OK_OPTION) {
+          controller.loadGame(savedModel);
+        }
+      }
+      
+    }
+    
   }
 
   /**
@@ -330,6 +396,7 @@ public class View implements ActionListener {
    * Closes frame.
    */
   public void close() {
+    frame.setVisible(false);
     frame.dispose();
   }
 
@@ -424,7 +491,7 @@ class StrategiesWindow {
   }
 
   /**
-   * 
+   * Sets it to be visible.
    */
   public void render() {
     frame.setVisible(true);

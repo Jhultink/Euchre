@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Class that holds team information.
  *  
@@ -7,7 +9,7 @@ package models;
  *
  */
 
-public enum Teams {
+public enum Teams implements Serializable {
     /** Black team. */
     BLACK,
     /** Black red. */

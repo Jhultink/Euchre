@@ -90,7 +90,7 @@ public class View implements ActionListener {
     // Set up JFrame
     frame = new JFrame("Euchre");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(1000, 800);
+    frame.setSize(1000, 1000);
 
     this.controller = newController;
     this.gameModel = model;

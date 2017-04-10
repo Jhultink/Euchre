@@ -1,7 +1,11 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -40,17 +44,23 @@ public class CardButton extends JButton {
   CardButton(final Card c, final Player p) {
     this.buttonCard = c;
     this.owner = p;
-    this.setText(buttonCard.getCardStringValue());
-    this.setMaximumSize(new Dimension(300, 100));
-    this.setMinimumSize(new Dimension(200, 100));
+    // this.setText(buttonCard.getCardStringValue());
+    // this.setMaximumSize(new Dimension(300, 100));
+    this.setMinimumSize(new Dimension(75, 113));
     this.setHorizontalTextPosition(SwingConstants.LEFT);
-    
+
     try {
-      this.setIcon(new ImageIcon("src/smallcard.png"));
+      BufferedImage buttonIcon = ImageIO.read(new File(
+          "src/SmallCardImages/" + buttonCard.getCardStringValue() + ".png"));
+      this.setIcon(new ImageIcon(buttonIcon));
+      this.setBorder(BorderFactory.createEmptyBorder());
+      // this.setContentAreaFilled(false);
     } catch (Exception e) {
       // card is not found
+      System.out.println(
+          "Could not find card image for " + buttonCard.getCardStringValue());
     }
-    
+
     this.validate();
   }
 

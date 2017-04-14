@@ -25,7 +25,6 @@ import controller.GameController;
 import models.Card;
 import models.GameModel;
 import models.Player;
-import models.Teams;
 
 /**
  * JPanel that holds a player.
@@ -113,6 +112,7 @@ public class PlayerPanel extends JPanel implements MouseListener {
 
     JPanel cardPanel = new JPanel();
 
+    //Set card layouts based on panel position
     if (layout.equals(BorderLayout.EAST) || layout.equals(BorderLayout.WEST)) {
       cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.Y_AXIS));
     } else if (layout.equals(BorderLayout.NORTH)
@@ -120,10 +120,12 @@ public class PlayerPanel extends JPanel implements MouseListener {
       cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.X_AXIS));
     }
 
+    //Add cards to panels
     cardPanel.add(Box.createHorizontalGlue()); // for spacing
     for (Card card : this.getPlayer().getHand().getCards()) {
       CardButton button = new CardButton(card, this.getPlayer());
-
+      
+      //Show generic image if not the current player.
       if (!gameModel.getCurrentPlayer().equals(getPlayer())) {
         try {
           BufferedImage buttonIcon = ImageIO
@@ -139,18 +141,11 @@ public class PlayerPanel extends JPanel implements MouseListener {
         button.setBackground(Color.RED);
       }
 
+      //Add listener and add to panel
       button.addMouseListener(this);
-
-      /*
-      if (this.getPlayer().getTeam() == Teams.RED) {
-        cardPanel.setBackground(Color.RED);
-      } else {
-        cardPanel.setBackground(Color.BLACK);
-      }
-      */
-
       cardPanel.add(button);
     }
+    
     cardPanel.add(Box.createHorizontalGlue()); // for spacing
 
     if (gameModel.getCardsInPlay().getCard(getPlayer()) != null) {

@@ -80,12 +80,6 @@ public class View implements ActionListener {
    *          GameModel object
    */
   public View(final GameController newController, final GameModel model) {
-
-//    try {
-//      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//    } catch (Exception ex) {
-//        ex.printStackTrace();
-//    }
     
     // Set up JFrame
     frame = new JFrame("Euchre");
@@ -160,12 +154,6 @@ public class View implements ActionListener {
     frame.setVisible(true);
     this.gameModel = model;
 
-//    try {
-//      Image img = ImageIO.read(getClass().getResource("src/card.png"));
-//    } catch (Exception e) {
-//      // System.out.println("ERROR: COULD NOT FIND CARD IMAGE");
-//    }
-
     Player[] players = model.getPlayersInOrder();
     
     // Clear panel and add cards
@@ -189,8 +177,6 @@ public class View implements ActionListener {
     JPanel centerPanelOrganizer = new JPanel();
     centerPanelOrganizer.setLayout(
         new BoxLayout(centerPanelOrganizer, BoxLayout.Y_AXIS));
-
-    //infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 
     if (IS_DEBUG) {
       centerPanelOrganizer.add(new JLabel(

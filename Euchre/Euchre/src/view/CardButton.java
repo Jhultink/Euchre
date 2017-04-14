@@ -44,8 +44,7 @@ public class CardButton extends JButton {
   CardButton(final Card c, final Player p) {
     this.buttonCard = c;
     this.owner = p;
-    // this.setText(buttonCard.getCardStringValue());
-    // this.setMaximumSize(new Dimension(300, 100));
+    this.setMaximumSize(new Dimension(75, 113));
     this.setMinimumSize(new Dimension(75, 113));
     this.setHorizontalTextPosition(SwingConstants.LEFT);
 
@@ -54,7 +53,6 @@ public class CardButton extends JButton {
           "src/SmallCardImages/" + buttonCard.getCardStringValue() + ".png"));
       this.setIcon(new ImageIcon(buttonIcon));
       this.setBorder(BorderFactory.createEmptyBorder());
-      // this.setContentAreaFilled(false);
     } catch (Exception e) {
       // card is not found
       System.out.println(
